@@ -889,11 +889,11 @@ a:hover {
 }
 
 .text-info {
-  color: #1bbc9b !important;
+  color: #461220 !important;
 }
 
 .text-danger {
-  color: #e64c66 !important;
+  color: #f15156 !important;
 }
 
 .text-default {
@@ -927,7 +927,9 @@ a:hover {
 }
 .bg-nav {
   background-color: #b86d81 !important;
-  opacity: 80%;
+  /* opacity: 80%; */
+  background:linear-gradient (to right, #b86d81, white);
+  /* height: 50px; */
 }
 .bg-primary {
   background-color: #461220 !important;
@@ -1041,12 +1043,15 @@ a:hover {
 }
 
 .btn.btn-info {
-  background-color: #1bbc9b;
-  color: #ffffff;
+  background-color: #461220;
+  color:white;
 }
 
 .btn.btn-info:hover {
-  background-color: #31e1bd;
+  background-color: #f15156;
+  border-color: #461220;
+  color: #461220;
+  
 }
 
 .btn.btn-light {
@@ -1055,7 +1060,7 @@ a:hover {
 }
 
 .btn.btn-light:hover {
-  background-color: #84b8b4;
+  background-color: #50a7c7;
 }
 
 .btn.btn-dark {

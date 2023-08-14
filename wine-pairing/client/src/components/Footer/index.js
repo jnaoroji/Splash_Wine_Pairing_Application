@@ -30,7 +30,7 @@ const Footer = () => {
     //   </div>
     // </footer>
 
-    <footer className="bg-light py-5">
+    <footer className="bg-nav py-5">
         <div className="container px-4 px-lg-5">
           <div className="small text-center text-muted mb-3">Copyright &copy; 2023 - Jenny Naoroji</div>
           <div className="d-flex justify-content-center text-center">

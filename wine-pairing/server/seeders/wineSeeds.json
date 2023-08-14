@@ -1,0 +1,39 @@
+[
+  {
+   "Name":"William Fevre Chablis",
+   "Vintage":"2021",
+   "Varietal":"Chardonnay",
+   "Region":"Chablis, FRA",
+   "Image":"https://s3-eu-west-1.amazonaws.com/bpfbdd/O3NKXf7xbg/b37bd662d8d49fd5931d5946d32422a7507ea445-thumb.png",
+   "Tasting Note":"Fleshy and elegant bouquet revealing citrus, white fruits and flowers aromas. The mouth is fresh, supple underscored by mineral.",
+   "wineCategory":"LBW"
+  },
+  {
+   "Name":"Ten Minutes by Tractor - Wallis Chardonnay",
+   "Vintage":"2019",
+   "Varietal":"Chardonnay",
+   "Region":"Vic, AUS",
+   "Image":"https://www.tenminutesbytractor.com.au/assets/images/products/pictures/2021WallisChardonnay-EPUOGV.jpg",
+   "Tasting Note":"Flinty upfront, this well-rounded Wallis has ripe citrus, lemon curd, hints of almond, fresh mandarin and green mango traversing the palate. The fruit is sweet and balanced and continues to linger as the mineral acid drives through and defines the finish.",
+   "wineCategory":"MBW"
+  },
+  {
+    "Name":"Villa Maria Reserve Chardonnay",
+    "Vintage":"2019",
+    "Varietal":"Chardonnay",
+    "Region":"Gisborne, NZ",
+    "Image":"",
+    "Tasting Note":"",
+    "wineCategory":""
+   },
+  {
+   "Name":"",
+   "Vintage":"",
+   "Varietal":"",
+   "Region":"",
+   "Image":"",
+   "Tasting Note":"",
+   "wineCategory":""
+  },
+
+]
