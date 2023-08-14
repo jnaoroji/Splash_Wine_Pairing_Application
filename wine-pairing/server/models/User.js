@@ -25,6 +25,12 @@ const userSchema = new Schema({
       ref: 'Thought',
     },
   ],
+  searches: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Search',
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {
