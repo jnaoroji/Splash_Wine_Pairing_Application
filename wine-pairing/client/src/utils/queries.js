@@ -11,6 +11,22 @@ export const QUERY_USER = gql`
         thoughtText
         createdAt
       }
+      searches {
+        _id
+        searchText
+        createdAt
+      }
+    }
+  }
+`;
+
+export const QUERY_SEARCHES = gql`
+  query getSearches {
+    searches {
+      _id
+      searchText
+      
+      createdAt
     }
   }
 `;
@@ -21,6 +37,16 @@ export const QUERY_THOUGHTS = gql`
       _id
       thoughtText
       thoughtAuthor
+      createdAt
+    }
+  }
+`;
+
+export const QUERY_SINGLE_SEARCH = gql`
+  query getSingleSearch($searchId: ID!) {
+    search(searchId: $searchId) {
+      _id
+      searchText
       createdAt
     }
   }
@@ -49,10 +75,9 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      thoughts {
+      searches {
         _id
-        thoughtText
-        thoughtAuthor
+        searchText
         createdAt
       }
     }

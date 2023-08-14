@@ -24,6 +24,16 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_SEARCH = gql`
+  mutation addSearch($searchText: String!) {
+    addSearch(searchText: $searchText) {
+      _id
+      searchText
+      createdAt
+    }
+  }
+`;
+
 export const ADD_THOUGHT = gql`
   mutation addThought($thoughtText: String!) {
     addThought(thoughtText: $thoughtText) {

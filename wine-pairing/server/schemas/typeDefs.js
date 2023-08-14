@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String
     password: String
     thoughts: [Thought]!
+    searches: [Search]!
   }
 
   type Search {
