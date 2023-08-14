@@ -899,7 +899,7 @@ a:hover {
 }
 
 .text-light {
-  color: #d9e9e8 !important;
+  color: white !important;
 }
 
 .text-dark {
@@ -919,8 +919,11 @@ a:hover {
 }
 
 /* BACKGROUND UTILS */
+.bg-image {
+  background: no-repeat url("https://user-images.githubusercontent.com/122245852/260361560-8602e244-1c86-4beb-8f3b-fdf0c1fed695.jpeg");
+}
 .bg-primary {
-  background-color: #2d3e50 !important;
+  background-color: #461220 !important;
 }
 
 .bg-info {

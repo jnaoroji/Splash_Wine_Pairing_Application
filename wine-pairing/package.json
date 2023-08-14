@@ -1,7 +1,7 @@
 {
-  "name": "WinePairing",
+  "name": "wine-pairing",
   "version": "1.0.0",
-  "description": "Wine pairinjg application",
+  "description": "",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -17,6 +17,6 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
-    "antd": "^5.8.2"
+    "antd": "^5.8.3"
   }
 }
