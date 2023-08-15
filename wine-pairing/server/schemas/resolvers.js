@@ -88,15 +88,15 @@ const resolvers = {
         const search = await Search.create({
           searchProtein,
           searchSauce
-          
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { searches: search._id } }
         );
-
+        console.log('Search = '+ search);
         return search;
+        
         //update with wine
       }
       throw new AuthenticationError('You need to be logged in!');

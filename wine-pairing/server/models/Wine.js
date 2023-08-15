@@ -2,22 +2,28 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const productSchema = new Schema({
+const wineSchema = new Schema({
   name: {
     type: String,
     required: true,
     trim: true
   },
-  name: {
+  vintage: {
     type: String,
-    required: true,
-    trim: true
   },
-  description: {
+  varietal: {
     type: String
+  },
+  region: {
+    type: String,
   },
   image: {
     type: String
+  },
+  tastingNote: {
+    type: String,
+    required: true,
+    trim: true
   },
   price: {
     type: Number,
@@ -34,15 +40,8 @@ const productSchema = new Schema({
     ref: 'Category',
     required: true
   }
-  "Name":"",
-   "Vintage":"",
-   "Varietal":"",
-   "Region":"",
-   "Image":"",
-   "Tasting Note":"",
-   "wineCategory":""
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Wine = mongoose.model('Wine', wineSchema);
 
-module.exports = Product;
+module.exports = Wine;

@@ -1,5 +1,6 @@
 const User = require('./User');
-const Thought = require('./Thought');
+const Wine = require('./Wine');
 const Search = require('./Search');
+const Category = require('./Category');
 
-module.exports = { User, Thought, Search };
+module.exports = { User, Wine, Category, Search };

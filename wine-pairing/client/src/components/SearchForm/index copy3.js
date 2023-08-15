@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import {Select} from 'react-select';
 
 import { ADD_SEARCH } from '../../utils/mutations';
 import { QUERY_SEARCHES, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
+const optionProtein = [
+  {value:'0', label:'Choose your Protein'},
+  { value: '1', label: 'Mollusk' },
+  { value: '2', label: 'Fish' },    
+  { value: '3', label: 'Shellfish' },
+  { value: '4', label: 'Chicken/Pork' },
+  { value: '5', label: 'Red Meat' },   
+  { value: '6', label: 'Tofu/Seitan/Potato' },
+  { value: '7', label: 'Brassicas/Leafy Greens' },
+  { value: '8', label: 'Cured Meat'}
+]
+const optionSauce = [
+  {value:'0', label:'Choose your sauce'},
+  { value: '1', label: 'Tomato Based' },
+  { value: '2', label: 'Diary Based' },    
+  { value: '3', label: 'Herbs Based' },
+  { value: '4', label: 'Chilli' },
 
+]
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
   
@@ -39,6 +58,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
     },
   });
 
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -57,57 +77,60 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
     }
   };
   
+
+  
+
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+  
+    if (name === 'Protein') {
+      setSearchProtein(value);
+      console.log('protein = ' + value);
+    } else if (name === 'Sauce') {
+      setSearchSauce(value);
+      console.log('sauce = ' + value);
+    }
+  };
+      //fetch req here
+      // Request URL: https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=3ae88756&app_key=b5170a61434670ec70710b53c612c5ed
+    
   
   return (
     <div className="search-container">
       <div className= "searchbar-container">
-      
+      {/* <h3>Search your recipe!</h3> */}
       {Auth.loggedIn() ? (
         <>
-          
-
+         
           <form className="flex-row justify-center align-center"
             onSubmit={handleFormSubmit}>
             <div className='select-container flex-row justify-center align-center'>
 
               {/* Drop-downs with search criteria */}
-
               
-              <select 
-              name="selectedProtein" 
-              defaultValue="0"                
+              <Select 
               className="form-select btn-lg ml-2 mr-4 " 
               aria-label="Protein"
-              onChange={(event) => setSearchProtein(event.target.value)}
+              name="Protein"
+              value={optionProtein.find(option => option.value === selectedProtein)}
+              onChange={selectedOption => setSearchProtein(selectedOption.value)}
+              options={optionProtein}
+              />
+                
               
-              >
-                <option value="0">Choose your Protein</option>
-                <option value="1">Mollusk</option>
-                <option value="2">Fish</option>
-                <option value="3">Shellfish</option>
-                <option value="4">Chicken or Pork</option>
-                <option value="5">Red Meat</option>
-                <option value="6">Cured Meat</option>
-                <option value="7">Tofu/Seitan/Potato</option>
-                <option value="8">Brassicas/Leafy greens</option>
-              </select>
 
 
-              <select 
-              name="selectedSauce" 
-              defaultValue="0"
+              <Select 
               className="form-select btn-lg mr-4 " 
               aria-label="Sauce"
-              onChange={(event) => setSearchSauce(event.target.value)}
-             
-              >
-                <option value="0">Choose your sauce</option>
-                <option value="1">Strong Marinade</option>
-                <option value="2">Tomato Based</option>
-                <option value="3">Diary Based</option>
-                <option value="4">Herbs Based</option>
-                <option value="4">Chilli</option>
-              </select>
+              name="Sauce"
+              value={optionSauce.find(option => option.value === selectedSauce)}
+              onChange={selectedOption => setSearchSauce(selectedOption.value)}
+              options={optionSauce}
+              />
+                
+              
               
               <div>
                 <button className="btn btn-info btn-sm mr-2" type="submit">
