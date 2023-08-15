@@ -55,6 +55,9 @@ const ThoughtForm = () => {
 
     if (value.length <= 280) {
       setThoughtText(value);
+      console.log(value);//fetch req here
+      // Request URL: https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=3ae88756&app_key=b5170a61434670ec70710b53c612c5ed
+
     }
   };
 
@@ -73,13 +76,17 @@ const ThoughtForm = () => {
                 name="thoughtText"
                 placeholder="Search your recipe..."
                 value={thoughtText}
-                className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical', borderRadius:'15px', }}
+                className="form-input w-100 "
+                style={{ 
+                  lineHeight: '1.5', 
+                  resize: 'vertical', 
+                  borderRadius:'15px',
+                  border: '1px solid #461220', }}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <button className="btn btn-primary btn-sm py-3" type="submit">
+              <button className="btn btn-info btn-sm py-3" type="submit">
               <i className="fas fa-search" aria-hidden="true"></i>
               </button>
             </div>
@@ -92,10 +99,23 @@ const ThoughtForm = () => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to search for recipes. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
+      </div>
+
+      <div>
+        <div className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Choose your protien
+          </button>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a className="dropdown-item" href="#">white meat</a>
+            <a className="dropdown-item" href="#">Red meat</a>
+            <a className="dropdown-item" href="#">tofu</a>
+          </div>
+        </div>
       </div>
       
       

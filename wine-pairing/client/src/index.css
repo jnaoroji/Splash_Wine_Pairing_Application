@@ -26,6 +26,8 @@ body {
  */
 main {
   display: block;
+  /* min-height: 500px; */
+  
 }
 
 /**
@@ -363,6 +365,7 @@ body {
     'Segoe UI Symbol';
   font-size: 16px;
   color: #1a1a1a;
+  
 }
 
 h1,
@@ -901,7 +904,7 @@ a:hover {
 }
 
 .text-light {
-  color: white !important;
+  color: grey !important;
 }
 
 .text-dark {
@@ -934,10 +937,10 @@ a:hover {
 .bg-primary {
   background-color: #461220 !important;
 }
-#a35a6e
+
 
 .bg-info {
-  background-color: #1bbc9b !important;
+  background-color: #8c2f39 !important;
 }
 
 .bg-danger {
@@ -1099,9 +1102,24 @@ a:hover {
   background-color: #31a9e1;
 }
 
+.card-container{
+  width: 85%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  min-height: 78vh; /* Ensure the container covers the whole viewport height */
+  
+  
+}
+
 .card {
-  border: 1px solid #1a1a1a;
+  min-width:500px;
+  border: 1px solid #461220;
   margin-bottom: 1rem;
+ 
 }
 
 .card .card-header {
@@ -1112,6 +1130,7 @@ a:hover {
 
 .card .card-body {
   padding: 0.375rem;
+  
 }
 
 .card .card-footer {
@@ -1140,6 +1159,10 @@ form .form-group {
 form .form-input,
 form .form-textarea {
   display: block;
+}
+.form-input:focus {
+  border-color: #f15156; 
+  /* You can add other style changes here as well */
 }
 
 form select {
@@ -1184,18 +1207,21 @@ label form [type='radio'] {
 }
 .search-container{
   width: 85%;
-  height: 500px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 78vh; /* Ensure the container covers the whole viewport height */
 
 }
 .searchbar-container{
 width: 100%;
 text-align: center;
 align-content: center;
+border-color:#461220;
 
 }
 
