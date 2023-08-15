@@ -154,7 +154,8 @@ button,
 input,
 optgroup,
 select,
-textarea {
+textarea,
+.form-select {
   font-family: inherit;
   /* 1 */
   font-size: 100%;
@@ -893,6 +894,7 @@ a:hover {
 
 .text-info {
   color: #461220 !important;
+ 
 }
 
 .text-danger {
@@ -919,8 +921,11 @@ a:hover {
   color: #000000 !important;
 }
 
-.text-link {
-  color: #1b89bc !important;
+.text-splash {
+  color: #b86d81 !important;
+}
+.text-pink {
+  color: #fcb9b2 !important;
 }
 
 /* BACKGROUND UTILS */
@@ -928,11 +933,11 @@ a:hover {
   background: no-repeat url("https://user-images.githubusercontent.com/122245852/260361560-8602e244-1c86-4beb-8f3b-fdf0c1fed695.jpeg");
   
 }
-.bg-nav {
-  background-color: #b86d81 !important;
-  /* opacity: 80%; */
-  background:linear-gradient (to right, #b86d81, white);
-  /* height: 50px; */
+.bg-splash {
+  background-color: #b86d81  !important;
+  /* background-color: black !important; */
+  
+
 }
 .bg-primary {
   background-color: #461220 !important;
@@ -948,7 +953,7 @@ a:hover {
 }
 
 .bg-light {
-  background-color: #d9e9e8 !important;
+  background-color: #fed0bb !important;
 }
 
 .bg-dark {
@@ -1028,12 +1033,14 @@ a:hover {
 }
 
 .btn.btn-primary {
-  background-color: #2d3e50;
-  color: #d9e9e8;
+  background-color: #461220;
+  color:white;
 }
 
 .btn.btn-primary:hover {
-  background-color: #57779a;
+  background-color: #f15156;
+  border-color: #461220;
+  color: #461220;
 }
 
 .btn.btn-danger {
@@ -1046,19 +1053,19 @@ a:hover {
 }
 
 .btn.btn-info {
-  background-color: #461220;
+  background-color: #8c2f39;
   color:white;
 }
 
 .btn.btn-info:hover {
-  background-color: #f15156;
+  background-color: #fed0bb;
   border-color: #461220;
   color: #461220;
   
 }
 
 .btn.btn-light {
-  background-color: #d9e9e8;
+  background-color: #fed0bb;
   color: #1a1a1a;
 }
 
@@ -1149,6 +1156,11 @@ a:hover {
 form {
   width: 100%;
 }
+.form-select{
+background-color: #461220;
+color: white;
+
+}
 
 form .form-group {
   display: block;
@@ -1224,6 +1236,15 @@ align-content: center;
 border-color:#461220;
 
 }
+
+.select-container{
+  /* width: 550px; */
+  background-color: rgba(254, 253, 253, 0.8);
+  padding: 5px 2px;
+  border: 1px solid #a35a6e;
+  border-radius: 15px;
+}
+
 
 .container {
   width: 85%;

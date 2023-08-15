@@ -83,10 +83,11 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
-    addSearch: async (parent, { searchText }, context) => {
+    addSearch: async (parent, { searchProtein, searchSauce}, context) => {
       if (context.user) {
         const search = await Search.create({
-          searchText
+          searchProtein,
+          searchSauce
           
         });
 
@@ -96,6 +97,7 @@ const resolvers = {
         );
 
         return search;
+        //update with wine
       }
       throw new AuthenticationError('You need to be logged in!');
     },

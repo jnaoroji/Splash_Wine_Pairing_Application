@@ -6,7 +6,7 @@ const Footer = () => {
   return (
 
 
-    <footer className="bg-nav py-5">
+    <footer className="bg-primary py-5">
         <div className="container px-4 px-lg-5">
           <div className="small text-center text-white mb-3">Copyright &copy; 2023 - Jenny Naoroji</div>
           <div className="d-flex justify-content-center text-center">

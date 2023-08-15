@@ -24,8 +24,8 @@ export const QUERY_SEARCHES = gql`
   query getSearches {
     searches {
       _id
-      searchText
-      
+      searchProtein
+      searchSauce
       createdAt
     }
   }
@@ -46,7 +46,8 @@ export const QUERY_SINGLE_SEARCH = gql`
   query getSingleSearch($searchId: ID!) {
     search(searchId: $searchId) {
       _id
-      searchText
+      searchProtein
+      searchSauce
       createdAt
     }
   }
@@ -77,7 +78,8 @@ export const QUERY_ME = gql`
       email
       searches {
         _id
-        searchText
+        searchProtein
+        searchSauce
         createdAt
       }
     }

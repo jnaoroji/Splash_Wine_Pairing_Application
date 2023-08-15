@@ -12,11 +12,11 @@ const Header = () => {
     
   };
   return (
-    <header className="bg-nav text-white flex-row align-center">
+    <header className="bg-primary text-white flex-row align-center">
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <div>
           <Link className="text-light" to="/">
-            <h3 className="text-info m-0">Splash</h3>
+            <h3 className="text-splash m-0">Splash</h3>
           </Link>
           <p className="text-white m-0">Every recipe calls for a glass of wine</p>
         </div>
@@ -32,7 +32,7 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link className="btn btn-sm btn-info m-2" to="/login">
+              <Link className="btn btn-sm btn-primary m-2" to="/login">
                 Login
               </Link>
               <Link className="btn btn-sm btn-light m-2" to="/signup">

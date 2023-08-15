@@ -12,7 +12,8 @@ const typeDefs = gql`
 
   type Search {
     _id: ID
-    searchText: String
+    searchProtein: String
+    searchSauce: String
     createdAt: String
   }
 
@@ -49,7 +50,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addSearch(searchText: String!): Search
+    addSearch(searchProtein: String!, searchSauce: String!): Search
     addThought(thoughtText: String!): Thought
     addComment(thoughtId: ID!, commentText: String!): Thought
     removeSearch(searchId: ID!): Search

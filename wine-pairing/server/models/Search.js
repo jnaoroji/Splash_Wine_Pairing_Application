@@ -2,9 +2,16 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const searchSchema = new Schema({
-  searchText: {
+  searchProtein: {
     type: String,
-    required: 'Your search term is invalid!',
+    required: 'Please select a protein!',
+    minlength: 1,
+    maxlength: 280,
+    trim: true,
+  },
+  searchSauce: {
+    type: String,
+    required: 'Please select a sauce!',
     minlength: 1,
     maxlength: 280,
     trim: true,

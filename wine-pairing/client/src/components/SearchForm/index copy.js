@@ -84,6 +84,7 @@ const ThoughtForm = () => {
                   border: '1px solid #461220', }}
                 onChange={handleChange}
               />
+              
             </div>
             <div>
               <button className="btn btn-info btn-sm py-3" type="submit">

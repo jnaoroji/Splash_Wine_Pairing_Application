@@ -25,10 +25,11 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_SEARCH = gql`
-  mutation addSearch($searchText: String!) {
-    addSearch(searchText: $searchText) {
+  mutation addSearch($searchProtein: String!, $searchSauce: String!) {
+    addSearch(searchProtein: $searchProtein, searchSauce: $searchSauce) {
       _id
-      searchText
+      searchProtein
+      searchSauce
       createdAt
     }
   }
