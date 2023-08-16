@@ -1,14 +1,14 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 
-import ThoughtList from '../components/ThoughtList';
+import SearchList from '../components/SearchList ';
 import SearchForm from '../components/SearchForm';
 
-import { QUERY_THOUGHTS } from '../utils/queries';
+import { QUERY_SEARCHES } from '../utils/queries';
 
 const Home = () => {
-  // const { loading, data } = useQuery(QUERY_THOUGHTS);
-  // const thoughts = data?.thoughts || [];
+  const { loading, data } = useQuery(QUERY_SEARCHES);
+  const searches = data?.searches || [];
 
   return (
     <main>
@@ -17,13 +17,14 @@ const Home = () => {
           {/* displays searchForm */}
           <SearchForm />
         </div>
+        {/* displays search list - need to render then modify */}
         {/* <div className="col-12 col-md-8 mb-3">
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <ThoughtList
-              thoughts={thoughts}
-              title="Some Feed for Thought(s)..."
+            <SearchList
+              searches={searches}
+              title="your recent search..."
             />
           )}
         </div> */}

@@ -1,44 +1,26 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Thought, Search } = require('../models');
 const { signToken } = require('../utils/auth');
+const {winePairing} = require('../utils/winePairing')
 
 const resolvers = {
   Query: {
-    // users: async () => {
-    //   return User.find().populate('thoughts');
-    // },
     users: async () => {
       return User.find().populate('searches');
     },
-    // user: async (parent, { username }) => {
-    //   return User.findOne({ username }).populate('thoughts');
-    // },
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('searches');
     },
-    // thoughts: async (parent, { username }) => {
-    //   const params = username ? { username } : {};
-    //   return Thought.find(params).sort({ createdAt: -1 });
-    // },
     searches: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Search.find(params).sort({ createdAt: -1 });
     },
-    // thought: async (parent, { thoughtId }) => {
-    //   return Thought.findOne({ _id: thoughtId });
-    // },
     search: async (parent, { searchId }) => {
       return Search.findOne({ _id: searchId });
     },
-    // me: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return User.findOne({ _id: context.user._id }).populate('thoughts');
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    me: async (parent, args, context) => {
+    me: async (parent, {searchId}, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('searches');
+        return User.findOne({ _id: context.user._id }).populate('searches', {searchId});
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -95,29 +77,31 @@ const resolvers = {
           { $addToSet: { searches: search._id } }
         );
         console.log('Search = '+ search);
+        winePairing(search);
         return search;
+        
         
         //update with wine
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // addComment: async (parent, { thoughtId, commentText }, context) => {
-    //   if (context.user) {
-    //     return Thought.findOneAndUpdate(
-    //       { _id: thoughtId },
-    //       {
-    //         $addToSet: {
-    //           comments: { commentText, commentAuthor: context.user.username },
-    //         },
-    //       },
-    //       {
-    //         new: true,
-    //         runValidators: true,
-    //       }
-    //     );
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
+    addComment: async (parent, { searchId, commentText }, context) => {
+      if (context.user) {
+        return Search.findOneAndUpdate(
+          { _id: searchId },
+          {
+            $addToSet: {
+              comments: { commentText, commentAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     // removeThought: async (parent, { thoughtId }, context) => {
     //   if (context.user) {
     //     const thought = await Thought.findOneAndDelete({

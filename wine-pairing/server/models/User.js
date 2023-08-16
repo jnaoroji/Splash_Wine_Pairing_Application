@@ -25,7 +25,7 @@ const userSchema = new Schema({
       ref: 'Wine',
     },
   ],
-  searches: [
+  Searches: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Search',

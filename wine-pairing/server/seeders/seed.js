@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { User, Category, Wine } = require('../models');
+const { User, Category, Wine, Search } = require('../models');
 const userSeeds = require('./userSeeds.json');
 // const thoughtSeeds = require('./thoughtSeeds.json');
 
@@ -255,6 +255,14 @@ db.once('open', async () => {
     ]);
   
     console.log('wines seeded');
+
+    await Search.deleteMany();
+
+    await Search.create({
+    searchProtein: '2',
+    searchSauce: '3',
+    createdAt: '2023-08-15T16:48:11.560Z',
+  });
   
 
     // for (let i = 0; i < wineSeeds.length; i++) {

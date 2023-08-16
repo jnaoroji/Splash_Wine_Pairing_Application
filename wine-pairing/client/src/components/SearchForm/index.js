@@ -16,15 +16,16 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   const [searchSauce, setSearchSauce] = useState(selectedSauce || '');
 
 
-
+//need to find better read query
   const [addSearch, { error }] = useMutation(ADD_SEARCH, {
     update(cache, { data: { addSearch } }) {
+      console.log('made it here');
       try {
         const { searches } = cache.readQuery({ query: QUERY_SEARCHES });
-
+        
         cache.writeQuery({
           query: QUERY_SEARCHES,
-          data: { thoughts: [addSearch, ...searches] },
+          data: { searches: [addSearch, ...searches] },
         });
       } catch (e) {
         console.error(e);
@@ -32,6 +33,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
 
       // update me object's cache
       const { me } = cache.readQuery({ query: QUERY_ME });
+      
       cache.writeQuery({
         query: QUERY_ME,
         data: { me: { ...me, searches: [...me.searches, addSearch] } },
@@ -87,16 +89,17 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 <option value="3">Shellfish</option>
                 <option value="4">Chicken or Pork</option>
                 <option value="5">Red Meat</option>
-                <option value="6">Cured Meat</option>
-                <option value="7">Tofu/Seitan/Potato</option>
-                <option value="8">Brassicas/Leafy greens</option>
+                <option value="6">Tofu/Seitan/Potato</option>
+                <option value="7">Brassicas/Leafy greens</option>
+                <option value="8">Mushrooms</option>
+                
               </select>
 
 
               <select 
               name="selectedSauce" 
               defaultValue="0"
-              className="form-select btn-lg mr-4 " 
+              className="form-select btn-lg mr-4" 
               aria-label="Sauce"
               onChange={(event) => setSearchSauce(event.target.value)}
              
@@ -106,7 +109,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 <option value="2">Tomato Based</option>
                 <option value="3">Diary Based</option>
                 <option value="4">Herbs Based</option>
-                <option value="4">Chilli</option>
+                <option value="5">Chilli</option>
               </select>
               
               <div>

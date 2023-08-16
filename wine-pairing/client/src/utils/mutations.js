@@ -31,6 +31,7 @@ export const ADD_SEARCH = gql`
       searchProtein
       searchSauce
       createdAt
+      searchPairing
     }
   }
 `;
