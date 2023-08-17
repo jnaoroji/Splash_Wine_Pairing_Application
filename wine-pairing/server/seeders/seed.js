@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { User, Category, Wine, Search } = require('../models');
+const { User, Category, Wine, Search, Protein, Sauce, Pairing } = require('../models');
 const userSeeds = require('./userSeeds.json');
 // const thoughtSeeds = require('./thoughtSeeds.json');
 
@@ -54,7 +54,212 @@ db.once('open', async () => {
 
     console.log('sauces seeded');
 
-    
+    await Pairing.deleteMany();
+  
+    const pairings = await Pairing.insertMany([
+      {
+        protein: proteins[0]._id,
+        sauce: sauces[0]._id,
+        category: [categories[2]._id, categories[3]._id, categories[4]._id, categories[5]._id]
+      }, 
+      {
+        protein: proteins[0]._id,
+        sauce: sauces[1]._id,
+        category: [categories[4]._id, categories[5]._id,]
+      }, 
+      {
+        protein: proteins[0]._id,
+        sauce: sauces[2]._id,
+        category: [categories[0]._id, categories[1]._id,categories[2]._id,]
+      }, 
+      {
+        protein: proteins[0]._id,
+        sauce: sauces[3]._id,
+        category: [categories[2]._id, categories[3]._id,categories[4]._id,]
+      }, 
+      {
+        protein: proteins[0]._id,
+        sauce: sauces[4]._id,
+        category: [categories[0]._id, categories[1]._id,categories[2]._id,categories[4]._id,]
+      }, 
+      {
+        protein: proteins[1]._id,
+        sauce: sauces[0]._id,
+        category: [categories[2]._id, categories[3]._id,categories[4]._id]
+      }, 
+      {
+        protein: proteins[1]._id,
+        sauce: sauces[1]._id,
+        category: [categories[3]._id, categories[5]._id,categories[6]._id]
+      }, 
+      {
+        protein: proteins[1]._id,
+        sauce: sauces[2]._id,
+        category: [categories[0]._id, categories[1]._id,categories[2]._id,categories[4]._id ]
+      }, 
+      {
+        protein: proteins[1]._id,
+        sauce: sauces[3]._id,
+        category: [categories[0]._id, categories[1]._id,categories[2]._id,categories[4]._id ]
+      }, 
+      {
+        protein: proteins[1]._id,
+        sauce: sauces[4]._id,
+        category: [categories[0]._id, categories[1]._id,categories[2]._id,categories[4]._id, categories[5]._id ]
+      },
+      {
+        protein: proteins[2]._id,
+        sauce: sauces[0]._id,
+        category: [categories[2]._id, categories[3]._id,categories[4]._id,categories[5]._id]
+      }, 
+      {
+        protein: proteins[2]._id,
+        sauce: sauces[1]._id,
+        category: [categories[2]._id, categories[3]._id,categories[4]._id,categories[5]._id]
+      }, 
+      {
+        protein: proteins[2]._id,
+        sauce: sauces[2]._id,
+        category: [categories[0]._id, categories[1]._id,categories[2]._id,categories[4]._id]
+      }, 
+      {
+        protein: proteins[2]._id,
+        sauce: sauces[3]._id,
+        category: [categories[1]._id, categories[2]._id,categories[4]._id]
+      }, 
+      {
+        protein: proteins[2]._id,
+        sauce: sauces[4]._id,
+        category: [categories[1]._id, categories[2]._id,categories[4]._id,]
+      }, 
+      {
+        protein: proteins[3]._id,
+        sauce: sauces[0]._id,
+        category: [categories[4]._id, categories[5]._id,categories[6]._id]
+      }, 
+      {
+        protein: proteins[3]._id,
+        sauce: sauces[1]._id,
+        category: [categories[4]._id, categories[5]._id,categories[6]._id, categories[7]._id ]
+      }, 
+      {
+        protein: proteins[3]._id,
+        sauce: sauces[2]._id,
+        category: [categories[1]._id, categories[2]._id,categories[3]._id, categories[4]._id ]
+      }, 
+      {
+        protein: proteins[3]._id,
+        sauce: sauces[3]._id,
+        category: [categories[4]._id, categories[5]._id,categories[6]._id ]
+      }, 
+      {
+        protein: proteins[3]._id,
+        sauce: sauces[4]._id,
+        category: [categories[4]._id, categories[5]._id,categories[6]._id ]
+      }, 
+      {
+        protein: proteins[4]._id,
+        sauce: sauces[0]._id,
+        category: [categories[7]._id, categories[8]._id ]
+      }, 
+      {
+        protein: proteins[4]._id,
+        sauce: sauces[1]._id,
+        category: [categories[6]._id, categories[7]._id,categories[8]._id ]
+      },
+      {
+        protein: proteins[4]._id,
+        sauce: sauces[2]._id,
+        category: [categories[6]._id, categories[7]._id,categories[8]._id ]
+      }, 
+      {
+        protein: proteins[4]._id,
+        sauce: sauces[3]._id,
+        category: [categories[6]._id, categories[7]._id,categories[8]._id ]
+      },
+      {
+        protein: proteins[4]._id,
+        sauce: sauces[4]._id,
+        category: [categories[5]._id,categories[6]._id, categories[7]._id,categories[8]._id ]
+      },
+      {
+        protein: proteins[5]._id,
+        sauce: sauces[0]._id,
+        category: [categories[2]._id,categories[3]._id, categories[5]._id,categories[6]._id ]
+      },
+      {
+        protein: proteins[5]._id,
+        sauce: sauces[1]._id,
+        category: [categories[4]._id,categories[5]._id, categories[6]._id ]
+      },
+      {
+        protein: proteins[5]._id,
+        sauce: sauces[2]._id,
+        category: [categories[3]._id,categories[4]._id, categories[5]._id,categories[6]._id ]
+      },
+      {
+        protein: proteins[5]._id,
+        sauce: sauces[3]._id,
+        category: [categories[1]._id,categories[4]._id, categories[5]._id]
+      },
+      {
+        protein: proteins[5]._id,
+        sauce: sauces[4]._id,
+        category: [categories[4]._id,categories[5]._id, categories[6]._id ]
+      },
+      {
+        protein: proteins[6]._id,
+        sauce: sauces[0]._id,
+        category: [categories[2]._id,categories[5]._id]
+      },
+      {
+        protein: proteins[6]._id,
+        sauce: sauces[1]._id,
+        category: [categories[6]._id, categories[7]._id ]
+      },
+      {
+        protein: proteins[6]._id,
+        sauce: sauces[2]._id,
+        category: [categories[4]._id, categories[5]._id,categories[6]._id ]
+      },
+      {
+        protein: proteins[6]._id,
+        sauce: sauces[3]._id,
+        category: [categories[5]._id,categories[6]._id ]
+      },
+      {
+        protein: proteins[6]._id,
+        sauce: sauces[4]._id,
+        category: [categories[6]._id ]
+      },
+      {
+        protein: proteins[7]._id,
+        sauce: sauces[0]._id,
+        category: [categories[4]._id,categories[6]._id ]
+      },
+      {
+        protein: proteins[7]._id,
+        sauce: sauces[1]._id,
+        category: [categories[5]._id,categories[6]._id, categories[7]._id ]
+      },
+      {
+        protein: proteins[7]._id,
+        sauce: sauces[2]._id,
+        category: [categories[6]._id,categories[7]._id]
+      },
+      {
+        protein: proteins[7]._id,
+        sauce: sauces[3]._id,
+        category: [categories[6]._id, categories[7]._id ]
+      },
+      {
+        protein: proteins[7]._id,
+        sauce: sauces[4]._id,
+        category: [categories[6]._id, categories[7]._id ]
+      }
+    ]);
+
+    console.log('pairings seeded');
 
     await User.deleteMany();
 
@@ -297,17 +502,6 @@ db.once('open', async () => {
   });
   
 
-    // for (let i = 0; i < wineSeeds.length; i++) {
-    //   const { _id, thoughtAuthor } = await Thought.create(thoughtSeeds[i]);
-    //   const user = await User.findOneAndUpdate(
-    //     { username: thoughtAuthor },
-    //     {
-    //       $addToSet: {
-    //         thoughts: _id,
-    //       },
-    //     }
-    //   );
-    // }
   } catch (err) {
     console.error(err);
     process.exit(1);

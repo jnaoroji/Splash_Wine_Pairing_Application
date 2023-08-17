@@ -6,7 +6,6 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    thoughts: [Thought]!
     searches: [Search]!
   }
 
@@ -17,10 +16,37 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type Category {
+    _id: ID
+    name: String
+  }
+
+  type Wine{
+    _id:ID
+    name: String!
+    vintage: String
+    varietal: String
+    region: String
+    image: String
+    tastingNote: String!
+    price: Int
+    quantity: Int
+    category: Category
+    
+  }
+
   type Thought {
     _id: ID
     thoughtText: String
     thoughtAuthor: String
+    createdAt: String
+    comments: [Comment]!
+  }
+
+  type Search {
+    _id: ID
+    searchProtein: String
+    searchSauce: String
     createdAt: String
     comments: [Comment]!
   }
@@ -45,6 +71,7 @@ const typeDefs = gql`
     thought(thoughtId: ID!): Thought
     search(searchId: ID!): Search
     me: User
+    getPairing(searchProtein: String!, searchSauce: String!): [Wine]
   }
 
   type Mutation {

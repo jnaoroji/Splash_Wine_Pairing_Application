@@ -73,6 +73,24 @@ export const QUERY_SINGLE_THOUGHT = gql`
   }
 `;
 
+export const QUERY_GETPAIRING = 
+($searchProtein: String!, $searchSauce: String!) {
+  getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
+    _id
+    name
+    vintage
+    varietal
+    region
+    image
+    tastingNote
+    price
+    quantity
+    category {
+      _id
+    }
+  }
+}
+
 export const QUERY_ME = gql`
   query me {
     me {

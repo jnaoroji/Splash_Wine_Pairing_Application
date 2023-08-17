@@ -3,17 +3,19 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 //make sure these are pointing to the values not the object id?
 const pairingSchema = new Schema({
-  category: {
+  category: [
+  {
     type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
-  },
-  category: {
+  }
+],
+  protein: {
     type: Schema.Types.ObjectId,
     ref: 'Protein',
     required: true
   },
-  category: {
+  sauce: {
     type: Schema.Types.ObjectId,
     ref: 'Sauce',
     required: true

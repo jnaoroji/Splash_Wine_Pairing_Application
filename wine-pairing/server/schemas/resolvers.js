@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought, Search } = require('../models');
+const { User, Thought, Search, Pairing, Wine } = require('../models');
 const { signToken } = require('../utils/auth');
-const {winePairing} = require('../utils/winePairing')
+// const {winePairing} = require('../utils/winePairing')
 
 const resolvers = {
   Query: {
@@ -24,8 +24,20 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    getPairing: async(parent, {searchProtein, searchSauce}, context) => {
+      const pairing = await Pairing.findOne({
+        protein: searchProtein,
+        sauce: searchSauce
+      }).populate('category');
+      console.log('Pairing: ' ,pairing);
+      const wines = await Wine.find().where('category').in(
+        pairing.category
+      ).exec();
+      console.log('Wines: ',wines);
+      return wines
+    }
   },
-
+// const records = await Model.find().where('_id').in(ids).exec();
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
