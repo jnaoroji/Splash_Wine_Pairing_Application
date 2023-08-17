@@ -73,8 +73,8 @@ export const QUERY_SINGLE_THOUGHT = gql`
   }
 `;
 
-export const QUERY_GETPAIRING = 
-($searchProtein: String!, $searchSauce: String!) {
+export const QUERY_PAIRING = gql`
+query getPairing($searchProtein: String!, $searchSauce: String!) {
   getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
     _id
     name
@@ -90,6 +90,7 @@ export const QUERY_GETPAIRING =
     }
   }
 }
+`;
 
 export const QUERY_ME = gql`
   query me {
