@@ -77,8 +77,19 @@ const resolvers = {
           { $addToSet: { searches: search._id } }
         );
         console.log('Search = '+ search);
-        winePairing(search);
-        return search;
+        //calculate searchPairing
+        const searchPairing = winePairing(search);
+
+        //update the search object with searchPairing
+        const updatedSearch = await Search.findByIdAndUpdate(
+          search._id,
+          {searchPairing},
+          {new:true}
+        );
+          
+        console.log('Updated Search = '+ updatedSearch);
+        
+        return updatedSearch;
         
         
         //update with wine

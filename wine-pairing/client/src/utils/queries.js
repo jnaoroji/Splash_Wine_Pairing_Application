@@ -13,8 +13,10 @@ export const QUERY_USER = gql`
       }
       searches {
         _id
-        searchText
+        searchProtein
+        searchSauce
         createdAt
+        searchPairing
       }
     }
   }
@@ -27,6 +29,7 @@ export const QUERY_SEARCHES = gql`
       searchProtein
       searchSauce
       createdAt
+      searchPairing
     }
   }
 `;
@@ -81,6 +84,7 @@ export const QUERY_ME = gql`
         searchProtein
         searchSauce
         createdAt
+        searchPairing
       }
     }
   }

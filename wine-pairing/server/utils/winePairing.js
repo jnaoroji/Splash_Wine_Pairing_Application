@@ -1,9 +1,9 @@
 const { Wine } = require('../models');
-const { search } = require('../schemas/resolvers');
+const {addSearch} = require('../schemas/resolvers');
 
 
 
-function winePairing(search) {
+async function winePairing(search) {
   const { searchProtein, searchSauce } = search;
   let searchPairing = ''; // Declare the variable here
 
@@ -15,35 +15,35 @@ function winePairing(search) {
 
 
   if (searchProtein === 1 && searchSauce === 1){
-    const searchPairing = Wine.category('3','4','5','6');
+    searchPairing = Wine.category('3','4','5','6');
   } else if (searchProtein ===1 && searchSauce ===2){
-    const searchPairing = Wine.category('5','6');
+    searchPairing = Wine.category('5','6');
   } else if (searchProtein ===1 && searchSauce ===3){
-    const searchPairing = Wine.category('1','2','3');
+    searchPairing = Wine.category('1','2','3');
   } else if (searchProtein ===1 && searchSauce === 4){
-    const searchPairing = Wine.category('1','2','5');
+    searchPairing = Wine.category('1','2','5');
   } else if (searchProtein ===1 && searchSauce === 5){
-    const searchPairing = Wine.category('1','2','3','5');
+    searchPairing = Wine.category('1','2','3','5');
   } else if (searchProtein ===2 && searchSauce === 1){
-    const searchPairing = Wine.category('3','4','5');
+    searchPairing = Wine.category('3','4','5');
   } else if (searchProtein ===2 && searchSauce === 2){
-    const searchPairing = Wine.category('4','6','7');
+    searchPairing = Wine.category('4','6','7');
   } else if (searchProtein ===2 && searchSauce === 3){
-    const searchPairing = Wine.category('1','2','3','5');
+    searchPairing = Wine.category('1','2','3','5');
   } else if (searchProtein ===2 && searchSauce === 4){
-    const searchPairing = Wine.category('1','2','3','5');
+    searchPairing = Wine.category('1','2','3','5');
   } else if (searchProtein ===2 && searchSauce === 5){
-    const searchPairing = Wine.category('1','2','3','5','6');
+    searchPairing = Wine.category('1','2','3','5','6');
   } else if (searchProtein ===3 && searchSauce === 1){
-    const searchPairing = Wine.category('3','4','5','6');
+    searchPairing = Wine.category('3','4','5','6');
   } else if (searchProtein ===3 && searchSauce === 2){
-    const searchPairing = Wine.category('3','4','5','6');
+    searchPairing = Wine.category('3','4','5','6');
   } else if (searchProtein ===3 && searchSauce === 3){
-    const searchPairing = Wine.category('1','2','3','5');
+    searchPairing = Wine.category('1','2','3','5');
   } else if (searchProtein ===3 && searchSauce === 4){
-    const searchPairing = Wine.category('2','3','5');
+    searchPairing = Wine.category('2','3','5');
   } else if (searchProtein ===3 && searchSauce === 5){
-    const searchPairing = Wine.category('2','3','5');
+    searchPairing = Wine.category('2','3','5');
   } else if (searchProtein ===4 && searchSauce === 1){
     const searchPairing = Wine.category('5','6','7');
   } else if (searchProtein ===4 && searchSauce === 2){
@@ -96,6 +96,16 @@ function winePairing(search) {
     const searchPairing = Wine.category('7', '8');
   } 
   return searchPairing;
+
+  const search = {
+    searchProtein, 
+    searchSauce, 
+    searchPairing
+  };
+
+  const newSearch = await addSearch(null, {searchInput});
+
+  return newSearch;
 
 
 }
