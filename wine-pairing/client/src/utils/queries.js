@@ -6,17 +6,12 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-      }
       searches {
         _id
         searchProtein
         searchSauce
         createdAt
-        searchPairing
+       
       }
     }
   }
@@ -29,7 +24,7 @@ export const QUERY_SEARCHES = gql`
       searchProtein
       searchSauce
       createdAt
-      searchPairing
+     
     }
   }
 `;
@@ -103,7 +98,6 @@ export const QUERY_ME = gql`
         searchProtein
         searchSauce
         createdAt
-        searchPairing
       }
     }
   }

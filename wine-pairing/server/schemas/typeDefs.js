@@ -29,7 +29,7 @@ const typeDefs = gql`
     region: String
     image: String
     tastingNote: String!
-    price: Int
+    price: Float
     quantity: Int
     category: Category
     
@@ -78,6 +78,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addSearch(searchProtein: String!, searchSauce: String!): Search
+  
     addThought(thoughtText: String!): Thought
     addComment(thoughtId: ID!, commentText: String!): Thought
     removeSearch(searchId: ID!): Search

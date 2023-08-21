@@ -21,9 +21,9 @@ const searchSchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  searchPairing:{
-    type: String,
-  }
+  // searchPairing:{
+  //   type: String,
+  // }
   
 });
 

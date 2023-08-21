@@ -1,62 +1,40 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+// import { useMutation } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
-import { ADD_SEARCH } from '../../utils/mutations';
-import { QUERY_SEARCHES, QUERY_ME } from '../../utils/queries';
+// import { ADD_SEARCH } from '../../utils/mutations';
+// import { QUERY_SEARCHES, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
+import { QUERY_PAIRING } from '../../utils/queries';
 
 
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
   
-  
+ 
   const [searchProtein, setSearchProtein] = useState(selectedProtein || '');
   const [searchSauce, setSearchSauce] = useState(selectedSauce || '');
+  console.log('search params: ',searchProtein, searchSauce);
+  const [getPairing, {loading, error, data}] = useLazyQuery(QUERY_PAIRING);
+
+  if (loading) return <p>Loading ...</p>;
+  if (error) return `Error! ${error}`;
 
 
-//need to find better read query
-  const [addSearch, { error }] = useMutation(ADD_SEARCH, {
-    update(cache, { data: { addSearch } }) {
-      console.log('made it here');
-      try {
-        const { searches } = cache.readQuery({ query: QUERY_SEARCHES });
-        
-        cache.writeQuery({
-          query: QUERY_SEARCHES,
-          data: { searches: [addSearch, ...searches] },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, searches: [...me.searches, addSearch] } },
-      });
-    },
-  });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    try {
-      const { data } = await addSearch({
-        variables: {
-          searchProtein,
-          searchSauce,
-        },
-      });
-
-      setSearchProtein('');
-      setSearchSauce('');
-    } catch (err) {
-      console.error(err);
-    }
+    getPairing({
+      variables: {
+        searchProtein: searchProtein,
+        searchSauce: searchSauce,
+      },
+     
+    });
+    
   };
   
   
@@ -134,6 +112,18 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               </p>
             )}
       </div>
+      {loading && <p>Loading...</p>}
+      {data && data.getPairing && (
+        <div>
+          {/* Render your query results here */}
+          {data.getPairing.map((pairing) => (
+            <div key={pairing._id}>
+              <h2>{pairing.name}</h2>
+              {/* Render other fields as needed */}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

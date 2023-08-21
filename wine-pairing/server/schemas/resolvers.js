@@ -18,9 +18,9 @@ const resolvers = {
     search: async (parent, { searchId }) => {
       return Search.findOne({ _id: searchId });
     },
-    me: async (parent, {searchId}, context) => {
+    me: async (parent, {searchProtein, searchSauce}, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('searches', {searchId});
+        return User.findOne({ _id: context.user._id }).populate('searches', {searchProtein, searchSauce});
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -90,18 +90,18 @@ const resolvers = {
         );
         console.log('Search = '+ search);
         //calculate searchPairing
-        const searchPairing = winePairing(search);
+        // const searchPairing = winePairing(search);
 
         //update the search object with searchPairing
-        const updatedSearch = await Search.findByIdAndUpdate(
-          search._id,
-          {searchPairing},
-          {new:true}
-        );
+        // const updatedSearch = await Search.findByIdAndUpdate(
+        //   search._id,
+        //   {searchPairing},
+        //   {new:true}
+        // );
           
-        console.log('Updated Search = '+ updatedSearch);
+        // console.log('Updated Search = '+ updatedSearch);
         
-        return updatedSearch;
+        return Search;
         
         
         //update with wine

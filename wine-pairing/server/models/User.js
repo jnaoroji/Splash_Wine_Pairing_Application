@@ -19,13 +19,13 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  Wines: [
+  wine: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Wine',
     },
   ],
-  Searches: [
+  searches: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Search',

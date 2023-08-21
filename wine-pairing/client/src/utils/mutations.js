@@ -31,10 +31,11 @@ export const ADD_SEARCH = gql`
       searchProtein
       searchSauce
       createdAt
-      searchPairing
+      
     }
   }
 `;
+
 
 export const ADD_THOUGHT = gql`
   mutation addThought($thoughtText: String!) {
