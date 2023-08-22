@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { useMutation } from '@apollo/client';
 import { useLazyQuery, useQuery } from '@apollo/client';
-
-// import { ADD_SEARCH } from '../../utils/mutations';
 import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
-
 import Auth from '../../utils/auth';
 import { QUERY_PAIRING } from '../../utils/queries';
-
-
-
-
 
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
   const [searchProtein, setSearchProtein] = useState(selectedProtein || '');
   const [searchSauce, setSearchSauce] = useState(selectedSauce || '');
+  const [searchActive, setSearchActive] = useState(false); // Tracks search activity
 
   // Use the useQuery hook to fetch proteins and sauces data
   const { loading: proteinsLoading, error: proteinsError, data: proteinsData } = useQuery(QUERY_PROTEINS);
@@ -51,8 +44,22 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         searchSauce: selectedSauceObject._id,
       },
     });
+    setSearchActive(true);
   };
- 
+  const handleClearForm = () => {
+    // Clear the form fields by setting their values to an empty string
+    setSearchProtein('');
+    setSearchSauce('');
+
+    getPairing({
+      variables: {
+        searchProtein: '', // You can also set these to empty strings to ensure clearing
+        searchSauce: '',
+      },
+    });
+
+    setSearchActive(false);
+  };
   
   
   return (
@@ -101,6 +108,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 <button className="btn btn-info btn-sm mr-2" type="submit">
                 <i className="fas fa-search" aria-hidden="true"></i>
                 </button>
+
                 {saucesError && (
                 <div className="col-12 my-3 bg-danger text-white p-3">
                   {saucesError.message}
@@ -119,7 +127,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
             ) : (
               // Message displays when user has not logged in (cannot search)
               <p className='select-container'>
-                You need to be logged in to search for recipes. Please{' '}
+                You need to be logged in to search for Wine Pairings. Please{' '}
                 <Link className='text-info' to="/login">login</Link> or <Link className= "text-info" to="/signup">signup.</Link>
               </p>
             )}
@@ -148,6 +156,26 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
           ))}
         </div>
       )}
+      {/* Conditionally render the buttons based on searchActive */}
+      {searchActive && (
+              <div>
+                <button
+                  className="btn btn-danger btn-sm mr-3"
+                  type="button"
+                  onClick={handleClearForm}
+                >
+                  Start a new Search
+                </button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  type="button"
+                  onClick={handleClearForm}
+                >
+                  Save to My Pairings
+                </button>
+              </div>
+            )}
+
     </main>
   );
 };
