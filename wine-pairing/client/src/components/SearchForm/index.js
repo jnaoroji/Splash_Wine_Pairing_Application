@@ -44,8 +44,8 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
 
     getPairing({
       variables: {
-        searchProtein: searchProtein,
-        searchSauce: searchSauce,
+        searchProtein: selectedProteinObject._id,
+        searchSauce: selectedSauceObject._id,
       },
     });
   };
@@ -65,45 +65,6 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
             <div className='select-container flex-row justify-center align-center'>
 
               {/* Drop-downs with search criteria */}
-
-              
-              {/* <select 
-              name="selectedProtein" 
-              defaultValue="0"                
-              className="form-select btn-lg ml-2 mr-4 " 
-              aria-label="Protein"
-              onChange={(event) => setSearchProtein(event.target.value)}
-              
-              >
-                <option value="0">Choose your Protein</option>
-                <option value="1">Mollusk</option>
-                <option value="2">Fish</option>
-                <option value="3">Shellfish</option>
-                <option value="4">Chicken or Pork</option>
-                <option value="5">Red Meat</option>
-                <option value="6">Tofu/Seitan/Potato</option>
-                <option value="7">Brassicas/Leafy greens</option>
-                <option value="8">Mushrooms</option>
-                
-              </select> */}
-
-
-              {/* <select 
-              name="selectedSauce" 
-              defaultValue="0"
-              className="form-select btn-lg mr-4" 
-              aria-label="Sauce"
-              onChange={(event) => setSearchSauce(event.target.value)}
-             
-              >
-                <option value="0">Choose your sauce</option>
-                <option value="1">Strong Marinade</option>
-                <option value="2">Tomato Based</option>
-                <option value="3">Diary Based</option>
-                <option value="4">Herbs Based</option>
-                <option value="5">Chilli</option>
-              </select> */}
-              
               
               <select
                   name="selectedProtein"
