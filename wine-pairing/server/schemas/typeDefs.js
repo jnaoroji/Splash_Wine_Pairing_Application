@@ -16,6 +16,18 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type Sauce {
+    _id: ID
+    name: String
+    value: String
+  }
+
+  type Protein {
+    _id: ID
+    name: String
+    value: String
+  }
+
   type Category {
     _id: ID
     name: String
@@ -65,11 +77,14 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
+    sauces: [Sauce]
+    proteins: [Protein]
     user(username: String!): User
     thoughts(username: String): [Thought]
     searches(username: String): [Search]
     thought(thoughtId: ID!): Thought
     search(searchId: ID!): Search
+    
     me: User
     getPairing(searchProtein: String!, searchSauce: String!): [Wine]
   }

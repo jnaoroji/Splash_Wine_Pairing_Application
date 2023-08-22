@@ -17,6 +17,27 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_SAUCES = gql`
+  query getSauces {
+    sauces {
+      _id
+      name
+      value
+    }
+  }
+`;
+
+export const QUERY_PROTEINS = gql`
+  query getProteins {
+    proteins {
+      _id
+      name
+      value
+    }
+  }
+`;
+
+
 export const QUERY_SEARCHES = gql`
   query getSearches {
     searches {

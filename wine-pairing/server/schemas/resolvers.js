@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought, Search, Pairing, Wine } = require('../models');
+const { User, Thought, Search, Pairing, Wine, Sauce, Protein } = require('../models');
 const { signToken } = require('../utils/auth');
 // const {winePairing} = require('../utils/winePairing')
 
@@ -17,6 +17,12 @@ const resolvers = {
     },
     search: async (parent, { searchId }) => {
       return Search.findOne({ _id: searchId });
+    },
+    sauces: async () => {
+      return await Sauce.find({});
+    },
+    proteins: async () => {
+      return await Protein.find({});
     },
     me: async (parent, {searchProtein, searchSauce}, context) => {
       if (context.user) {
