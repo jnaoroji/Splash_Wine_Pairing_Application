@@ -96,6 +96,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addPairing(username: String!, searchProtein: String!, searchSauce: String!): [Wine]
     
+    savePairing(searchProtein: String!, searchSauce: String!): User
     
     addSearch(searchProtein: String!, searchSauce: String!): Search
   

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
 import Auth from '../../utils/auth';
 import { QUERY_PAIRING } from '../../utils/queries';
+import { ADD_PAIRING } from '../../utils/mutations';
 
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
   const [searchProtein, setSearchProtein] = useState(selectedProtein || '');
   const [searchSauce, setSearchSauce] = useState(selectedSauce || '');
   const [searchActive, setSearchActive] = useState(false); // Tracks search activity
+  const [addPairing] = useMutation(ADD_PAIRING);
 
   // Use the useQuery hook to fetch proteins and sauces data
   const { loading: proteinsLoading, error: proteinsError, data: proteinsData } = useQuery(QUERY_PROTEINS);
@@ -18,9 +20,11 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   const proteins = proteinsData ? proteinsData.proteins : []; 
   const sauces = saucesData ? saucesData.sauces : []; 
 
-  // Use a different name for variables to avoid conflicts
+  // UseQuery hook to fetch getPairing
   const [getPairing, { loading: pairingLoading, error: pairingError, data: pairingData }] = useLazyQuery(QUERY_PAIRING);
 
+
+  //handles form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -46,6 +50,43 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
     });
     setSearchActive(true);
   };
+
+  const handleAddPairing = () => {
+    // Execute the mutation with the current searchProtein and searchSauce values
+
+    // Use the selectedProtein value to find the associated ObjectId
+    const selectedProteinObject = proteins.find((protein) => protein.name === searchProtein);
+    if (!selectedProteinObject) {
+      console.error('Selected protein not found in the protein data.');
+      return;
+    }
+
+    // Use the selectedSauce value to find the associated ObjectId
+    const selectedSauceObject = sauces.find((sauce) => sauce.name === searchSauce);
+    if (!selectedSauceObject) {
+      console.error('Selected sauce not found in the sauces data.');
+      return;
+    }
+    console.log(Auth.getProfile());
+    const username = Auth.getProfile()?.data?.username;
+    addPairing({
+      variables: {
+        username,
+        searchProtein: selectedProteinObject._id,
+        searchSauce: selectedSauceObject._id,
+      },
+    })
+      .then((response) => {
+        // Handle successful response if needed
+        console.log('Pairing saved:', response);
+      })
+      .catch((error) => {
+        // Handle error if needed
+        console.error('Error saving pairing:', error);
+      });
+  };
+
+
   const handleClearForm = () => {
     // Clear the form fields by setting their values to an empty string
     setSearchProtein('');
@@ -173,7 +214,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 <button
                   className="btn btn-danger btn-sm"
                   type="button"
-                  onClick={handleClearForm}
+                  onClick={handleAddPairing}
                 >
                   Save to My Pairings
                 </button>

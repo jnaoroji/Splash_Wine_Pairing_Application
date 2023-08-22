@@ -4,13 +4,10 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-// import CommentList from '../components/CommentList';
-// import CommentForm from '../components/CommentForm';
-
 import { QUERY_SINGLE_WINE } from '../utils/queries';
 
-const SingleSearch = () => {
-  // Use `useParams()` to retrieve value of the route parameter `:pairingId`
+const SingleWine = () => {
+  // Use `useParams()` to retrieve value of the route parameter `:wineId`
   const { wineId } = useParams();
 
   const { loading, data } = useQuery(QUERY_SINGLE_WINE, {
@@ -49,4 +46,4 @@ const SingleSearch = () => {
   );
 };
 
-export default SingleSearch;
+export default SingleWine;

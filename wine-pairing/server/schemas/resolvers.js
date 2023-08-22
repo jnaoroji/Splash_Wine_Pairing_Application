@@ -98,22 +98,7 @@ const resolvers = {
           { $addToSet: { pairings: pairing._id } }
         );
         console.log('Pairing = '+ pairing);
-        //calculate searchPairing
-        // const searchPairing = winePairing(search);
-
-        //update the search object with searchPairing
-        // const updatedSearch = await Search.findByIdAndUpdate(
-        //   search._id,
-        //   {searchPairing},
-        //   {new:true}
-        // );
-          
-        // console.log('Updated Search = '+ updatedSearch);
-        
-        return Search;
-        
-        
-        //update with wine
+        return Pairing;
       }
       throw new AuthenticationError('You need to be logged in!');
     },

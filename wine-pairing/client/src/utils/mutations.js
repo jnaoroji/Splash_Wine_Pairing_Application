@@ -37,7 +37,7 @@ export const ADD_SEARCH = gql`
 `;
 
 export const ADD_PAIRING = gql`
-  mutation addPairing(username: $username, searchProtein: $searchProtein, searchSauce: $searchSauce) {
+  mutation addPairing($username: String!, $searchProtein: String!, $searchSauce: String!) {
     addPairing(username: $username, searchProtein: $searchProtein, searchSauce: $searchSauce){
       _id
       name
