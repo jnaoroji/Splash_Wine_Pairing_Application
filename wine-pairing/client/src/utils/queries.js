@@ -88,6 +88,25 @@ export const QUERY_SINGLE_THOUGHT = gql`
     }
   }
 `;
+export const QUERY_SINGLE_WINE = gql`
+query getSingleWine($wineId: String!) {
+  wine(wineId: $wineId) {
+    _id
+    name
+    vintage
+    varietal
+    region
+    image
+    tastingNote
+    price
+    quantity
+    category {
+      _id
+      name
+    }
+  }
+}
+`;
 
 export const QUERY_PAIRING = gql`
 query getPairing($searchProtein: String!, $searchSauce: String!) {

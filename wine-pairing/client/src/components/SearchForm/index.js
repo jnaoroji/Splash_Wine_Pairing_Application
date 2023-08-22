@@ -125,6 +125,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
             )}
       </div>
     </div>
+
       {pairingLoading && <p>Loading...</p>}
       {pairingData && pairingData.getPairing && (
         <div className='pairing-container'>
@@ -134,15 +135,16 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               
               <div style={{ width: 240 }}>
                 <div>
-                  <img alt={pairing.name} height="120px" src={pairing.image} />
+                  <img alt={pairing.name} height="400px" src={pairing.image}/>
                 </div>
-                <div className="custom-card">
-                  <h5>{pairing.name}</h5>
-                  <h6>${pairing.price}</h6>
-                  
+                <div className="custom-card mt-4">
+                  <div className="d-flex justify-content-between">
+                    <span><h6>{pairing.name}</h6></span><span><h6>${pairing.price}</h6></span>
+                  </div>
                 </div>
               </div>
             </Link>
+
           ))}
         </div>
       )}
