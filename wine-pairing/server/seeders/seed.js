@@ -47,9 +47,6 @@ db.once('open', async () => {
       { name: 'Diary Based', value:3 },
       { name: 'Herbs Based', value:4 },
       { name: 'Chilli', value:5 },
-      { name: 'Tofu/Seitan', value:6 },
-      { name: 'Brassicas/ Beans', value:7 },
-      { name: 'Mushrooms', value:8 },
     ]);
 
     console.log('sauces seeded');

@@ -9,6 +9,10 @@ import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
 import Auth from '../../utils/auth';
 import { QUERY_PAIRING } from '../../utils/queries';
 
+import { Card } from 'antd';
+
+const { Meta } = Card;
+
 
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
@@ -53,6 +57,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   
   
   return (
+    <main>
     <div className="search-container">
       <div className= "searchbar-container">
       
@@ -125,19 +130,28 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               </p>
             )}
       </div>
+    </div>
       {pairingLoading && <p>Loading...</p>}
       {pairingData && pairingData.getPairing && (
-        <div>
-          {/* Render your query results here */}
+        <div className='pairing-container'>
+          {/* Renders pairing results*/}
           {pairingData.getPairing.map((pairing) => (
             <div key={pairing._id}>
-              <h2>{pairing.name}</h2>
               {/* Render other fields as needed */}
+              <div style={{ width: 240 }}>
+                <div className="">
+                  <img alt="example" height="100px" src={pairing.image} />
+                </div>
+                <div className="custom-card">
+                  <h5>{pairing.name}</h5>
+                  <h6>{pairing.region}</h6>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       )}
-    </div>
+    </main>
   );
 };
 
