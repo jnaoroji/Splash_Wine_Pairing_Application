@@ -51,9 +51,13 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
     setSearchProtein('');
     setSearchSauce('');
 
+    // Reset the select elements to their default values
+    document.querySelector("select[name='selectedProtein']").value = '0';
+    document.querySelector("select[name='selectedSauce']").value = '0';
+
     getPairing({
       variables: {
-        searchProtein: '', // You can also set these to empty strings to ensure clearing
+        searchProtein: '', // set these to empty strings to ensure clearing
         searchSauce: '',
       },
     });

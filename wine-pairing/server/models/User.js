@@ -31,6 +31,12 @@ const userSchema = new Schema({
       ref: 'Search',
     },
   ],
+  pairings:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Pairing',
+    },
+  ]
 });
 
 userSchema.pre('save', async function (next) {

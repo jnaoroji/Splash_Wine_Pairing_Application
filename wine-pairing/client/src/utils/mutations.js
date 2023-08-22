@@ -36,6 +36,25 @@ export const ADD_SEARCH = gql`
   }
 `;
 
+export const ADD_PAIRING = gql`
+  mutation addPairing(username: $username, searchProtein: $searchProtein, searchSauce: $searchSauce) {
+    addPairing(username: $username, searchProtein: $searchProtein, searchSauce: $searchSauce){
+      _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+    }
+  }
+`;
 
 export const ADD_THOUGHT = gql`
   mutation addThought($thoughtText: String!) {

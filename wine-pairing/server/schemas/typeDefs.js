@@ -88,11 +88,15 @@ const typeDefs = gql`
     search(searchId: ID!): Search
     me: User
     getPairing(searchProtein: String!, searchSauce: String!): [Wine]
+   
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    addPairing(username: String!, searchProtein: String!, searchSauce: String!): [Wine]
+    
+    
     addSearch(searchProtein: String!, searchSauce: String!): Search
   
     addThought(thoughtText: String!): Thought

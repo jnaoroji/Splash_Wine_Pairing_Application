@@ -86,18 +86,18 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
-    addSearch: async (parent, { searchProtein, searchSauce}, context) => {
+    addPairing: async (parent, { searchProtein, searchSauce}, context) => {
       if (context.user) {
-        const search = await Search.create({
+        const pairing = await Pairing.create({
           searchProtein,
           searchSauce
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { searches: search._id } }
+          { $addToSet: { pairings: pairing._id } }
         );
-        console.log('Search = '+ search);
+        console.log('Pairing = '+ pairing);
         //calculate searchPairing
         // const searchPairing = winePairing(search);
 
