@@ -1248,13 +1248,18 @@ border-color:#461220;
 .pairing-container{
   background-color: rgba(254, 253, 253, 0.8);
   padding: 20px;
-  border: 1px solid #a35a6e;
+  /* border: 1px solid #a35a6e; */
   border-radius: 15px;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
   gap: 20px; /* Adjust the gap between cards */
   
   }
+.pair-card{
+  padding: 20px;
+  
+}
 
 .container {
   width: 85%;

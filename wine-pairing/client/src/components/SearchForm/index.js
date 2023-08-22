@@ -9,9 +9,8 @@ import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
 import Auth from '../../utils/auth';
 import { QUERY_PAIRING } from '../../utils/queries';
 
-import { Card } from 'antd';
 
-const { Meta } = Card;
+
 
 
 
@@ -63,18 +62,15 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       
       {Auth.loggedIn() ? (
         <>
-          
-
           <form className="flex-row justify-center align-center"
             onSubmit={handleFormSubmit}>
             <div className='select-container flex-row justify-center align-center'>
 
               {/* Drop-downs with search criteria */}
-              
               <select
                   name="selectedProtein"
                   defaultValue="0"
-                  className="form-select btn-lg mr-4"
+                  className="form-select btn-lg ml-2 mr-4"
                   aria-label="Protien"
                   onChange={(event) => setSearchProtein(event.target.value)}
                 >
@@ -85,7 +81,6 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                     </option>
                   ))}
                 </select>
-
 
               <select
                   name="selectedSauce"
@@ -101,7 +96,6 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                     </option>
                   ))}
                 </select>
-
 
               <div>
                 <button className="btn btn-info btn-sm mr-2" type="submit">
@@ -136,18 +130,19 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         <div className='pairing-container'>
           {/* Renders pairing results*/}
           {pairingData.getPairing.map((pairing) => (
-            <div key={pairing._id}>
-              {/* Render other fields as needed */}
+            <Link to={`/wine/${pairing._id}`} className ="pair-card shadow" key={pairing._id} style={{ color: 'black' }}>
+              
               <div style={{ width: 240 }}>
-                <div className="">
-                  <img alt="example" height="100px" src={pairing.image} />
+                <div>
+                  <img alt={pairing.name} height="120px" src={pairing.image} />
                 </div>
                 <div className="custom-card">
                   <h5>{pairing.name}</h5>
-                  <h6>{pairing.region}</h6>
+                  <h6>${pairing.price}</h6>
+                  
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

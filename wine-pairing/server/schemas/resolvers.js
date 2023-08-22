@@ -24,6 +24,9 @@ const resolvers = {
     proteins: async () => {
       return await Protein.find({});
     },
+    wine: async (parent, { wineId }) => {
+      return Wine.findOne({ _id: wineId });
+    },
     me: async (parent, {searchProtein, searchSauce}, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('searches', {searchProtein, searchSauce});
@@ -35,11 +38,11 @@ const resolvers = {
         protein: searchProtein,
         sauce: searchSauce
       }).populate('category');
-      console.log('Pairing: ' ,pairing);
+      // console.log('Pairing: ' ,pairing);
       const wines = await Wine.find().where('category').in(
         pairing.category
       ).exec();
-      console.log('Wines: ',wines);
+      // console.log('Wines: ',wines);
       return wines
     }
   },

@@ -1,10 +1,10 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
+// import { useQuery } from '@apollo/client';
 
-import SearchList from '../components/SearchList ';
+// import SearchList from '../components/SearchList ';
 import SearchForm from '../components/SearchForm';
 
-import { QUERY_PAIRING, QUERY_SEARCHES } from '../utils/queries';
+// import { QUERY_PAIRING, QUERY_SEARCHES } from '../utils/queries';
 
 const Home = () => {
   // const { loading, data } = useQuery(QUERY_PAIRING);

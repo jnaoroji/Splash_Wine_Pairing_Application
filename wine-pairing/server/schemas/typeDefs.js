@@ -80,11 +80,12 @@ const typeDefs = gql`
     sauces: [Sauce]
     proteins: [Protein]
     user(username: String!): User
+    wine(wineId: String!): Wine
+
     thoughts(username: String): [Thought]
     searches(username: String): [Search]
     thought(thoughtId: ID!): Thought
     search(searchId: ID!): Search
-    
     me: User
     getPairing(searchProtein: String!, searchSauce: String!): [Wine]
   }
