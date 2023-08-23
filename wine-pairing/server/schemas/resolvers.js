@@ -105,6 +105,21 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    addUserPairing: async (parent, { pairingId }, context) => {
+      if (context.user) {
+        const pairing = await Pairing.findById({
+          _id: pairingId
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { pairings: pairing._id } }
+        );
+
+        return pairing;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     // addThought: async (parent, { thoughtText }, context) => {
     //   if (context.user) {
     //     const thought = await Thought.create({

@@ -92,6 +92,7 @@ const typeDefs = gql`
     removeComment(wineId: ID!, commentId: ID!): Wine
     addWine(username: String!): User
     savePairing(searchProtein: String!, searchSauce: String!): User
+    addUserPairing(pairingId: ID!, username: String): User
     removePairing(pairingId: ID!): Pairing
   }
 `;

@@ -27,7 +27,7 @@ export const ADD_USER = gql`
 
 export const ADD_PAIRING = gql`
   mutation addPairing($username: String!, $searchProtein: String!, $searchSauce: String!) {
-    addPairing(username: $username, searchProtein: $searchProtein, searchSauce: $searchSauce){
+    addPairing(username: $username, Protein: $searchProtein, Sauce: $searchSauce){
       _id
       name
       vintage
@@ -44,6 +44,16 @@ export const ADD_PAIRING = gql`
     }
   }
 `;
+
+// export const ADD_USER_PAIRING = gql`
+//   mutation addUserPairing($username: String!, $pairingId: ID) {
+//     addUserPairing(username: $username, pairingId:ID){
+//       pairing{
+//         _id
+//       }
+//   }
+// `;
+
 
 
 export const ADD_COMMENT = gql`

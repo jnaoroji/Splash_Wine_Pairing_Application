@@ -30,8 +30,7 @@ const userSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Pairing',
     },
-  ],
-  orders: [Order.schema]
+  ]
 });
 
 userSchema.pre('save', async function (next) {

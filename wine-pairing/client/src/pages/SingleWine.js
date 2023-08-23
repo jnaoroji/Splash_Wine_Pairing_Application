@@ -15,10 +15,11 @@ const SingleWine = () => {
 
   const { loading, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
-    variables: { wineId: wineId },
+    variables: { wineId},
   });
 
-  const wine = data?.wine || {};
+  const wine = data?.getSingleWine || {};
+
 
   if (loading) {
     return <div>Loading...</div>;

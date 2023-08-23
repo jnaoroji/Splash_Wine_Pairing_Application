@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import StarRating from '../StarRating'
 
 import { ADD_COMMENT } from '../../utils/mutations';
 
 import Auth from '../../utils/auth';
+
 
 const CommentForm = ({ wineId }) => {
   const [commentText, setCommentText] = useState('');
@@ -39,9 +41,13 @@ const CommentForm = ({ wineId }) => {
     }
   };
 
+
+
   return (
     <div>
-      <h4>What are your thoughts on this wine and pairing?</h4>
+      <h5>What are your thoughts on this wine?</h5>
+      <StarRating/>
+      
 
       {Auth.loggedIn() ? (
         <>
@@ -65,7 +71,8 @@ const CommentForm = ({ wineId }) => {
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
-              ></textarea>
+              >
+              </textarea>
             </div>
 
             <div className="col-12 col-lg-3">
@@ -77,7 +84,7 @@ const CommentForm = ({ wineId }) => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to share your comments. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}

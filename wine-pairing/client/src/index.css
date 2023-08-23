@@ -923,6 +923,7 @@ a:hover {
 
 .text-splash {
   color: #b86d81 !important;
+  
 }
 .text-pink {
   color: #fcb9b2 !important;
@@ -1174,17 +1175,9 @@ form .form-textarea {
 }
 .form-input:focus {
   border-color: #f15156; 
-  /* You can add other style changes here as well */
+
 }
 
-form select {
-  /* -webkit-appearance: none; */
-  /* -moz-appearance: none; */
-  /* background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-  background-repeat: no-repeat;
-  background-position-x: 98%;
-  background-position-y: 50%; */
-}
 
 form label,
 form .form-label {
@@ -1259,6 +1252,15 @@ border-color:#461220;
 .pair-card{
   padding: 20px;
   
+}
+
+.star-rating{
+  .on {
+    color: #b86d81 ;
+  }
+  .off {
+    color: #ccc;
+  }
 }
 
 .container {
