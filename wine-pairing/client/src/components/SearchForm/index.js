@@ -49,6 +49,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       },
     });
     setSearchActive(true);
+
   };
 
   const handleAddPairing = () => {
@@ -67,8 +68,14 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       console.error('Selected sauce not found in the sauces data.');
       return;
     }
-    console.log(Auth.getProfile());
+    
+    // console.log(selectedProteinObject);
+    // console.log(selectedSauceObject);
+    // console.log(Auth.getProfile());
     const username = Auth.getProfile()?.data?.username;
+
+    
+
     addPairing({
       variables: {
         username,
@@ -179,6 +186,8 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       </div>
     </div>
 
+      
+
       {pairingLoading && <p>Loading...</p>}
       {pairingData && pairingData.getPairing && (
         <div className='pairing-container'>
@@ -203,16 +212,16 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       )}
       {/* Conditionally render the buttons based on searchActive */}
       {searchActive && (
-              <div>
+              <div className="mt-4 text-right">
                 <button
-                  className="btn btn-danger btn-sm mr-3"
+                  className="btn btn-info btn-sm mr-3"
                   type="button"
                   onClick={handleClearForm}
                 >
                   Start a new Search
                 </button>
                 <button
-                  className="btn btn-danger btn-sm"
+                  className="btn btn-info btn-sm"
                   type="button"
                   onClick={handleAddPairing}
                 >

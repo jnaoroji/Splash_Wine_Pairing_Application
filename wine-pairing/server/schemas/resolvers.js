@@ -70,6 +70,23 @@ const resolvers = {
 
       return { token, user };
     },
+    addWine: async (parent, { wineId }, context) => {
+      if (context.user) {
+        const wine = await Wine.findById({
+          wineId,
+
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { wines: wine._id } }
+        );
+
+        return wine;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
     // addThought: async (parent, { thoughtText }, context) => {
     //   if (context.user) {
     //     const thought = await Thought.create({
@@ -102,10 +119,10 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    addComment: async (parent, { searchId, commentText }, context) => {
+    addComment: async (parent, { wineId, commentText }, context) => {
       if (context.user) {
-        return Search.findOneAndUpdate(
-          { _id: searchId },
+        return Wine.findOneAndUpdate(
+          { _id: wineId },
           {
             $addToSet: {
               comments: { commentText, commentAuthor: context.user.username },
@@ -151,23 +168,23 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // removeComment: async (parent, { thoughtId, commentId }, context) => {
-    //   if (context.user) {
-    //     return Thought.findOneAndUpdate(
-    //       { _id: thoughtId },
-    //       {
-    //         $pull: {
-    //           comments: {
-    //             _id: commentId,
-    //             commentAuthor: context.user.username,
-    //           },
-    //         },
-    //       },
-    //       { new: true }
-    //     );
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
+    removeComment: async (parent, { wineId, commentId }, context) => {
+      if (context.user) {
+        return Wine.findOneAndUpdate(
+          { _id: wineId },
+          {
+            $pull: {
+              comments: {
+                _id: commentId,
+                commentAuthor: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
 };
 

@@ -44,6 +44,7 @@ const typeDefs = gql`
     price: Float
     quantity: Int
     category: Category
+    comments: [Comment]!
     
   }
 
@@ -81,13 +82,15 @@ const typeDefs = gql`
     proteins: [Protein]
     user(username: String!): User
     wine(wineId: String!): Wine
-
+    getPairing(searchProtein: String!, searchSauce: String!): [Wine]
+    me: User
+    wines(username: String): [Wine]
     thoughts(username: String): [Thought]
     searches(username: String): [Search]
     thought(thoughtId: ID!): Thought
     search(searchId: ID!): Search
-    me: User
-    getPairing(searchProtein: String!, searchSauce: String!): [Wine]
+    
+    
    
   }
 
@@ -95,16 +98,20 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPairing(username: String!, searchProtein: String!, searchSauce: String!): [Wine]
-    
+
+    addComment(wineId: ID!): Wine
+    removeComment(wineId: ID!, commentId: ID!): Wine
+
+    addWine(username: String!): User
     savePairing(searchProtein: String!, searchSauce: String!): User
     
-    addSearch(searchProtein: String!, searchSauce: String!): Search
+    addSearch(searchProtein: String!, searchSauce: String!): User
   
     addThought(thoughtText: String!): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
+    
     removeSearch(searchId: ID!): Search
     removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    
   }
 `;
 

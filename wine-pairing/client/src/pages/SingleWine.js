@@ -4,6 +4,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
+import CommentList from '../components/CommentList';
+import CommentForm from '../components/CommentForm';
+
 import { QUERY_SINGLE_WINE } from '../utils/queries';
 
 const SingleWine = () => {
@@ -38,10 +41,22 @@ const SingleWine = () => {
             <h6>{wine.region}</h6>
             <h6>{wine.tastingNote}</h6>
             <h6>${wine.price}</h6>
+            {/* save and add to cart buttons */}
+            <div className="mt-4">
+              <button className= "btn btn-sm btn-info shadow mr-2">Save this Wine</button>
+              <button className="btn btn-sm btn-light shadow">Add to cart</button>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
+    <div className="my-5">
+        <CommentList comments={wine.comments} />
+      </div>
+      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+        <CommentForm wineId={wine._id} />
+      </div>
   </main>
   );
 };

@@ -50,6 +50,26 @@ export const QUERY_SEARCHES = gql`
   }
 `;
 
+export const QUERY_WINES = gql`
+  query getWines {
+    wine {
+      _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+    }
+  }
+`;
+
 export const QUERY_THOUGHTS = gql`
   query getThoughts {
     thoughts {
