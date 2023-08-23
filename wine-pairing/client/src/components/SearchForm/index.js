@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
-import Auth from '../../utils/auth';
-import { QUERY_PAIRING } from '../../utils/queries';
 import { ADD_PAIRING } from '../../utils/mutations';
+import { useLazyQuery } from '@apollo/client';
+import { QUERY_PAIRING } from '../../utils/queries';
+import Auth from '../../utils/auth';
+
+
 
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
@@ -17,12 +20,17 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   const { loading: proteinsLoading, error: proteinsError, data: proteinsData } = useQuery(QUERY_PROTEINS);
   const { loading: saucesLoading, error: saucesError, data: saucesData } = useQuery(QUERY_SAUCES);
 
+  if (proteinsLoading || saucesLoading)  return 'Loading Choices...';
+ 
+
   const proteins = proteinsData ? proteinsData.proteins : []; 
   const sauces = saucesData ? saucesData.sauces : []; 
 
   // UseQuery hook to fetch getPairing
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [getPairing, { loading: pairingLoading, error: pairingError, data: pairingData }] = useLazyQuery(QUERY_PAIRING);
-
+  
+  if (pairingError) return `Submission error!`;
 
   //handles form submit
   const handleFormSubmit = async (event) => {

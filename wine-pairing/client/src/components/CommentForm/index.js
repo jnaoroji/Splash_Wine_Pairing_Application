@@ -12,7 +12,10 @@ const CommentForm = ({ wineId }) => {
   const [commentText, setCommentText] = useState('');
   // const [characterCount, setCharacterCount] = useState(0);
 
-  const [addComment, { error }] = useMutation(ADD_COMMENT);
+  const [addComment, { data, loading, error }]= useMutation(ADD_COMMENT);
+
+  if (loading) return 'Submitting comment...';
+  if (error) return `Comment Submission error! ${error.message}`;
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();

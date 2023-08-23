@@ -1,29 +1,53 @@
 import React from 'react';
-
 // Import the `useParams()` hook
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { QUERY_SINGLE_WINE } from '../utils/queries';
+import { useMutation } from '@apollo/client';
+import { ADD_WINE } from '../utils/mutations';
 
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
-
-import { QUERY_SINGLE_WINE } from '../utils/queries';
+import Auth from '../utils/auth';
 
 const SingleWine = () => {
   // Use `useParams()` to retrieve value of the route parameter `:wineId`
   const { wineId } = useParams();
-
-  const { loading, data } = useQuery(QUERY_SINGLE_WINE, {
+  const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
     variables: { wineId},
-  });
-
-  const wine = data?.getSingleWine || {};
-
-
+  })
   if (loading) {
     return <div>Loading...</div>;
   }
+  if (error) {
+    return <div>Loading...</div>;
+  };
+  const wine = data?.getSingleWine || {};
+
+  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
+  if (wineLoading) return `Saving Wine...`;
+  if (wineError) return `Error cant Save your wine choice!`;
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { wineData } = await addWine({
+        variables: {
+          wineId,
+          username: Auth.getProfile().data.username,
+        },
+      });
+
+      return wineData;
+    
+    } catch (err) {
+      console.error(err);
+    }
+
+  };
+
   return (
     <main>
     <div className='pairing-container'>
@@ -44,7 +68,9 @@ const SingleWine = () => {
             <h6>${wine.price}</h6>
             {/* save and add to cart buttons */}
             <div className="mt-4">
-              <button className= "btn btn-sm btn-info shadow mr-2">Save this Wine</button>
+              <button 
+              onClick={handleFormSubmit}
+              className= "btn btn-sm btn-info shadow mr-2">Save this Wine</button>
               <button className="btn btn-sm btn-light shadow">Add to cart</button>
             </div>
 

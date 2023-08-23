@@ -75,13 +75,11 @@ const resolvers = {
     },
     addWine: async (parent, { wineId }, context) => {
       if (context.user) {
-        const wine = await Wine.findById({
-          wineId,
-        });
+        const wine = await Wine.findById(wineId);
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { wines: wine._id } }
+          { $addToSet: { wines: wineId } }
         );
 
         return wine;

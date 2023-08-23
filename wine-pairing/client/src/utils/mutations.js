@@ -54,7 +54,12 @@ export const ADD_PAIRING = gql`
 //   }
 // `;
 
-
+export const ADD_WINE = gql`
+  mutation addWine($wineId: ID!, $username: String!) {
+    addWine(wineId: $wineId, username: $username) {
+      _id
+    }
+`;
 
 export const ADD_COMMENT = gql`
   mutation addComment($wineId: ID!, $commentText: String!) {
