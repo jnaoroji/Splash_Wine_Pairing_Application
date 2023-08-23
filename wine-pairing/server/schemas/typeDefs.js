@@ -56,6 +56,16 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type Order {
+    _id: ID
+    purchaseDate: String
+    wines: [Wine]
+  }
+
+  type Checkout {
+    session: ID
+  }
+
   type Auth {
     token: ID!
     user: User
