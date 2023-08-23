@@ -24,17 +24,6 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_SEARCH = gql`
-  mutation addSearch($searchProtein: String!, $searchSauce: String!) {
-    addSearch(searchProtein: $searchProtein, searchSauce: $searchSauce) {
-      _id
-      searchProtein
-      searchSauce
-      createdAt
-      
-    }
-  }
-`;
 
 export const ADD_PAIRING = gql`
   mutation addPairing($username: String!, $searchProtein: String!, $searchSauce: String!) {
@@ -56,22 +45,6 @@ export const ADD_PAIRING = gql`
   }
 `;
 
-
-
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;
 
 export const ADD_COMMENT = gql`
   mutation addComment($wineId: ID!, $commentText: String!) {
