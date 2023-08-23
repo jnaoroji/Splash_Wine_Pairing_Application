@@ -489,14 +489,6 @@ db.once('open', async () => {
     ]);
   
     console.log('wines seeded');
-
-    await Search.deleteMany();
-
-    await Search.create({
-    searchProtein: '2',
-    searchSauce: '3',
-    createdAt: '2023-08-15T16:48:11.560Z',
-  });
   
 
   } catch (err) {

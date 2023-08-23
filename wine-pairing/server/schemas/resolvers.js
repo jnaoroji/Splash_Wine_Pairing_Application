@@ -1,22 +1,22 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought, Search, Pairing, Wine, Sauce, Protein } = require('../models');
+const { User, Pairing, Wine, Sauce, Protein } = require('../models');
 const { signToken } = require('../utils/auth');
-// const {winePairing} = require('../utils/winePairing')
+
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('searches');
+      return User.find().populate('pairing');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('searches');
+      return User.findOne({ username }).populate('pairing');
     },
-    searches: async (parent, { username }) => {
+    userPairings: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Search.find(params).sort({ createdAt: -1 });
+      return Pairing.find(params);
     },
-    search: async (parent, { searchId }) => {
-      return Search.findOne({ _id: searchId });
+    pairing: async (parent, { pairingId }) => {
+      return Pairing.findOne({ _id: pairingId });
     },
     sauces: async () => {
       return await Sauce.find({});
@@ -24,12 +24,15 @@ const resolvers = {
     proteins: async () => {
       return await Protein.find({});
     },
-    wine: async (parent, { wineId }) => {
-      return Wine.findOne({ _id: wineId });
+    wines: async (parent, args, context) => {
+        return User.findOne({ _id: context.user._id }).populate('wine');
+    },
+    getSingleWine: async (parent, { wineId }, context) => {
+      return Wine.findById({_id: wineId});
     },
     me: async (parent, {searchProtein, searchSauce}, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('searches', {searchProtein, searchSauce});
+        return User.findOne({ _id: context.user._id }).populate('pairing', {searchProtein, searchSauce});
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -38,11 +41,11 @@ const resolvers = {
         protein: searchProtein,
         sauce: searchSauce
       }).populate('category');
-      // console.log('Pairing: ' ,pairing);
+
       const wines = await Wine.find().where('category').in(
         pairing.category
       ).exec();
-      // console.log('Wines: ',wines);
+
       return wines
     }
   },
@@ -74,7 +77,6 @@ const resolvers = {
       if (context.user) {
         const wine = await Wine.findById({
           wineId,
-
         });
 
         await User.findOneAndUpdate(
@@ -86,7 +88,23 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    addPairing: async (parent, { pairingId }, context) => {
+      if (context.user) {
+        const pairing = await Pairing.findById({
+          pairingId,
+          protein: searchProtein,
+          sauce: searchSauce
+        });
 
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { pairings: pairing._id } }
+        );
+
+        return pairing;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     // addThought: async (parent, { thoughtText }, context) => {
     //   if (context.user) {
     //     const thought = await Thought.create({
@@ -103,23 +121,23 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
-    addPairing: async (parent, { searchProtein, searchSauce}, context) => {
-      if (context.user) {
-        const pairing = await Pairing.create({
-          searchProtein,
-          searchSauce
-        });
+    // addPairing: async (parent, { searchProtein, searchSauce}, context) => {
+    //   if (context.user) {
+    //     const pairing = await Pairing.findOne({
+    //       protein: searchProtein,
+    //       sauce: searchSauce
+    //     });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { pairings: pairing._id } }
-        );
-        console.log('Pairing = '+ pairing);
-        return Pairing;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    addComment: async (parent, { wineId, commentText }, context) => {
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $addToSet: { pairings: pairing._id } }
+    //     );
+    //     console.log('Pairing = '+ pairing);
+    //     return pairing;
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
+      addComment: async (parent, { wineId, commentText }, context) => {
       if (context.user) {
         return Wine.findOneAndUpdate(
           { _id: wineId },
@@ -152,16 +170,16 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
-    removeSearch: async (parent, { searchId }, context) => {
+    removePairing: async (parent, { pairingId }, context) => {
       if (context.user) {
-        const search = await Search.findOneAndDelete({
-          _id: searchId,
-          searchAuthor: context.user.username,
+        const pairing = await Pairing.findOneAndDelete({
+          _id: pairingId,
+          
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { searches: search._id } }
+          { $pull: { pairings: pairing._id } }
         );
 
         return search;

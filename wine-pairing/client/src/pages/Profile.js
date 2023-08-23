@@ -2,8 +2,9 @@ import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import SearchForm from '../components/SearchForm';
-import ThoughtList from '../components/ThoughtList';
+// import SearchForm from '../components/SearchForm';
+// import ThoughtList from '../components/ThoughtList';
+// import WineList from '../components/WineList'
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
@@ -12,13 +13,17 @@ import Auth from '../utils/auth';
 const Profile = () => {
   const { username: userParam } = useParams();
 
+
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
+    
   });
-
+  console.log('data', data);
   const user = data?.me || data?.user || {};
+  console.log('user', user);
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+   
     return <Navigate to="/me" />;
   }
 
@@ -41,25 +46,35 @@ const Profile = () => {
         <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
+        <p>this user has {user?.pairings?.length || 0} pairings</p>
+      </div>
 
+
+        {/* <p>${user.pairings}</p> */}
         <div className="col-12 col-md-10 mb-5">
-          <ThoughtList
+          {/* <WineList
+            pairings={user.pairings}
+            title={`${user.username}'s thoughts...`}
+            showTitle={false}
+            showUsername={false}
+          /> */}
+          {/* <ThoughtList
             thoughts={user.thoughts}
             title={`${user.username}'s thoughts...`}
             showTitle={false}
             showUsername={false}
-          />
+          /> */}
         </div>
-        {!userParam && (
+        {/* {!userParam && (
           <div
             className="col-12 col-md-10 mb-3 p-3"
             style={{ border: '1px dotted #1a1a1a' }}
           >
             <SearchForm />
           </div>
-        )}
+        )} */}
       </div>
-    </div>
+  
   );
 };
 

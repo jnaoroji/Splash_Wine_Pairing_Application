@@ -1,18 +1,87 @@
 import { gql } from '@apollo/client';
 
+export const QUERY_USERS = gql`
+  query Users {
+    users {
+      _id
+      username
+      email
+      password
+      pairing {
+        _id
+        category
+        protein
+        sauce
+      }
+      wine {
+        _id
+        name
+        vintage
+        varietal
+        region
+        image
+        tastingNote
+        price
+        quantity
+        category {
+          _id
+          name
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
+        }
+    }
+  }
+}
+`;
+
 export const QUERY_USER = gql`
-  query user($username: String!) {
+  query User($username: String!) {
     user(username: $username) {
       _id
       username
       email
-      searches {
+      password
+      pairing {
         _id
-        searchProtein
-        searchSauce
-        createdAt
-       
+        category
+        protein
+        sauce
       }
+      wine {
+        _id
+        name
+        vintage
+        varietal
+        region
+        image
+        tastingNote
+        price
+        quantity
+        category {
+          _id
+          name
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
+        }
+    }
+  }
+}  
+`;
+
+export const QUERY_PROTEINS = gql`
+  query getProteins {
+    proteins {
+      _id
+      name
+      value
     }
   }
 `;
@@ -27,90 +96,9 @@ export const QUERY_SAUCES = gql`
   }
 `;
 
-export const QUERY_PROTEINS = gql`
-  query getProteins {
-    proteins {
-      _id
-      name
-      value
-    }
-  }
-`;
-
-
-export const QUERY_SEARCHES = gql`
-  query getSearches {
-    searches {
-      _id
-      searchProtein
-      searchSauce
-      createdAt
-     
-    }
-  }
-`;
-
-export const QUERY_WINES = gql`
-  query getWines {
-    wine {
-      _id
-      name
-      vintage
-      varietal
-      region
-      image
-      tastingNote
-      price
-      quantity
-      category {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_SEARCH = gql`
-  query getSingleSearch($searchId: ID!) {
-    search(searchId: $searchId) {
-      _id
-      searchProtein
-      searchSauce
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
-    }
-  }
-`;
-export const QUERY_SINGLE_WINE = gql`
-query getSingleWine($wineId: String!) {
-  wine(wineId: $wineId) {
+export const QUERY_USER_WINES = gql`
+  query getUserWines($username: String) {
+  wines(username: $username) {
     _id
     name
     vintage
@@ -123,6 +111,39 @@ query getSingleWine($wineId: String!) {
     category {
       _id
       name
+    }
+    comments {
+      _id
+      commentText
+      commentAuthor
+      createdAt
+    }
+  }
+}
+`;
+
+
+export const QUERY_SINGLE_WINE = gql`
+  query getSingleWine($wineId: ID!) {
+    getSingleWine(wineId: $wineId) {
+    _id
+    name
+    vintage
+    varietal
+    region
+    image
+    tastingNote
+    price
+    quantity
+    category {
+      _id
+      name
+    }
+    comments {
+      _id
+      commentText
+      commentAuthor
+      createdAt
     }
   }
 }
@@ -147,18 +168,62 @@ query getPairing($searchProtein: String!, $searchSauce: String!) {
 }
 `;
 
+export const QUERY_PAIRING_BY_ID = gql`
+  query getPairingById($pairingId: ID!) {
+    pairing(pairingId: $pairingId) {
+      _id
+      category
+      protein
+      sauce
+  }
+}
+`;
+
+export const USER_PAIRINGS = gql`
+  query userPairings($username: String) {
+    userPairings(username: $username) {
+      _id
+      category
+      protein
+      sauce
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   query me {
     me {
       _id
       username
       email
-      searches {
+      password
+      pairing {
         _id
-        searchProtein
-        searchSauce
-        createdAt
+        category
+        protein
+        sauce
       }
-    }
+      wine {
+        _id
+        name
+        vintage
+        varietal
+        region
+        image
+        tastingNote
+        price
+        quantity
+        category {
+          _id
+          name
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
+        }
+      }
   }
+}
 `;

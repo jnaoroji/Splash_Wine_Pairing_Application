@@ -6,14 +6,30 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    searches: [Search]!
+    pairing: [Pairing]
+    wine: [Wine]
   }
 
-  type Search {
+  type Pairing{
     _id: ID
-    searchProtein: String
-    searchSauce: String
-    createdAt: String
+    category: [ID]
+    protein: ID
+    sauce: ID
+  }
+
+  type Wine{
+    _id:ID
+    name: String!
+    vintage: String
+    varietal: String
+    region: String
+    image: String
+    tastingNote: String!
+    price: Float
+    quantity: Int
+    category: Category
+    comments: [Comment]
+    
   }
 
   type Sauce {
@@ -33,37 +49,6 @@ const typeDefs = gql`
     name: String
   }
 
-  type Wine{
-    _id:ID
-    name: String!
-    vintage: String
-    varietal: String
-    region: String
-    image: String
-    tastingNote: String!
-    price: Float
-    quantity: Int
-    category: Category
-    comments: [Comment]!
-    
-  }
-
-  type Thought {
-    _id: ID
-    thoughtText: String
-    thoughtAuthor: String
-    createdAt: String
-    comments: [Comment]!
-  }
-
-  type Search {
-    _id: ID
-    searchProtein: String
-    searchSauce: String
-    createdAt: String
-    comments: [Comment]!
-  }
-
   type Comment {
     _id: ID
     commentText: String
@@ -81,37 +66,23 @@ const typeDefs = gql`
     sauces: [Sauce]
     proteins: [Protein]
     user(username: String!): User
-    wine(wineId: String!): Wine
+    getSingleWine(wineId: ID!): Wine
     getPairing(searchProtein: String!, searchSauce: String!): [Wine]
     me: User
-    wines(username: String): [Wine]
-    thoughts(username: String): [Thought]
-    searches(username: String): [Search]
-    thought(thoughtId: ID!): Thought
-    search(searchId: ID!): Search
-    
-    
-   
+    wines(username: String!): [Wine]
+    userPairings(username: String): [Pairing]
+    pairing(pairingId: ID!): Pairing
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPairing(username: String!, searchProtein: String!, searchSauce: String!): [Wine]
-
     addComment(wineId: ID!): Wine
     removeComment(wineId: ID!, commentId: ID!): Wine
-
     addWine(username: String!): User
     savePairing(searchProtein: String!, searchSauce: String!): User
-    
-    addSearch(searchProtein: String!, searchSauce: String!): User
-  
-    addThought(thoughtText: String!): Thought
-    
-    removeSearch(searchId: ID!): Search
-    removeThought(thoughtId: ID!): Thought
-    
+    removePairing(pairingId: ID!): Pairing
   }
 `;
 
