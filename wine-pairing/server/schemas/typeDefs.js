@@ -71,6 +71,16 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type Order {
+    _id: ID
+    purchaseDate: String
+    wines: [Wine]
+  }
+
+  type Checkout {
+    session: ID
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -85,6 +95,8 @@ const typeDefs = gql`
     getPairing(searchProtein: String!, searchSauce: String!): [Wine]
     me: User
     wines(username: String): [Wine]
+    order(_id: ID!): Order
+  
     thoughts(username: String): [Thought]
     searches(username: String): [Search]
     thought(thoughtId: ID!): Thought
@@ -104,7 +116,8 @@ const typeDefs = gql`
 
     addWine(username: String!): User
     savePairing(searchProtein: String!, searchSauce: String!): User
-    
+    addOrder(wines: [ID]!): Order
+
     addSearch(searchProtein: String!, searchSauce: String!): User
   
     addThought(thoughtText: String!): Thought
