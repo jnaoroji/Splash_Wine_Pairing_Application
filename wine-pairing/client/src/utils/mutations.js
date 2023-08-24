@@ -25,32 +25,16 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_PAIRING = gql`
-  mutation addPairing(
-    $username: String!
-    $searchProtein: String!
-    $searchSauce: String!
-  ) {
-    addPairing(
-      username: $username
-      Protein: $searchProtein
-      Sauce: $searchSauce
-    ) {
-      _id
-      name
-      vintage
-      varietal
-      region
-      image
-      tastingNote
-      price
-      quantity
-      category {
-        _id
-        name
-      }
-    }
+mutation Mutation($pairingId: ID!, $username: String!) {
+  addPairing(pairingId: $pairingId, username: $username) {
+    _id
+    category
+    protein
+    sauce
   }
+}
 `;
+
 
 export const ADD_USER_PAIRING = gql`
   mutation addUserPairing($username: String!, $pairingId: ID) {

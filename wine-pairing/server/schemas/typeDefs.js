@@ -70,24 +70,30 @@ const typeDefs = gql`
     user: User
   }
 
+  type PairingResult {
+    pairingId: ID!
+    wines: [Wine]!
+  }
+
   type Query {
     users: [User]
     sauces: [Sauce]
     proteins: [Protein]
     user(username: String!): User
     getSingleWine(wineId: ID!): Wine
-    getPairing(searchProtein: String!, searchSauce: String!): [Wine]
+    getPairing(searchProtein: String!, searchSauce: String!): PairingResult
     me: User
 
     wines(username: String!): [Wine]
     userPairings(username: String): [Pairing]
-    pairing(pairingId: ID!): Pairing
+
+    pairing(pairingId: ID!):Pairing
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addPairing(username: String!, searchProtein: String!, searchSauce: String!): [Wine]
+    addPairing(pairingId: ID!, username: String!): Pairing
     addWine(wineId: ID!, username: String!): User
 
     addComment(wineId: ID!, commentText: String!, username: String!): Wine

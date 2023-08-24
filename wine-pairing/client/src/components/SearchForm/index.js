@@ -20,18 +20,16 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   const { loading: saucesLoading, error: saucesError, data: saucesData } = useQuery(QUERY_SAUCES);
     // UseQuery hook to fetch getPairing
   const [getPairing, { loading: pairingLoading, error: pairingError, data: pairingData }] = useLazyQuery(QUERY_PAIRING);
-  
-  if (proteinsLoading || saucesLoading)  return 'Loading Choices...';
  
 
+  
+  if (proteinsLoading || saucesLoading)  return 'Loading...';
+ 
   const proteins = proteinsData ? proteinsData.proteins : []; 
   const sauces = saucesData ? saucesData.sauces : []; 
 
-
-
-
   
-  if (pairingError) return `Submission error!`;
+  if (pairingError) return `Error!, Try Again`;
 
   //handles form submit
   const handleFormSubmit = async (event) => {
@@ -57,37 +55,23 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         searchSauce: selectedSauceObject._id,
       },
     });
+  
+   
+    
+
     setSearchActive(true);
 
   };
 
   const handleAddPairing = () => {
-    // Execute the mutation with the current searchProtein and searchSauce values
 
-    // Use the selectedProtein value to find the associated ObjectId
-    const selectedProteinObject = proteins.find((protein) => protein.name === searchProtein);
-    if (!selectedProteinObject) {
-      console.error('Selected protein not found in the protein data.');
-      return;
-    }
-
-    // Use the selectedSauce value to find the associated ObjectId
-    const selectedSauceObject = sauces.find((sauce) => sauce.name === searchSauce);
-    if (!selectedSauceObject) {
-      console.error('Selected sauce not found in the sauces data.');
-      return;
-    }
-    
-
-    const username = Auth.getProfile()?.data?.username;
-
-    
+    const pairingId = (pairingData.getPairing.pairingId);
+  
 
     addPairing({
       variables: {
-        username,
-        searchProtein: selectedProteinObject._id,
-        searchSauce: selectedSauceObject._id,
+        username: Auth.getProfile()?.data?.username,
+        pairingId,
       },
     })
       .then((response) => {
@@ -199,7 +183,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       {pairingData && pairingData.getPairing && (
         <div className='pairing-container'>
           {/* Renders pairing results*/}
-          {pairingData.getPairing.map((pairing) => (
+          {pairingData.getPairing.wines.map((pairing) => (
             <Link to={`/wine/${pairing._id}`} className ="pair-card shadow" key={pairing._id} style={{ color: 'black' }}>
               
               <div style={{ width: 240 }}>

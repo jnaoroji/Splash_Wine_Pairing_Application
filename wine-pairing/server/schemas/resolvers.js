@@ -48,8 +48,11 @@ const resolvers = {
       const wines = await Wine.find().where('category').in(
         pairing.category
       ).exec();
-
-      return wines
+      
+      return {
+        pairingId: pairing._id, // Return the pairingId
+        wines: wines, // Return the wines
+      };
     }
   },
 // const records = await Model.find().where('_id').in(ids).exec();
@@ -92,20 +95,20 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
     //check
-    addPairing: async (parent, { pairingId }, context) => {
+    addPairing: async (parent,  {pairingId,} , context) => {
       if (context.user) {
-        const pairing = await Pairing.findById({
-          pairingId,
-          protein: searchProtein,
-          sauce: searchSauce
+        const pairing = await Pairing.findByIdAndUpdate({
+          _id: pairingId,
+
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { pairings: pairing._id } }
+          { $addToSet: { pairing: pairing._id } }
         );
-
+        console.log('pairing', pairing);
         return pairing;
+       
       }
       throw new AuthenticationError('You need to be logged in!');
     },

@@ -150,17 +150,20 @@ export const QUERY_SINGLE_WINE = gql`
 export const QUERY_PAIRING = gql`
   query getPairing($searchProtein: String!, $searchSauce: String!) {
     getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
-      _id
-      name
-      vintage
-      varietal
-      region
-      image
-      tastingNote
-      price
-      quantity
-      category {
+      pairingId
+      wines {
         _id
+        name
+        vintage
+        varietal
+        region
+        image
+        tastingNote
+        price
+        quantity
+        category {
+          _id
+        }
       }
     }
   }
@@ -169,6 +172,17 @@ export const QUERY_PAIRING = gql`
 export const QUERY_PAIRING_BY_ID = gql`
   query getPairingById($pairingId: ID!) {
     pairing(pairingId: $pairingId) {
+      _id
+      category
+      protein
+      sauce
+    }
+  }
+`;
+
+export const QUERY_GET_PAIRING_ID = gql`
+  query getPairingId($searchProtein: String!, $searchSauce: String!) {
+    getPairingId(searchProtein: $searchProtein, searchSauce: $searchSauce) {
       _id
       category
       protein
@@ -189,7 +203,7 @@ export const USER_PAIRINGS = gql`
 `;
 
 export const QUERY_ME = gql`
-  query Me{
+  query Me {
     me {
       _id
       username
