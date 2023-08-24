@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -24,10 +24,17 @@ export const ADD_USER = gql`
   }
 `;
 
-
 export const ADD_PAIRING = gql`
-  mutation addPairing($username: String!, $searchProtein: String!, $searchSauce: String!) {
-    addPairing(username: $username, Protein: $searchProtein, Sauce: $searchSauce){
+  mutation addPairing(
+    $username: String!
+    $searchProtein: String!
+    $searchSauce: String!
+  ) {
+    addPairing(
+      username: $username
+      Protein: $searchProtein
+      Sauce: $searchSauce
+    ) {
       _id
       name
       vintage
@@ -45,20 +52,24 @@ export const ADD_PAIRING = gql`
   }
 `;
 
-// export const ADD_USER_PAIRING = gql`
-//   mutation addUserPairing($username: String!, $pairingId: ID) {
-//     addUserPairing(username: $username, pairingId:ID){
-//       pairing{
-//         _id
-//       }
-//   }
-// `;
+export const ADD_USER_PAIRING = gql`
+  mutation addUserPairing($username: String!, $pairingId: ID) {
+    addUserPairing(username: $username, pairingId: ID) {
+      pairing {
+        _id
+      }
+    }
+  }
+`;
 
 export const ADD_WINE = gql`
   mutation addWine($wineId: ID!, $username: String!) {
     addWine(wineId: $wineId, username: $username) {
-      _id
+      wine {
+        _id
+      }
     }
+  }
 `;
 
 export const ADD_COMMENT = gql`

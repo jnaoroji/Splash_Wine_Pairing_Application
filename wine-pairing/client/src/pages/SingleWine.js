@@ -1,10 +1,10 @@
 import React from 'react';
 // Import the `useParams()` hook
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useParams, Link, redirect } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
+
 import { QUERY_SINGLE_WINE } from '../utils/queries';
-import { useMutation } from '@apollo/client';
-import { ADD_WINE } from '../utils/mutations';
+import { ADD_WINE} from '../utils/mutations';
 
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
@@ -25,6 +25,7 @@ const SingleWine = () => {
   };
   const wine = data?.getSingleWine || {};
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   if (wineLoading) return `Saving Wine...`;
   if (wineError) return `Error cant Save your wine choice!`;
@@ -39,13 +40,17 @@ const SingleWine = () => {
           username: Auth.getProfile().data.username,
         },
       });
-
+      // redirect `/me`;
       return wineData;
+      //navigate to /me
+      
+  
     
     } catch (err) {
       console.error(err);
     }
 
+  // add comment mutation
   };
 
   return (

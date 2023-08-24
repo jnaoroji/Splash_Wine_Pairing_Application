@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
 import { ADD_PAIRING } from '../../utils/mutations';
-import { useLazyQuery } from '@apollo/client';
+
 import { QUERY_PAIRING } from '../../utils/queries';
 import Auth from '../../utils/auth';
 

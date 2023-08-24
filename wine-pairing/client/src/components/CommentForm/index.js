@@ -28,7 +28,7 @@ const CommentForm = ({ wineId }) => {
           commentAuthor: Auth.getProfile().data.username,
         },
       });
-
+      return data;
       setCommentText('');
     } catch (err) {
       console.error(err);

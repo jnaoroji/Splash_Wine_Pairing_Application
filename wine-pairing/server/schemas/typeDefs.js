@@ -79,6 +79,7 @@ const typeDefs = gql`
     getSingleWine(wineId: ID!): Wine
     getPairing(searchProtein: String!, searchSauce: String!): [Wine]
     me: User
+
     wines(username: String!): [Wine]
     userPairings(username: String): [Pairing]
     pairing(pairingId: ID!): Pairing
@@ -88,9 +89,11 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPairing(username: String!, searchProtein: String!, searchSauce: String!): [Wine]
-    addComment(wineId: ID!): Wine
-    removeComment(wineId: ID!, commentId: ID!): Wine
     addWine(wineId: ID!, username: String!): User
+
+    addComment(wineId: ID!, commentText: String!, username: String!): Wine
+    removeComment(wineId: ID!, commentId: ID!): Wine
+   
     savePairing(searchProtein: String!, searchSauce: String!): User
     addUserPairing(pairingId: ID!, username: String): User
     removePairing(pairingId: ID!): Pairing
