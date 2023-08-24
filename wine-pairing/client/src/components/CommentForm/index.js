@@ -12,7 +12,7 @@ const CommentForm = ({ wineId }) => {
   const [commentText, setCommentText] = useState('');
   // const [characterCount, setCharacterCount] = useState(0);
 
-  const [addComment, { data, loading, error }]= useMutation(ADD_COMMENT);
+  const [addComment, { loading, error, data }]= useMutation(ADD_COMMENT);
 
   if (loading) return 'Submitting comment...';
   if (error) return `Comment Submission error! ${error.message}`;
@@ -20,16 +20,20 @@ const CommentForm = ({ wineId }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    // const commentAuthor = Auth.getProfile()?.data?.username;
     try {
       const { data } = await addComment({
         variables: {
           wineId,
           commentText,
-          commentAuthor: Auth.getProfile().data.username,
+          commentAuthor: Auth.getProfile()?.data?.username
         },
       });
-      return data;
+      
       setCommentText('');
+      return data;
+
+      
     } catch (err) {
       console.error(err);
     }

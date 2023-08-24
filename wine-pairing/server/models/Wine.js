@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 const { Schema } = mongoose;
 
@@ -47,6 +48,10 @@ const wineSchema = new Schema({
         required: true,
         minlength: 1,
         maxlength: 280,
+      },
+      commentAuthor: {
+        type: String,
+        required: true,
       },
       createdAt: {
         type: Date,

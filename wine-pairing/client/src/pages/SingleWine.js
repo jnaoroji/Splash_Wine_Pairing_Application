@@ -1,8 +1,7 @@
 import React from 'react';
 // Import the `useParams()` hook
-import { useParams, Link, redirect } from 'react-router-dom';
+import { useParams, Navigate} from 'react-router-dom';//use link or redirect when implemented
 import { useQuery, useMutation } from '@apollo/client';
-
 import { QUERY_SINGLE_WINE } from '../utils/queries';
 import { ADD_WINE} from '../utils/mutations';
 
@@ -17,12 +16,10 @@ const SingleWine = () => {
     // pass URL parameter
     variables: { wineId},
   })
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
+  if (loading|| error) {
     return <div>Loading...</div>;
   };
+
   const wine = data?.getSingleWine || {};
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -40,17 +37,14 @@ const SingleWine = () => {
           username: Auth.getProfile().data.username,
         },
       });
-      // redirect `/me`;
-      return wineData;
-      //navigate to /me
-      
-  
+
+      if (Auth.loggedIn() && Auth.getProfile().data.username) {
+      return <Navigate to="/me" />;
+      }
     
     } catch (err) {
       console.error(err);
-    }
-
-  // add comment mutation
+    };
   };
 
   return (

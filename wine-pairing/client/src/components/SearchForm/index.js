@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
-import { QUERY_PROTEINS, QUERY_SAUCES} from '../../utils/queries';
+import { QUERY_PROTEINS, QUERY_SAUCES, QUERY_PAIRING} from '../../utils/queries';
 import { ADD_PAIRING } from '../../utils/mutations';
 
-import { QUERY_PAIRING } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 
@@ -77,9 +76,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       return;
     }
     
-    // console.log(selectedProteinObject);
-    // console.log(selectedSauceObject);
-    // console.log(Auth.getProfile());
+
     const username = Auth.getProfile()?.data?.username;
 
     

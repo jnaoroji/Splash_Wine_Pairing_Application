@@ -73,13 +73,14 @@ export const ADD_WINE = gql`
 `;
 
 export const ADD_COMMENT = gql`
-  mutation addComment($wineId: ID!, $commentText: String!) {
-    addComment(wineId: $wineId, commentText: $commentText) {
+  mutation addComment($wineId: ID!, $commentText: String!, $commentAuthor: String!) {
+    addComment(wineId: $wineId, commentText: $commentText, commentAuthor: $commentAuthor) {
       _id
       comments {
         _id
         commentText
-        createdAt
+        commentAuthor
+       
       }
     }
   }

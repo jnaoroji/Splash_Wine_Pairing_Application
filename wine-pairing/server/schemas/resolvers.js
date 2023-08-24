@@ -6,10 +6,10 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('pairing');
+      return User.find().populate('pairing', 'wine');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('pairing');
+      return User.findOne({ username }).populate('pairing', 'wine');
     },
     // not working
     userPairings: async (parent, { username }) => {
@@ -33,9 +33,9 @@ const resolvers = {
       return Wine.findById({_id: wineId});
     },
     // check
-    me: async (parent, {searchProtein, searchSauce}, context) => {
+    me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('pairing', {pairingId});
+        return User.findOne({ _id: context.user._id }).populate('pairing', 'wine');
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -158,13 +158,15 @@ const resolvers = {
     //   throw new AuthenticationError('You need to be logged in!');
     // },
     //check
-      addComment: async (parent, { wineId, commentText }, context) => {
+      addComment: async (parent, { wineId, commentText, commentAuthor }, context) => {
       if (context.user) {
         return Wine.findOneAndUpdate(
           { _id: wineId },
           {
             $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
+              comments: { 
+                commentText, 
+                commentAuthor: context.user.username }
             },
           },
           {

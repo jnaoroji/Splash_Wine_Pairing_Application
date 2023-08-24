@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USERS = gql`
   query Users {
@@ -33,9 +33,9 @@ export const QUERY_USERS = gql`
           commentAuthor
           createdAt
         }
+      }
     }
   }
-}
 `;
 
 export const QUERY_USER = gql`
@@ -71,9 +71,9 @@ export const QUERY_USER = gql`
           commentAuthor
           createdAt
         }
+      }
     }
   }
-}  
 `;
 
 export const QUERY_PROTEINS = gql`
@@ -98,74 +98,73 @@ export const QUERY_SAUCES = gql`
 
 export const QUERY_USER_WINES = gql`
   query getUserWines($username: String) {
-  wines(username: $username) {
-    _id
-    name
-    vintage
-    varietal
-    region
-    image
-    tastingNote
-    price
-    quantity
-    category {
+    wines(username: $username) {
       _id
       name
-    }
-    comments {
-      _id
-      commentText
-      commentAuthor
-      createdAt
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
     }
   }
-}
 `;
-
 
 export const QUERY_SINGLE_WINE = gql`
   query getSingleWine($wineId: ID!) {
     getSingleWine(wineId: $wineId) {
-    _id
-    name
-    vintage
-    varietal
-    region
-    image
-    tastingNote
-    price
-    quantity
-    category {
       _id
       name
-    }
-    comments {
-      _id
-      commentText
-      commentAuthor
-      createdAt
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
     }
   }
-}
 `;
 
 export const QUERY_PAIRING = gql`
-query getPairing($searchProtein: String!, $searchSauce: String!) {
-  getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
-    _id
-    name
-    vintage
-    varietal
-    region
-    image
-    tastingNote
-    price
-    quantity
-    category {
+  query getPairing($searchProtein: String!, $searchSauce: String!) {
+    getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
       _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+      }
     }
   }
-}
 `;
 
 export const QUERY_PAIRING_BY_ID = gql`
@@ -175,8 +174,8 @@ export const QUERY_PAIRING_BY_ID = gql`
       category
       protein
       sauce
+    }
   }
-}
 `;
 
 export const USER_PAIRINGS = gql`
@@ -191,7 +190,7 @@ export const USER_PAIRINGS = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
+  query Me{
     me {
       _id
       username
@@ -224,6 +223,6 @@ export const QUERY_ME = gql`
           createdAt
         }
       }
+    }
   }
-}
 `;

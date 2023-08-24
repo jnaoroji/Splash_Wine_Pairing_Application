@@ -12,12 +12,14 @@ import Auth from '../utils/auth';
 
 const Profile = () => {
   const { username: userParam } = useParams();
+  console.log('userParam', userParam);
 
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
     
   });
+  console.log({ username: userParam });
   console.log('data', data);
   const user = data?.me || data?.user || {};
   console.log('user', user);
@@ -39,6 +41,9 @@ const Profile = () => {
       </h4>
     );
   }
+  console.log('Is Logged In:', Auth.loggedIn());
+  console.log('Username from Auth:', Auth.getProfile().data.username);
+  console.log('Username from useParams:', userParam);
 
   return (
     <div>
