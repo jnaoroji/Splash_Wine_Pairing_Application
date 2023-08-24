@@ -38,41 +38,25 @@ export const QUERY_USERS = gql`
   }
 `;
 
+
+
 export const QUERY_USER = gql`
-  query User($username: String!) {
-    user(username: $username) {
+query user($username: String!) {
+  user(username: $username) {
+    _id
+    username
+    email
+    pairing {
       _id
-      username
-      email
-      pairing {
+    }
+    wine {
+      _id
+      comments {
         _id
-        category
-        protein
-        sauce
-      }
-      wine {
-        _id
-        name
-        vintage
-        varietal
-        region
-        image
-        tastingNote
-        price
-        quantity
-        category {
-          _id
-          name
-        }
-        comments {
-          _id
-          commentText
-          commentAuthor
-          createdAt
-        }
       }
     }
   }
+}
 `;
 
 export const QUERY_PROTEINS = gql`
@@ -203,36 +187,18 @@ export const USER_PAIRINGS = gql`
 `;
 
 export const QUERY_ME = gql`
-  query Me {
+  query me {
     me {
       _id
       username
       email
       pairing {
         _id
-        category
-        protein
-        sauce
       }
       wine {
         _id
-        name
-        vintage
-        varietal
-        region
-        image
-        tastingNote
-        price
-        quantity
-        category {
-          _id
-          name
-        }
         comments {
           _id
-          commentText
-          commentAuthor
-          createdAt
         }
       }
     }
