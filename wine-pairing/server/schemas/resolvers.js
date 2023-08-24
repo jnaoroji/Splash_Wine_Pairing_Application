@@ -161,7 +161,7 @@ const resolvers = {
     //   throw new AuthenticationError('You need to be logged in!');
     // },
     //check
-      addComment: async (parent, { wineId, commentText, commentAuthor }, context) => {
+      addComment: async (parent, { wineId, commentText}, context) => {
       if (context.user) {
         return Wine.findOneAndUpdate(
           { _id: wineId },

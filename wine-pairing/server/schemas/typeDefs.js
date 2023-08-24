@@ -96,7 +96,7 @@ const typeDefs = gql`
     addPairing(pairingId: ID!, username: String!): Pairing
     addWine(wineId: ID!, username: String!): User
 
-    addComment(wineId: ID!, commentText: String!, username: String!): Wine
+    addComment(wineId: ID!, commentText: String!, commentAuthor: String!): Wine
     removeComment(wineId: ID!, commentId: ID!): Wine
    
     savePairing(searchProtein: String!, searchSauce: String!): User
