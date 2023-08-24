@@ -4,14 +4,13 @@ import { useQuery } from '@apollo/client';
 
 // import SearchForm from '../components/SearchForm';
 // import ThoughtList from '../components/ThoughtList';
-// import WineList from '../components/WineList'
+
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
 const Profile = () => {
-
   const { username: userParam } = useParams();
   console.log('userParam', userParam);
 
