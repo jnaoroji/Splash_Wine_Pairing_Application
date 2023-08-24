@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 import { QUERY_PROTEINS, QUERY_SAUCES, QUERY_PAIRING} from '../../utils/queries';
 import { ADD_PAIRING } from '../../utils/mutations';
-
 import Auth from '../../utils/auth';
 
 
@@ -55,9 +54,6 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         searchSauce: selectedSauceObject._id,
       },
     });
-  
-   
-    
 
     setSearchActive(true);
 
@@ -100,7 +96,6 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         searchSauce: '',
       },
     });
-
     setSearchActive(false);
   };
   
@@ -118,9 +113,10 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
 
               {/* Drop-downs with search criteria */}
               <select
+                  
                   name="selectedProtein"
                   defaultValue="0"
-                  className="form-select btn-lg ml-2 mr-4"
+                  className="form-select form-select-mobile btn-lg ml-2 mr-4"
                   aria-label="Protien"
                   onChange={(event) => setSearchProtein(event.target.value)}
                 >
@@ -133,9 +129,10 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 </select>
 
               <select
+                  
                   name="selectedSauce"
                   defaultValue="0"
-                  className="form-select btn-lg mr-4"
+                  className="form-select form-select-mobile btn-lg mr-4"
                   aria-label="Sauce"
                   onChange={(event) => setSearchSauce(event.target.value)}
                 >
@@ -148,7 +145,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 </select>
 
               <div>
-                <button className="btn btn-info btn-sm mr-2" type="submit">
+                <button className="btn btn-search-mobile btn-info btn-sm mr-2" type="submit">
                 <i className="fas fa-search" aria-hidden="true"></i>
                 </button>
 
@@ -174,52 +171,56 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                 <Link className='text-info' to="/login">login</Link> or <Link className= "text-info" to="/signup">signup.</Link>
               </p>
             )}
+
+
+            {pairingLoading && <p>Loading...</p>}
+                  {pairingData && pairingData.getPairing && (
+                    <div className='pairing-container'>
+                      {/* Renders pairing results*/}
+                      {pairingData.getPairing.wines.map((pairing) => (
+                        <Link to={`/wine/${pairing._id}`} className ="pair-card shadow" key={pairing._id} style={{ color: 'black' }}>
+                          
+                          <div style={{ width: 240 }}>
+                            <div>
+                              <img alt={pairing.name} height="400px" src={pairing.image}/>
+                            </div>
+                            <div className="custom-card mt-4">
+                              <div className="d-flex justify-content-between">
+                                <span><h6>{pairing.name}</h6></span><span><h6>${pairing.price}</h6></span>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                      ))}
+                    </div>
+                  )}
+                    {/* Conditionally render the buttons based on searchActive */}
+                    {searchActive && (
+                            <div className="flex-row mt-4">
+                              <button
+                                className="btn btn-info btn-sm mr-3 mt-4"
+                                type="button"
+                                onClick={handleClearForm}
+                              >
+                                Start a new Search
+                              </button>
+                              <button
+                                className="btn btn-info btn-sm mt-4"
+                                type="button"
+                                onClick={handleAddPairing}
+                              >
+                                Save to My Pairings
+                              </button>
+                            </div>
+                          )}
+
       </div>
     </div>
 
       
 
-      {pairingLoading && <p>Loading...</p>}
-      {pairingData && pairingData.getPairing && (
-        <div className='pairing-container'>
-          {/* Renders pairing results*/}
-          {pairingData.getPairing.wines.map((pairing) => (
-            <Link to={`/wine/${pairing._id}`} className ="pair-card shadow" key={pairing._id} style={{ color: 'black' }}>
-              
-              <div style={{ width: 240 }}>
-                <div>
-                  <img alt={pairing.name} height="400px" src={pairing.image}/>
-                </div>
-                <div className="custom-card mt-4">
-                  <div className="d-flex justify-content-between">
-                    <span><h6>{pairing.name}</h6></span><span><h6>${pairing.price}</h6></span>
-                  </div>
-                </div>
-              </div>
-            </Link>
 
-          ))}
-        </div>
-      )}
-      {/* Conditionally render the buttons based on searchActive */}
-      {searchActive && (
-              <div className="mt-4 text-right">
-                <button
-                  className="btn btn-info btn-sm mr-3"
-                  type="button"
-                  onClick={handleClearForm}
-                >
-                  Start a new Search
-                </button>
-                <button
-                  className="btn btn-info btn-sm"
-                  type="button"
-                  onClick={handleAddPairing}
-                >
-                  Save to My Pairings
-                </button>
-              </div>
-            )}
 
     </main>
   );

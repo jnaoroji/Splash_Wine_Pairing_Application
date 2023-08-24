@@ -50,40 +50,39 @@ const SingleWine = () => {
 
   return (
     <main>
-    <div className='pairing-container'>
+    <div className='flex-row my-4'>
       {/* Renders wine */}
-      <div className="pair-card shadow" key={wine._id} style={{ color: 'black', display: 'flex', alignItems: 'center' }}>
+      <div className="flex-row bg-trans pair-card shadow col-12 mb-3 pb-3" key={wine._id} style={{ color: 'black', display: 'flex', alignItems: 'center' }}>
         {/* Container for the image */}
-        <div style={{ width: '400px', marginRight: '20px' }}>
+        <div className="wine-image-container .col-xs-6 .col-md-4"style={{width: '400px', marginRight: '20px' }}>
           <img alt={wine.name} height="600px" src={wine.image} />
         </div>
         {/* Container for the content */}
-        <div style={{ flex: 1, width: '600px', marginRight: '20px' }}>
-          <div className="custom-card mt-4">
+        <div style={{width: '600px', marginRight: '20px' }}>
+          <div className="wine-info-container mt-4 .col-xs-12 .col-sm-6 .col-md-8">
             <h4>{wine.name} {wine.vintage}</h4>
-            
             <h6>{wine.varietal}</h6>
             <h6>{wine.region}</h6>
-            <h6>{wine.tastingNote}</h6>
+            <h6 className='text-wrap'>{wine.tastingNote}</h6>
             <h6>${wine.price}</h6>
             {/* save and add to cart buttons */}
             <div className="mt-4">
               <button 
               onClick={handleFormSubmit}
-              className= "btn btn-sm btn-info shadow mr-2">Save this Wine</button>
-              <button className="btn btn-sm btn-light shadow">Add to cart</button>
+              className= "btn btn-sm btn-info shadow mt-5 mb-5">Save this Wine</button>
+              {/* <button className="btn btn-sm btn-light shadow m-2">Add to cart</button> */}
             </div>
-
           </div>
         </div>
       </div>
     </div>
-    <div className="my-5">
-        <CommentList comments={wine.comments} />
-      </div>
-      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+    <div className="my-5 m-3 p-4 bg-trans shadow">
         <CommentForm wineId={wine._id} />
       </div>
+    <div className="m-3 p-4">
+        <CommentList comments={wine.comments} />
+      </div>
+
   </main>
   );
 };

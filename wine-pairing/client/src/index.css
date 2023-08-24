@@ -972,6 +972,9 @@ a:hover {
 .bg-link {
   background-color: #1b89bc !important;
 }
+.bg-trans{
+  background-color: rgba(254, 253, 253, 0.8) !important;
+}
 
 /* DISPLAY */
 .display-none {
@@ -1008,7 +1011,10 @@ a:hover {
   background-color: #aeaeae;
   transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
-
+.btn-search{
+  display: inline-block;
+  margin:4px;
+}
 .btn:hover {
   background-color: #cecece;
 }
@@ -1125,7 +1131,6 @@ a:hover {
 
 .card {
   min-width:500px;
-  border: 1px solid #461220;
   margin-bottom: 1rem;
  
 }
@@ -1158,10 +1163,13 @@ form {
   width: 100%;
 }
 .form-select{
+display: inline-block;
 background-color: #8c2f39;
 color: white;
-
+margin: 4px;
+width: 220px;
 }
+
 
 form .form-group {
   display: block;
@@ -1223,6 +1231,7 @@ label form [type='radio'] {
 
 }
 .searchbar-container{
+
 width: 100%;
 text-align: center;
 align-content: center;
@@ -1231,7 +1240,10 @@ border-color:#461220;
 }
 
 .select-container{
-  /* width: 550px; */
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  gap: 8px;
   background-color: rgba(254, 253, 253, 0.8);
   padding: 5px 2px;
   border: 1px solid #a35a6e;
@@ -1239,16 +1251,31 @@ border-color:#461220;
 }
 
 .pairing-container{
-  background-color: rgba(254, 253, 253, 0.8);
+  display: flex;
+  justify-content: center; /* Horizontally center items */
+  align-items: center; /* Vertically center items */
+  flex-direction: column; /* Stack items in a column */
+  margin-top: 100px;
   padding: 20px;
-  /* border: 1px solid #a35a6e; */
   border-radius: 15px;
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
-  gap: 20px; /* Adjust the gap between cards */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
   
   }
+.wine-container{
+ 
+    display: flex;
+    justify-content: center; /* Horizontally center items */
+    align-items: center; /* Vertically center items */
+    background-color: rgba(254, 253, 253, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+}
+
+
 .pair-card{
   padding: 20px;
   
@@ -1426,6 +1453,47 @@ border-color:#461220;
   flex: 0 0 100%;
   max-width: 100%;
 }
+@media (max-width: 768px) {
+  .wine-container{
+    flex-direction: column;
+    align-items: center;
+
+  }
+  .pairing-container{
+    display: flex;
+    justify-content: center; /* Horizontally center items */
+    align-items: center; /* Vertically center items */
+    flex-direction: column; /* Stack items in a column */
+    margin-top: 100px;
+    padding: 20px;
+    border-radius: 15px;
+ 
+    
+    }
+  
+  /* Adjust individual item styles if needed */
+  .pair-card {
+    margin-bottom: 20px; /* Add spacing between stacked items */
+    /* Additional styles as needed */
+  }
+
+  .searchbar-container {
+    justify-content: center; /* Horizontally center items */
+    align-items: center; /* Vertically center items */
+    flex-direction: column; /* Stack items in a column */
+  }
+
+  .form-select-mobile {
+    display: block; /* Change to block-level for stacking */
+    margin-bottom: 8px; /* Add spacing between stacked elements */
+  }
+
+  .btn-search-mobile {
+    display: block; /* Change to block-level for stacking */
+    margin-top: 8px; /* Add spacing between stacked elements */
+  }
+}
+
 
 /* col-sm */
 @media screen and (min-width: 640px) {

@@ -52,20 +52,13 @@ const CommentForm = ({ wineId }) => {
 
   return (
     <div>
-      <h5>What are your thoughts on this wine?</h5>
-      <StarRating/>
+      <h5 className="text-center">What are your thoughts on this wine?</h5>
+      {/* <StarRating/> */}
       
 
       {Auth.loggedIn() ? (
         <>
-          {/* <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
-          >
-            Character Count: {characterCount}/280
-            {error && <span className="ml-2">{error.message}</span>}
-          </p> */}
+
           <form
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
@@ -73,7 +66,7 @@ const CommentForm = ({ wineId }) => {
             <div className="col-12 col-lg-9">
               <textarea
                 name="commentText"
-                placeholder="Add your comment..."
+                placeholder="Leave a Comment..."
                 value={commentText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
@@ -83,7 +76,7 @@ const CommentForm = ({ wineId }) => {
             </div>
 
             <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+              <button className="btn btn-info btn-block py-3" type="submit">
                 Add Comment
               </button>
             </div>
