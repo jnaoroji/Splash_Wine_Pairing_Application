@@ -24,9 +24,6 @@ const Header = () => {
         <div>
           {Auth.loggedIn() ? (
             <>
-              {/* <Link className="btn btn-sm btn-info m-2" to="/me">
-                {Auth.getProfile().data.username}'s profile
-              </Link> */}
               <Link className="btn btn-sm btn-info m-2" to={`/profiles/${Auth.getProfile().data.username}`}>
               {Auth.getProfile().data.username}'s profile
               </Link>

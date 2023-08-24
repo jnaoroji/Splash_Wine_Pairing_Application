@@ -8,16 +8,15 @@ import Auth from '../utils/auth';
 
 const Profile = () => {
   const { username: userParam } = useParams();
-  console.log('userParam', userParam);
+
 
   const { loading, error, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
     
   });
  
-  console.log('data', data);
   const user = data?.me || data?.user || {};
-  console.log('user', user);
+
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
    
@@ -36,48 +35,58 @@ const Profile = () => {
       </h4>
     );
   }
-  console.log('Is Logged In:', Auth.loggedIn());
-  console.log('Username from Auth:', Auth.getProfile().data.username);
-  console.log('Username from useParams:', userParam);
 
   return (
-    <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
-        <p>this is {user.username} profile </p>
-        <p>{user.username} has {user?.pairing?.length || 0} pairings</p>
-        <p>{user.username} has {user?.wine?.length || 0} wines</p>
-        <p>this user has {user?.pairings?.length || 0} pairings</p>
-      </div>
+    <main>
+      <div>
+        <div className="pairing-container flex-row justify-center mb-3">
 
+          <h4 className = 'text-center'>  Welcome, {user.username}! </h4>
 
-        {/* <p>${user.pairings}</p> */}
-        <div className="col-12 col-md-10 mb-5">
-          {/* <WineList
-            pairings={user.pairings}
-            title={`${user.username}'s thoughts...`}
-            showTitle={false}
-            showUsername={false}
-          /> */}
-          {/* <ThoughtList
-            thoughts={user.thoughts}
-            title={`${user.username}'s thoughts...`}
-            showTitle={false}
-            showUsername={false}
-          /> */}
+          <p>You have {user?.pairing?.length || 0} pairings saved</p>
+          <p>You have {user?.wine?.length || 0} wines saved</p>
+      
         </div>
-        {/* {!userParam && (
-          <div
-            className="col-12 col-md-10 mb-3 p-3"
-            style={{ border: '1px dotted #1a1a1a' }}
-          >
-            <SearchForm />
-          </div>
-        )} */}
-      </div>
+      </div> 
+     
+     
+     
+     
   
+
+
+        {/* <div style={{ flex: 1, width: '600px', marginRight: '20px' }}>
+          <div className="custom-card mt-4">
+            <h4>{wine.name} {wine.vintage}</h4>
+            
+            <h6>{wine.varietal}</h6>
+            <h6>{wine.region}</h6>
+            <h6>{wine.tastingNote}</h6>
+            <h6>${wine.price}</h6>
+            
+            <div className="mt-4">
+              <button 
+              onClick={handleFormSubmit}
+              className= "btn btn-sm btn-info shadow mr-2">Save this Wine</button>
+              <button className="btn btn-sm btn-light shadow">Add to cart</button>
+            </div>
+
+          </div>
+        </div> */}
+
+          {/* <div className="card" style={{width: '100px'}}>
+            <img src="" className="card-img-top" alt=""></img>
+            <div className="card-body">
+              <h5 className="card-title">Card title</h5>
+              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="/" className="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
+
+  </main>
   );
 };
 
