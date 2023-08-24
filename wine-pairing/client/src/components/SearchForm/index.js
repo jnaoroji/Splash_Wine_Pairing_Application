@@ -18,16 +18,18 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   // Use the useQuery hook to fetch proteins and sauces data
   const { loading: proteinsLoading, error: proteinsError, data: proteinsData } = useQuery(QUERY_PROTEINS);
   const { loading: saucesLoading, error: saucesError, data: saucesData } = useQuery(QUERY_SAUCES);
-
+    // UseQuery hook to fetch getPairing
+  const [getPairing, { loading: pairingLoading, error: pairingError, data: pairingData }] = useLazyQuery(QUERY_PAIRING);
+  
   if (proteinsLoading || saucesLoading)  return 'Loading Choices...';
  
 
   const proteins = proteinsData ? proteinsData.proteins : []; 
   const sauces = saucesData ? saucesData.sauces : []; 
 
-  // UseQuery hook to fetch getPairing
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [getPairing, { loading: pairingLoading, error: pairingError, data: pairingData }] = useLazyQuery(QUERY_PAIRING);
+
+
+
   
   if (pairingError) return `Submission error!`;
 

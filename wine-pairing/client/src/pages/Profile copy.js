@@ -1,31 +1,27 @@
 import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-// import SearchForm from '../components/SearchForm';
-// import ThoughtList from '../components/ThoughtList';
-// import WineList from '../components/WineList'
+
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
-const Profile = () => {
+const Profile = ({ username }) => {
 
-  const { username: userParam } = useParams();
-  console.log('userParam', userParam);
-
-
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-    
+  const { loading, data } = useQuery(username ? QUERY_USER : QUERY_ME, {
+    variables: { username },
   });
-  console.log({ username: userParam });
+ 
+    
+
+  console.log({ username: username });
   console.log('data', data);
   const user = data?.me || data?.user || {};
   console.log('user', user);
   // navigate to personal profile page if username is yours
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+  if (Auth.loggedIn() && Auth.getProfile().data.username === username) {
    
     return <Navigate to="/me" />;
   }
@@ -44,15 +40,20 @@ const Profile = () => {
   }
   console.log('Is Logged In:', Auth.loggedIn());
   console.log('Username from Auth:', Auth.getProfile().data.username);
-  console.log('Username from useParams:', userParam);
+  console.log('Username from useParams:', username);
+  console.log(data);
+  console.log(user);
+  console.log(user.username);
 
   return (
     <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
-        <p>this user has {user?.pairings?.length || 0} pairings</p>
+      <div className="pairing-container flex-row justify-center mb-3">
+        {/* <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
+          Viewing {username ? `${user.username}'s` : 'your'} profile.
+        </h2> */}
+        <p>this is {user.username} profile </p>
+        <p>{user.username} has {user?.pairing?.length || 0} pairings</p>
+        <p>{user.username} has {user?.wine?.length || 0} wines</p>
       </div>
 
 

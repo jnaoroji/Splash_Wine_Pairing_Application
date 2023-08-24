@@ -12,6 +12,7 @@ import Auth from '../utils/auth';
 const SingleWine = () => {
   // Use `useParams()` to retrieve value of the route parameter `:wineId`
   const { wineId } = useParams();
+  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
     variables: { wineId},
@@ -22,8 +23,8 @@ const SingleWine = () => {
 
   const wine = data?.getSingleWine || {};
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
+
+
   if (wineLoading) return `Saving Wine...`;
   if (wineError) return `Error cant Save your wine choice!`;
 
