@@ -41,18 +41,36 @@ export const QUERY_USERS = gql`
 
 
 export const QUERY_USER = gql`
-query user($username: String!) {
+query User($username: String!) {
   user(username: $username) {
     _id
     username
     email
     pairing {
       _id
+      category
+      protein
+      sauce
     }
     wine {
       _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
       comments {
         _id
+        commentText
+        commentAuthor
+        createdAt
       }
     }
   }
@@ -188,20 +206,38 @@ export const USER_PAIRINGS = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
-    me {
+query Me {
+  me {
+    _id
+    username
+    email
+    pairing {
       _id
-      username
-      email
-      pairing {
+      category
+      protein
+      sauce
+    }
+    wine {
+      _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
         _id
+        name
       }
-      wine {
+      comments {
         _id
-        comments {
-          _id
-        }
+        commentText
+        commentAuthor
+        createdAt
       }
     }
   }
+}
 `;

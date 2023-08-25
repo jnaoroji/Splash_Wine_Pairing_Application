@@ -18,12 +18,12 @@ const typeDefs = gql`
 
   type Wine{
     _id:ID
-    name: String!
+    name: String
     vintage: String
     varietal: String
     region: String
     image: String
-    tastingNote: String!
+    tastingNote: String
     price: Float
     quantity: Int
     category: Category

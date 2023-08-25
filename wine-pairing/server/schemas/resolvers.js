@@ -112,22 +112,45 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
+    // addWine: async (parent, { wineId }, context) => {
+    //   if (context.user) {
+    //     // Fetch the wine along with other properties
+    //     const wine = await Wine.findById(wineId);
+    //     if (wine) {
+    //       // Update the user's wine array with the entire wine object
+    //       const user = await User.findOneAndUpdate(
+    //         { _id: context.user._id },
+    //         { $push: { wine: wine } },
+    //         { new: true }
+    //       ).populate('wine'); // Populate the wine field
+  
+    //       return user;
+    //     } else {
+    //       throw new Error('Wine not found'); // Handle the case where the wine doesn't exist
+    //     }
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
     addWine: async (parent, { wineId }, context) => {
       if (context.user) {
-        // Fetch the wine along with other properties
-        const wine = await Wine.findById(wineId);
+        // Check if the wine is already in the user's wine array
+        const user = await User.findOne({ _id: context.user._id });
     
-        if (wine) {
-          // Update the user's wine array with the entire wine object
-          const user = await User.findOneAndUpdate(
-            { _id: context.user._id },
-            { $push: { wine: wine } },
-            { new: true }
-          ).populate('wine'); // Populate the wine field
-  
-          return user;
+        if (user && !user.wine.some((savedWine) => savedWine._id === wineId)) {
+          // Wine is not in the array, so add it
+          const wine = await Wine.findById(wineId);
+    
+          if (wine) {
+            user.wine.push(wine);
+            await user.save();
+    
+            return user;
+          } else {
+            throw new Error('Wine not found');
+          }
         } else {
-          throw new Error('Wine not found'); // Handle the case where the wine doesn't exist
+          // Wine already exists in the array, handle this case as needed
+          throw new Error('Wine already saved');
         }
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -144,7 +167,7 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { pairing: pairing._id } }
         );
-        console.log('pairing', pairing);
+        // console.log('pairing', pairing);
         return pairing;
        
       }
