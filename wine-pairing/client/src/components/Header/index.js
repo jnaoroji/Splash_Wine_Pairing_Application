@@ -13,38 +13,38 @@ const Header = () => {
     
   };
   return (
-    <header className="bg-primary text-white flex-row align-center">
+    <nav className="bg-primary text-white flex-row align-center navbar navbar-expand-lg">
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         <div>
           <Link className="text-light" to="/">
-            <h3 className="text-splash m-0">Splash</h3>
+            <h3 className="navbar-brand text-splash m-0">Splash</h3>
           </Link>
           <p className="text-white m-0">Every recipe calls for a glass of wine</p>
         </div>
         <div>
           {Auth.loggedIn() ? (
             <>
-              <Link className="btn btn-sm btn-info m-2" to={`/profiles/${Auth.getProfile().data.username}`}>
+              <Link className="nav-item btn btn-sm btn-info m-2" to={`/profiles/${Auth.getProfile().data.username}`}>
               {Auth.getProfile().data.username}'s profile
               </Link>
 
-              <button className="btn btn-sm btn-light m-2" onClick={logout}>
+              <button className="nav-item btn btn-sm btn-light m-2" onClick={logout}>
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link className="btn btn-sm btn-primary m-2" to="/login">
+              <Link className="nav-item btn btn-sm btn-primary m-2" to="/login">
                 Login
               </Link>
-              <Link className="btn btn-sm btn-light m-2" to="/signup">
+              <Link className="nav-item btn btn-sm btn-light m-2" to="/signup">
                 Signup
               </Link>
             </>
           )}
         </div>
       </div>
-    </header>
+    </nav>
   );
 };
 
