@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link} from "react-router-dom";
+
+// import { redirect, Navigate } from "react-router-dom";
 // Import the `useParams()` hook
-import { useParams, Navigate} from 'react-router-dom';//use link or redirect when implemented
+import { useParams} from 'react-router-dom';//use link or redirect when implemented
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_WINE } from '../utils/queries';
 import { ADD_WINE} from '../utils/mutations';
@@ -12,6 +15,7 @@ import Auth from '../utils/auth';
 const SingleWine = () => {
   // Use `useParams()` to retrieve value of the route parameter `:wineId`
   const { wineId } = useParams();
+
   const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
@@ -39,9 +43,14 @@ const SingleWine = () => {
         },
       });
 
-      if (Auth.loggedIn() && Auth.getProfile().data.username) {
-      return <Navigate to="/me" />;
-      }
+      return <Link to="/me" />
+
+      // if (Auth.loggedIn() && Auth.getProfile().data.username) {
+      //   return <Link to="/me" />
+      // return redirect ("/me");
+      // // return <useNavigate to="/me" />;
+      // <Link to={`/profiles/${Auth.getProfile().data.username}`} />
+      
     
     } catch (err) {
       console.error(err);
@@ -67,10 +76,11 @@ const SingleWine = () => {
             <h6>${wine.price}</h6>
             {/* save and add to cart buttons */}
             <div className="mt-4">
-              <button 
+            <button 
               onClick={handleFormSubmit}
-              className= "btn btn-sm btn-info shadow mt-5 mb-5">Save this Wine</button>
-              {/* <button className="btn btn-sm btn-light shadow m-2">Add to cart</button> */}
+              className= "btn btn-sm btn-info shadow mt-5 mb-5">
+                Save this Wine
+              </button>
             </div>
           </div>
         </div>

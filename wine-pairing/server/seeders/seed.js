@@ -27,7 +27,7 @@ db.once('open', async () => {
     await Protein.deleteMany();
   
     const proteins = await Protein.insertMany([
-      { name: 'Choose your Protein', value:0},
+    
       { name: 'Mollusk', value:1 },
       { name: 'Fish', value:2 },
       { name: 'Shellfish', value:3 },
@@ -36,6 +36,7 @@ db.once('open', async () => {
       { name: 'Tofu/Seitan', value:6 },
       { name: 'Brassicas/ Beans', value:7 },
       { name: 'Mushrooms', value:8 },
+  
     ]);
 
     console.log('proteins seeded');
@@ -43,12 +44,13 @@ db.once('open', async () => {
     await Sauce.deleteMany();
   
     const sauces = await Sauce.insertMany([
-      { name: 'Choose your Sauce', value:0},
+
       { name: 'Strong Marinade', value:1 },
       { name: 'Tomato Based', value:2 },
       { name: 'Diary Based', value:3 },
       { name: 'Herbs Based', value:4 },
       { name: 'Chilli', value:5 },
+     
     ]);
 
     console.log('sauces seeded');

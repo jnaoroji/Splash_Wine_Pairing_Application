@@ -69,3 +69,16 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const REMOVE_COMMENT = gql`
+mutation removeComment($wineId: ID!, $commentId: ID!) {
+  removeComment(wineId: $wineId, commentId: $commentId) {
+    comments {
+      _id
+      commentText
+      commentAuthor
+      createdAt
+    }
+  }
+}
+`;

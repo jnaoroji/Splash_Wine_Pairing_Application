@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import StarRating from '../StarRating'
+
 
 import { ADD_COMMENT } from '../../utils/mutations';
 
@@ -20,7 +20,7 @@ const CommentForm = ({ wineId }) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // const commentAuthor = Auth.getProfile()?.data?.username;
+   
     try {
       const { data } = await addComment({
         variables: {
@@ -44,7 +44,6 @@ const CommentForm = ({ wineId }) => {
 
     if (name === 'commentText' && value.length <= 280) {
       setCommentText(value);
-      // setCharacterCount(value.length);
     }
   };
 

@@ -95,7 +95,6 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addPairing(pairingId: ID!, username: String!): Pairing
     addWine(wineId: ID!, username: String!): User
-
     addComment(wineId: ID!, commentText: String!, commentAuthor: String!): Wine
     removeComment(wineId: ID!, commentId: ID!): Wine
    
