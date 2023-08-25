@@ -11,6 +11,7 @@ const sauceSchema = new Schema({
   value: {
     type: Number,
     required: true,
+    default:0,
   }
 });
 

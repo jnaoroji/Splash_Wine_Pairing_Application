@@ -82,21 +82,11 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
 
 
   const handleClearForm = () => {
-    // Clear the form fields by setting their values to an empty string
     setSearchProtein('');
     setSearchSauce('');
-
-    // Reset the select elements to their default values
-    document.querySelector("select[name='selectedProtein']").value = '0';
-    document.querySelector("select[name='selectedSauce']").value = '0';
-
-    getPairing({
-      variables: {
-        searchProtein: '', // set these to empty strings to ensure clearing
-        searchSauce: '',
-      },
-    });
     setSearchActive(false);
+    window.location.reload();
+    
   };
   
   
@@ -120,7 +110,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                   aria-label="Protien"
                   onChange={(event) => setSearchProtein(event.target.value)}
                 >
-                  <option value="0">Choose your Protein</option>
+                  {/* <option value="0">Choose your Protein</option> */}
                   {proteins.map((protein) => (
                     <option key={protein._id} value={protein.name}>
                       {protein.name}
@@ -136,7 +126,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                   aria-label="Sauce"
                   onChange={(event) => setSearchSauce(event.target.value)}
                 >
-                  <option value="0">Choose your Sauce</option>
+                  {/* <option value="0">Choose your Sauce</option> */}
                   {sauces.map((sauce) => (
                     <option key={sauce._id} value={sauce.name}>
                       {sauce.name}
@@ -166,7 +156,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
                     </>
             ) : (
               // Message displays when user has not logged in (cannot search)
-              <p className='select-container'>
+              <p className='select-container flex-row justify-center align-center'>
                 You need to be logged in to search for Wine Pairings. Please{' '}
                 <Link className='text-info' to="/login">login</Link> or <Link className= "text-info" to="/signup">signup.</Link>
               </p>
