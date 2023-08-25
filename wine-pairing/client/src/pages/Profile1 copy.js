@@ -18,6 +18,9 @@ const Profile = () => {
 
   // Map over user's wine data and get the wine IDs
   const userWineIds = user?.wine?.map((wine) => wine._id) || [];
+
+    // // Map over user's wine data and get the wine IDs
+    // const userWineIds = user?.wine?.map((wine) => wine._id) || [];
   
   // console.log('userWineIds', userWineIds);
 
@@ -25,6 +28,18 @@ const Profile = () => {
   // console.log('me', data?.me);
   // console.log('me.wine', data?.me.wine);
   // console.log('me.wine[0]._id', data?.me.wine[0]._id);
+
+    // console.log("userParam", userParam);
+
+  // console.log("user", data?.user);
+  // console.log("me", data?.me);
+
+  // console.log("me.wine", data?.me.wine);
+  // console.log('me.wine[0]._id', data?.me.wine[0]._id);
+  // console.log('user.wine', data?.user.wine);
+  // console.log('user.wine[0]._id', data?.user.wine[0]._id);
+  // console.log("Is user logged in?", Auth.loggedIn());
+  // console.log("User Profile:", Auth.getProfile());
  
 
   // const { loading: wineLoading, error: wineError, data: wineData } = useQuery(QUERY_USER_WINES, {

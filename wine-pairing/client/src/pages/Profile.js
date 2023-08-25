@@ -61,6 +61,44 @@ const Profile = () => {
             <div className="row">
               <div className="col-6">
                 <h4>You have {user?.pairing?.length || 0} pairings saved</h4>
+                {/* Map over user's pairing data and render a card for each pairing */}
+                {user?.pairing?.map((pairing) => (
+                  <div
+                    className="container-fluid flex-row"
+                    key={pairing._id}
+                    style={{ flex: 1, width: "600px", marginRight: "20px" }}
+                  >
+                    <div className="pairing-container col-sm">
+                      {/* Renders wine card */}
+
+                      <Link
+                        to={`/pairings/${pairing._id}`}
+                        className="pair-card shadow col-sm"
+                        key={pairing._id}
+                        style={{ color: "black" }}
+                      >
+                        <div style={{ width: 240 }}>
+                          <div className="custom-card mt-4">
+                            <div className="d-flex justify-content-between">
+                              <span>
+                                <h6>{pairing.id}</h6>
+                              </span>
+                              <span>
+                                <h6>${pairing.category}</h6>
+                              </span>
+                              <span>
+                                <h6>${pairing.protein}</h6>
+                              </span>
+                              <span>
+                                <h6>${pairing.sauce}</h6>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
               <div className="col-6">
                 <h4>You have {user?.wine?.length || 0} wines saved</h4>
