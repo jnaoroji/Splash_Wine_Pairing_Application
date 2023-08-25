@@ -10,7 +10,6 @@ import Auth from '../../utils/auth';
 
 const CommentForm = ({ wineId }) => {
   const [commentText, setCommentText] = useState('');
-  // const [characterCount, setCharacterCount] = useState(0);
 
   const [addComment, { loading, error, data }]= useMutation(ADD_COMMENT);
 

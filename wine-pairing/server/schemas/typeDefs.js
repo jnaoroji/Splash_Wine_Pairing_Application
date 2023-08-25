@@ -83,8 +83,7 @@ const typeDefs = gql`
     getSingleWine(wineId: ID!): Wine
     getPairing(searchProtein: String!, searchSauce: String!): PairingResult
     me: User
-
-    wines(username: String!): [Wine]
+    getUserWines(username: String!): [Wine]
     userPairings(username: String): [Pairing]
 
     pairing(pairingId: ID!):Pairing

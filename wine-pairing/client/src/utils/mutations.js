@@ -47,13 +47,40 @@ export const ADD_USER_PAIRING = gql`
 `;
 
 export const ADD_WINE = gql`
-  mutation addWine($wineId: ID!, $username: String!) {
-    addWine(wineId: $wineId, username: $username) {
-      wine {
+mutation addWine($wineId: ID!, $username: String!) {
+  addWine(wineId: $wineId, username: $username) {
+    _id
+    username
+    email
+    pairing {
+      _id
+      category
+      protein
+      sauce
+    }
+    wine {
+      _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
         _id
+        name
+      }
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
       }
     }
   }
+}
 `;
 
 export const ADD_COMMENT = gql`

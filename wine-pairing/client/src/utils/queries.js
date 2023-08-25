@@ -80,8 +80,8 @@ export const QUERY_SAUCES = gql`
 `;
 
 export const QUERY_USER_WINES = gql`
-  query getUserWines($username: String) {
-    wines(username: $username) {
+  query getUserWines($username: String!) {
+    getUserWines(username: $username) {
       _id
       name
       vintage
@@ -130,6 +130,7 @@ export const QUERY_SINGLE_WINE = gql`
     }
   }
 `;
+
 
 export const QUERY_PAIRING = gql`
   query getPairing($searchProtein: String!, $searchSauce: String!) {

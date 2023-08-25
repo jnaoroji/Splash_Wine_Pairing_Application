@@ -19,13 +19,14 @@ const SingleWine = () => {
   const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
-    variables: { wineId},
+    variables: {wineId},
   })
   if (loading|| error) {
     return <div>Loading...</div>;
   };
 
   const wine = data?.getSingleWine || {};
+  
 
 
 
