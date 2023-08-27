@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // import { redirect, Navigate } from "react-router-dom";
 // Import the `useParams()` hook
@@ -15,8 +15,9 @@ import Auth from "../utils/auth";
 const SingleWine = () => {
   // Use `useParams()` to retrieve value of the route parameter `:wineId`
   const { wineId } = useParams();
-  const client = useApolloClient(); // Retrieve the Apollo client
-
+  
+  const navigate = useNavigate();
+  
   const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
@@ -43,12 +44,13 @@ const SingleWine = () => {
         },
         
       }).then((response) => {
-        // Handle successful response if needed
-        <Navigate to="me" replace={true}></Navigate>;
-        // return redirect("/me");
+        
+        navigate(`/me`);
+        
         
       });
     } catch (err) {
+   
       console.error(err);
     }
   };
@@ -82,14 +84,13 @@ const SingleWine = () => {
               <h6>${wine.price}</h6>
               {/* save and add to cart buttons */}
               <div className="mt-4">
-                <div
-                  to={`../../profiles/${Auth.getProfile().data.username}`}
-                  type="button"
+                <button
+                  type="submit"
                   onClick={handleFormSubmit}
                   className="btn btn-sm btn-info shadow mt-5 mb-5"
                 >
                   Save this Wine
-                </div>
+                </button>
               </div>
             </div>
           </div>

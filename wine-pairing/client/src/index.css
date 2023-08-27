@@ -1117,7 +1117,7 @@ a:hover {
 }
 
 .btn.btn-trans {
-  background-color: rgba(254, 253, 253, 0.8);
+  background-color: transparent;
   color:#461220;
 }
 

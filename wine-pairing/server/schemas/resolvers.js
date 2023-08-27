@@ -131,6 +131,7 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
+    //adds wine to user's saved wines
     addWine: async (parent, { wineId }, context) => {
       if (context.user) {
         // Check if the wine is already in the user's wine array
@@ -155,6 +156,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    //removes wine from user's wines
     removeWine: async (parent, { wineId }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
@@ -191,6 +193,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    //adds a comment to each wine
       addComment: async (parent, { wineId, commentText}, context) => {
       if (context.user) {
         return Wine.findOneAndUpdate(
@@ -210,25 +213,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // removeThought: async (parent, { thoughtId }, context) => {
-    //   if (context.user) {
-    //     const thought = await Thought.findOneAndDelete({
-    //       _id: thoughtId,
-    //       thoughtAuthor: context.user.username,
-    //     });
-
-    //     await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $pull: { thoughts: thought._id } }
-    //     );
-
-    //     return thought;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    //check
-
-    //check
+ //deletes comment from Single wine component
     removeComment: async (parent, { wineId, commentId }, context) => {
       if (context.user) {
         return Wine.findOneAndUpdate(

@@ -11,7 +11,7 @@ import { QUERY_USER, QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 import { REMOVE_WINE } from "../utils/mutations";
 
-import WineList from "../components/WineList";
+
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -101,15 +101,88 @@ const Profile = () => {
           <div>
             <h3 className="text-center mb-4"> Welcome, {user.username}! </h3>
             <div className="row">
-              {/* Updates the number of pairings saved */}
-                <h4 className="col-6">You have {pairingsSaved} pairings saved</h4>
-                 {/* Updates the number of wines saved */}
-                <h4 className="col-6">You have {winesSaved} wines saved</h4>
-                <h5 className="col-12 text-center mt-4"> {user.username}'s Wines! </h5>
-               
-                <div className="m-3 p-4">
-                  <WineList wines={user?.wine} />
-                </div>
+              <div className="col-6">
+                {/* Update the number of wines saved */}
+                <h4>You have {winesSaved} wines saved</h4>
+
+                {/* Map over user's wine data and render a card for each wine */}
+                {user?.wine?.map((wine) => (
+                  <div
+                    className="container-fluid flex-row"
+                    key={wine._id}
+                    // style={{ flex: 1, width: "600px", marginRight: "20px" }}
+                  >
+                    {/* <div className="pairing-container col-sm"> */}
+                    <div className="pair-card shadow col-sm">
+                      {/* Renders wine card */}
+                      <button
+                        onClick={() => handleDeleteWine(wine._id)}
+                        style={{ position: "absolute", top: 0, right: 0 }}
+                        className="btn btn-trans mt-1"
+                      >
+                        <i className="fa fa-trash mr-2" aria-hidden="true"></i>
+                      </button>
+                      <Link
+                        to={`/wine/${wine._id}`}
+                        className=" col-sm"
+                        key={wine._id}
+                        style={{ color: "black", position: "relative" }}
+                      >
+                        <div>
+                          <div>
+                            <img
+                              alt={wine.name}
+                              height="400px"
+                              src={wine.image}
+                              loading="eager"
+                            />
+                          </div>
+                          <div className="custom-card mt-4">
+                            <div className="d-flex justify-content-between">
+                              <span>
+                                <h6>{wine.name}</h6>
+                              </span>
+                              <span>
+                                <h6>${wine.price}</h6>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="col-6">
+                {/* Update the number of pairings saved */}
+                <h4>You have {pairingsSaved} pairings saved</h4>                
+                  <div
+                    className="container-fluid flex-row"
+
+                    style={{ flex: 1, width: "600px", marginRight: "20px" }}
+                  >
+                    <div className="pairing-container col-sm">
+                      {/* Renders wine card */}
+
+                      <div
+                        className="pair-card shadow col-sm"
+
+                        style={{ color: "black" }}
+                      >
+                        <div style={{ width: 240 }}>
+                          <div className="custom-card mt-4">
+                            <div className="d-flex justify-content-between">
+                              <span className="text-center">
+                                <h6>This section is for future development...</h6>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
