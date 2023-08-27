@@ -94,12 +94,13 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addPairing(pairingId: ID!, username: String!): Pairing
     addWine(wineId: ID!, username: String!): User
+    removeWine(wineId: ID!): User
     addComment(wineId: ID!, commentText: String!, commentAuthor: String!): Wine
     removeComment(wineId: ID!, commentId: ID!): Wine
    
     savePairing(searchProtein: String!, searchSauce: String!): User
     addUserPairing(pairingId: ID!, username: String): User
-    removePairing(pairingId: ID!): Pairing
+    removePairing(pairingId: ID!, wineId: ID!): User
   }
 `;
 

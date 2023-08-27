@@ -1,45 +1,48 @@
-import { React } from "react";
+import  React, {useState, useEffect}  from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
+import { REMOVE_WINE } from "../utils/mutations";
 
 const Profile = () => {
   const { username: userParam } = useParams();
+
+  // Defines state variables for pairings and wines saved
+  const [pairingsSaved, setPairingsSaved] = useState(0);
+  const [winesSaved, setWinesSaved] = useState(0);
 
   const { loading, error, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
 
+  const [removeWine, { loading: wineLoading, error: wineError, data: wineData }]= useMutation(REMOVE_WINE);
+
+  useEffect(() => {
+    if (!loading && !error) {
+      // Assuming your GraphQL query returns the counts for pairings and wines
+      const pairingsCount = data?.user?.pairing?.length|| data?.me?.pairing?.length || 0;
+      const winesCount = data?.user?.wine?.length || data?.me?.wine?.length || 0;
+
+      // Update the state variables with the counts
+      setPairingsSaved(pairingsCount);
+      setWinesSaved(winesCount);
+    }
+  }, [data, loading, error]);
+
   const user = data?.me || data?.user || {};
-  console.log("data", data);
-
-  // Map over user's wine data and get the wine IDs
-  const userWineIds = user?.wine?.map((wine) => wine._id) || [];
-
-  console.log("userParam", userParam);
-
-  console.log("user", data?.user);
-  console.log("me", data?.me);
-
-  console.log("me.wine", data?.me.wine);
-  // console.log('me.wine[0]._id', data?.me.wine[0]._id);
-  // console.log('user.wine', data?.user.wine);
-  // console.log('user.wine[0]._id', data?.user.wine[0]._id);
-  // console.log("Is user logged in?", Auth.loggedIn());
-  // console.log("User Profile:", Auth.getProfile());
 
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/me" />;
   }
 
-  if (loading) {
+  if (loading || wineLoading) {
     return <div>Loading...</div>;
   }
-  if (error) {
+  if (error || wineError) {
     return <div>Error!...</div>;
   }
 
@@ -52,6 +55,35 @@ const Profile = () => {
     );
   }
 
+  const handleDeleteWine = async (_id) => {
+
+    try {
+      await removeWine({
+        variables: {
+          wineId: _id,
+          username: Auth.getProfile()?.data?.username,
+        },
+        update: (cache, { wineData }) => {
+          // Update the cache to remove the deleted wine from the user's wine list
+          cache.modify({
+            id: cache.identify(user), // Assuming user is the current user
+            fields: {
+              wine(existingWines = [], { readField }) {
+                return existingWines.filter(
+                  (wineRef) => _id !== readField("_id", wineRef)
+                );
+              },
+            },
+          });
+        },
+      });
+      
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   return (
     <main>
       <div>
@@ -60,7 +92,9 @@ const Profile = () => {
             <h3 className="text-center"> Welcome, {user.username}! </h3>
             <div className="row">
               <div className="col-6">
-                <h4>You have {user?.pairing?.length || 0} pairings saved</h4>
+                 {/* Update the number of pairings saved */}
+                 <h4>You have {pairingsSaved} pairings saved</h4>
+                {/* <h4>You have {user?.pairing?.length || 0} pairings saved</h4> */}
                 {/* Map over user's pairing data and render a card for each pairing */}
                 {user?.pairing?.map((pairing) => (
                   <div
@@ -71,8 +105,14 @@ const Profile = () => {
                     <div className="pairing-container col-sm">
                       {/* Renders wine card */}
 
-                      <Link
-                        to={`/pairings/${pairing._id}`}
+                      {/* <Link
+                        to={`/${pairing._id}`}
+                        className="pair-card shadow col-sm"
+                        key={pairing._id}
+                        style={{ color: "black" }}
+                      > */}
+                      <div
+                        
                         className="pair-card shadow col-sm"
                         key={pairing._id}
                         style={{ color: "black" }}
@@ -84,24 +124,27 @@ const Profile = () => {
                                 <h6>{pairing.id}</h6>
                               </span>
                               <span>
-                                <h6>${pairing.category}</h6>
+                                <h6>{pairing.category}</h6>
                               </span>
                               <span>
-                                <h6>${pairing.protein}</h6>
+                                <h6>{pairing.protein}</h6>
                               </span>
                               <span>
-                                <h6>${pairing.sauce}</h6>
+                                <h6>{pairing.sauce}</h6>
                               </span>
                             </div>
                           </div>
                         </div>
-                      </Link>
+                      </div>
+                      {/* </Link> */}
                     </div>
                   </div>
                 ))}
               </div>
               <div className="col-6">
-                <h4>You have {user?.wine?.length || 0} wines saved</h4>
+                 {/* Update the number of wines saved */}
+                 <h4>You have {winesSaved} wines saved</h4>
+                {/* <h4>You have {user?.wine?.length || 0} wines saved</h4> */}
                 {/* Map over user's wine data and render a card for each wine */}
                 {user?.wine?.map((wine) => (
                   <div
@@ -111,20 +154,26 @@ const Profile = () => {
                   >
                     <div className="pairing-container col-sm">
                       {/* Renders wine card */}
-
+                      <button 
+                         onClick={() => handleDeleteWine(wine._id)}
+                        style={{ position: "absolute", top: 0, right: 0, }} 
+                        className='btn btn-trans'><i className="fa fa-trash mr-2" aria-hidden="true"></i>
+                        </button>
                       <Link
                         to={`/wine/${wine._id}`}
                         className="pair-card shadow col-sm"
                         key={wine._id}
-                        style={{ color: "black" }}
+                        style={{ color: "black", position: "relative" }}
                       >
                         <div style={{ width: 240 }}>
+
                           <div>
                             <img
                               alt={wine.name}
                               height="400px"
                               src={wine.image}
                             />
+                            
                           </div>
                           <div className="custom-card mt-4">
                             <div className="d-flex justify-content-between">

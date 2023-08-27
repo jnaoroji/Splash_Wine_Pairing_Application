@@ -1116,6 +1116,16 @@ a:hover {
   background-color: #31a9e1;
 }
 
+.btn.btn-trans {
+  background-color: rgba(254, 253, 253, 0.8);
+  color:#461220;
+}
+
+.btn.btn-trans:hover {
+  background-color: rgba(254, 253, 253, 0.8);
+  color: #f15156;
+}
+
 .card-container{
   width: 85%;
   max-width: 1200px;

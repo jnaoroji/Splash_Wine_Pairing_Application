@@ -109,3 +109,39 @@ mutation removeComment($wineId: ID!, $commentId: ID!) {
   }
 }
 `;
+export const REMOVE_WINE = gql`
+mutation RemoveWine($wineId: ID!) {
+  removeWine(wineId: $wineId) {
+    _id
+    username
+    email
+    wine {
+      _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
+    }
+    pairing {
+      _id
+      category
+      protein
+      sauce
+    }
+  }
+}
+`;

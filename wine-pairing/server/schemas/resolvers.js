@@ -155,6 +155,22 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    removeWine: async (parent, { wineId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              wine: {
+                _id: wineId,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     //check
     addPairing: async (parent,  {pairingId,} , context) => {
       if (context.user) {
@@ -167,28 +183,28 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { pairing: pairing._id } }
         );
-        // console.log('pairing', pairing);
+        console.log('pairing', pairing);
         return pairing;
        
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    //check
-    addUserPairing: async (parent, { pairingId }, context) => {
-      if (context.user) {
-        const pairing = await Pairing.findById({
-          _id: pairingId
-        });
+    // //check
+    // addUserPairing: async (parent, { pairingId }, context) => {
+    //   if (context.user) {
+    //     const pairing = await Pairing.findById({
+    //       _id: pairingId
+    //     });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { pairings: pairing._id } }
-        );
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $addToSet: { pairings: pairing._id } }
+    //     );
 
-        return pairing;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
+    //     return pairing;
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
     // addThought: async (parent, { thoughtText }, context) => {
     //   if (context.user) {
     //     const thought = await Thought.create({

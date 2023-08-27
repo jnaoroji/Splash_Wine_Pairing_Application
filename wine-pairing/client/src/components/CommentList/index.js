@@ -6,18 +6,18 @@ import { REMOVE_COMMENT } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
 
-const CommentList = ({ comments = [] }, ) => {
+const CommentList = ({ comments = [] } ) => {
   const { wineId } = useParams();
 
-  console.log('wineId', wineId);
+  // console.log('wineId', wineId);
 
   const [removeComment, { loading, error, data }]= useMutation(REMOVE_COMMENT);
 
   
   
-  if (!comments.length) {
-    return <h5 className="text-center">...No Comments Yet...</h5>;
-  }
+  // if (!comments.length) {
+  //   return <h5 className="text-center">...No Comments Yet...</h5>;
+  // }
   if (loading) return 'Deleting comment...';
   if (error) return `Comment deletion error! ${error.message}`;
 
