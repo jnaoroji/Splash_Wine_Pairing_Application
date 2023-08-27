@@ -1,4 +1,17 @@
-# 23 Final Project: MERN Stack Single-Page Application
+# 23 Splash: Jenny's Wine Pairing Application (Final Project: MERN Stack Single-Page Application)
+
+This MERN FUll-Stack application will show-case a Wine pairing Application.
+This application uses the following technologies:
+* React for the Front-End.
+* Uses GraphQL with a Node.js and Express.js server.
+* Uses MongoDB and the Mongoose ODM for the database.
+* Use queries and mutations for retrieving, adding, updating, and deleting data.
+* Is deployed using Heroku (with data).
+* Has a polished UI.
+* Is responsive.
+* Is interactive (i.e., accept and respond to user input).
+* Includes authentication (JWT).
+* Protects sensitive API key information on the server.
 
 Projects have played a key role in your journey to becoming a full-stack web developer. As you apply for development jobs, your portfolio is absolutely vital to opening doors to opportunities. Your portfolio showcases high-quality deployed examples of your work, and you can use your finished projects for that very purpose.
 

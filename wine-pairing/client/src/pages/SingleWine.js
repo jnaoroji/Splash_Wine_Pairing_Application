@@ -19,33 +19,13 @@ const SingleWine = () => {
   const navigate = useNavigate();
 
 
-  const [addWine, { loading, error, data }] = useMutation(ADD_WINE, {
-    update(cache, { data: { addWine } }) {
-      try {
-        const { wine } = cache.readQuery({ query: QUERY_SINGLE_WINE });
-
-        cache.writeQuery({
-          query: QUERY_SINGLE_WINE,
-          data: { wine: [addWine, ...wine] },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, wine: [...me.wine, addWine] } },
-      });
-    },
-  });
+  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE)
   
-  const { loading: singleLoading, error: singleError, data: singleData } = useQuery(QUERY_SINGLE_WINE, {
+  const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
     variables: { wineId },
   });
-  if (singleError || singleLoading) {
+  if (error || loading) {
     return <div>Loading...</div>;
   }
 
