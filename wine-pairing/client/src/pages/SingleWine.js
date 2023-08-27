@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Import the `useParams()` hook
 import { useParams } from "react-router-dom"; //use link or redirect when implemented
 import { useQuery, useMutation, useApolloClient } from "@apollo/client";
-import { QUERY_SINGLE_WINE } from "../utils/queries";
+import { QUERY_SINGLE_WINE, QUERY_ME } from "../utils/queries";
 import { ADD_WINE } from "../utils/mutations";
 
 import CommentList from "../components/CommentList";
@@ -18,19 +18,41 @@ const SingleWine = () => {
   
   const navigate = useNavigate();
 
-  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
-  const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
+
+  const [addWine, { loading, error, data }] = useMutation(ADD_WINE, {
+    update(cache, { data: { addWine } }) {
+      try {
+        const { wine } = cache.readQuery({ query: QUERY_SINGLE_WINE });
+
+        cache.writeQuery({
+          query: QUERY_SINGLE_WINE,
+          data: { wine: [addWine, ...wine] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+
+      // update me object's cache
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, wine: [...me.wine, addWine] } },
+      });
+    },
+  });
+  
+  const { loading: singleLoading, error: singleError, data: singleData } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
     variables: { wineId },
   });
-  if (loading || error) {
+  if (singleError || singleLoading) {
     return <div>Loading...</div>;
   }
 
   const wine = data?.getSingleWine || {};
 
-  if (wineLoading) return `Saving Wine...`;
-  if (wineError) return `Error cant Save your wine choice!`;
+  if (loading) return `Saving Wine...`;
+  if (error) return `Error cant Save your wine choice!`;
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();

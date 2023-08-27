@@ -27,10 +27,21 @@ const Profile = () => {
     variables: { username: userParam },
   });
 
-  const [
-    removeWine,
-    { loading: wineLoading, error: wineError, data: wineData },
-  ] = useMutation(REMOVE_WINE);
+  const [removeWine,{ loading: wineLoading, error: wineError, data: wineData },] = useMutation(REMOVE_WINE, {
+    update(cache, { data: { removeWine } }) {
+      try {
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: removeWine },
+        });
+        console.log(data);
+        return wineData;
+      } catch (e) {
+        console.error(e);
+      }
+
+    }
+  });
 
   useEffect(() => {
     if (!loading && !error) {
@@ -101,16 +112,16 @@ const Profile = () => {
           <div>
             <h3 className="text-center mb-4"> Welcome, {user.username}! </h3>
             <div className="row">
-              <div className="col-6">
+              <div className="col-md-6 text-center"
+              style={{width:'250px'}}>
                 {/* Update the number of wines saved */}
-                <h4>You have {winesSaved} wines saved</h4>
+                <h4 className="text-center">You have {winesSaved} wines saved</h4>
 
                 {/* Map over user's wine data and render a card for each wine */}
                 {user?.wine?.map((wine) => (
                   <div
                     className="container-fluid flex-row"
                     key={wine._id}
-                    // style={{ flex: 1, width: "600px", marginRight: "20px" }}
                   >
                     {/* <div className="pairing-container col-sm"> */}
                     <div className="pair-card shadow col-sm">
@@ -153,35 +164,10 @@ const Profile = () => {
                   </div>
                 ))}
               </div>
-              <div className="col-6">
+              <div className="col-md-6 text-center">
                 {/* Update the number of pairings saved */}
-                <h4>You have {pairingsSaved} pairings saved</h4>                
-                  <div
-                    className="container-fluid flex-row"
+                <h4 className="text-center">You have {pairingsSaved} pairings saved</h4>                
 
-                    style={{ flex: 1, width: "600px", marginRight: "20px" }}
-                  >
-                    <div className="pairing-container col-sm">
-                      {/* Renders wine card */}
-
-                      <div
-                        className="pair-card shadow col-sm"
-
-                        style={{ color: "black" }}
-                      >
-                        <div style={{ width: 240 }}>
-                          <div className="custom-card mt-4">
-                            <div className="d-flex justify-content-between">
-                              <span className="text-center">
-                                <h6>This section is for future development...</h6>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
               </div>
             </div>
           </div>

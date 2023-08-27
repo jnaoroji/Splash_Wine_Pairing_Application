@@ -117,6 +117,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+  
     //removes wine from user's wines
     removeWine: async (parent, { wineId }, context) => {
       if (context.user) {
@@ -132,8 +133,9 @@ const resolvers = {
           { new: true }
           
         );
-      return updatedUser;
+        
       }
+      
       throw new AuthenticationError('You need to be logged in!');
     },
  //adds the pairing to the User's saved pairings
