@@ -4,7 +4,7 @@ import { Link, Navigate, redirect } from "react-router-dom";
 // import { redirect, Navigate } from "react-router-dom";
 // Import the `useParams()` hook
 import { useParams } from "react-router-dom"; //use link or redirect when implemented
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation, useApolloClient } from "@apollo/client";
 import { QUERY_SINGLE_WINE } from "../utils/queries";
 import { ADD_WINE } from "../utils/mutations";
 
@@ -15,9 +15,9 @@ import Auth from "../utils/auth";
 const SingleWine = () => {
   // Use `useParams()` to retrieve value of the route parameter `:wineId`
   const { wineId } = useParams();
+  const client = useApolloClient(); // Retrieve the Apollo client
 
-  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] =
-    useMutation(ADD_WINE);
+  const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
     variables: { wineId },
@@ -34,12 +34,14 @@ const SingleWine = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    
     try {
       addWine ({
         variables: {
           wineId,
           username: Auth.getProfile().data.username,
         },
+        
       }).then((response) => {
         // Handle successful response if needed
         <Navigate to="me" replace={true}></Navigate>;
@@ -50,6 +52,7 @@ const SingleWine = () => {
       console.error(err);
     }
   };
+
 
   return (
     <main>

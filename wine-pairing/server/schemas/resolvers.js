@@ -167,11 +167,13 @@ const resolvers = {
             },
           },
           { new: true }
+          
         );
+      return updatedUser;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    //check
+ //adds the pairing to the User's saved pairings
     addPairing: async (parent,  {pairingId,} , context) => {
       if (context.user) {
         const pairing = await Pairing.findByIdAndUpdate({
@@ -189,55 +191,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // //check
-    // addUserPairing: async (parent, { pairingId }, context) => {
-    //   if (context.user) {
-    //     const pairing = await Pairing.findById({
-    //       _id: pairingId
-    //     });
-
-    //     await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $addToSet: { pairings: pairing._id } }
-    //     );
-
-    //     return pairing;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // addThought: async (parent, { thoughtText }, context) => {
-    //   if (context.user) {
-    //     const thought = await Thought.create({
-    //       thoughtText,
-    //       thoughtAuthor: context.user.username,
-    //     });
-
-    //     await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $addToSet: { thoughts: thought._id } }
-    //     );
-
-    //     return thought;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // addPairing: async (parent, { searchProtein, searchSauce}, context) => {
-    //   if (context.user) {
-    //     const pairing = await Pairing.findOne({
-    //       protein: searchProtein,
-    //       sauce: searchSauce
-    //     });
-
-    //     await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $addToSet: { pairings: pairing._id } }
-    //     );
-    //     console.log('Pairing = '+ pairing);
-    //     return pairing;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    //check
       addComment: async (parent, { wineId, commentText}, context) => {
       if (context.user) {
         return Wine.findOneAndUpdate(
@@ -274,22 +227,7 @@ const resolvers = {
     //   throw new AuthenticationError('You need to be logged in!');
     // },
     //check
-    removePairing: async (parent, { pairingId }, context) => {
-      if (context.user) {
-        const pairing = await Pairing.findOneAndDelete({
-          _id: pairingId,
-          
-        });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { pairings: pairing._id } }
-        );
-
-        return search;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
     //check
     removeComment: async (parent, { wineId, commentId }, context) => {
       if (context.user) {

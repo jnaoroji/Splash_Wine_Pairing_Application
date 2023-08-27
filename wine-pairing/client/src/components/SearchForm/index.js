@@ -81,12 +81,10 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       },
     })
       .then((response) => {
-        // Handle successful response if needed
-        console.log("Pairing saved:", response);
+
       })
       .catch((error) => {
-        // Handle error if needed
-        console.error("Error saving pairing:", error);
+
       });
   };
 
@@ -209,7 +207,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               ))}
             </div>
           )}
-          {/* Conditionally render the buttons based on searchActive */}
+          {/* Conditionally renders the buttons based on searchActive */}
           {searchActive && (
             <div className="flex-row mt-4">
               <button
