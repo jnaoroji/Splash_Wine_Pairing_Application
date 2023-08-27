@@ -41,9 +41,15 @@ Your group will use everything you’ve learned throughout this course to create
 
 * Protect sensitive API key information on the server.
 
+* Uses a combination os CSS, inline styling in JSX and Bootstrap for styling.
+
 * Have a clean repository that meets quality coding standards (file structure, naming conventions, best practices for class and id naming conventions, indentation, high-quality comments, etc.).
 
 * Have a high-quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+
+* Uses a web manifest
+
+* Uses a service worker for offline functionality
 
 ### CSS Styling
 

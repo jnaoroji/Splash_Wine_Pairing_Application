@@ -1,7 +1,7 @@
 {
-  "name": "WinePairing",
+  "name": "Splash",
   "version": "1.0.0",
-  "description": "Wine pairinjg application",
+  "description": "Wine pairing application",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
