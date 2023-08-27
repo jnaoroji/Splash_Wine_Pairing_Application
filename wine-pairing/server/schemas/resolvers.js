@@ -97,61 +97,22 @@ const resolvers = {
 
       return { token, user };
     },
-    // Saves a wine to the User Object
-    // addWine: async (parent, { wineId }, context) => {
-    //   if (context.user) {
-    //     const wines = await Wine.findById(wineId);
-        
-    //     const user = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       {$push: {wine: wines}},
-    //       {new:true}
-    //     );
-    //     console.log ('user',user);
-    //     return user;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // addWine: async (parent, { wineId }, context) => {
-    //   if (context.user) {
-    //     // Fetch the wine along with other properties
-    //     const wine = await Wine.findById(wineId);
-    //     if (wine) {
-    //       // Update the user's wine array with the entire wine object
-    //       const user = await User.findOneAndUpdate(
-    //         { _id: context.user._id },
-    //         { $push: { wine: wine } },
-    //         { new: true }
-    //       ).populate('wine'); // Populate the wine field
-  
-    //       return user;
-    //     } else {
-    //       throw new Error('Wine not found'); // Handle the case where the wine doesn't exist
-    //     }
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
     //adds wine to user's saved wines
     addWine: async (parent, { wineId }, context) => {
       if (context.user) {
-        // Check if the wine is already in the user's wine array
-        const user = await User.findOne({ _id: context.user._id });
-    
-        if (user && !user.wine.some((savedWine) => savedWine._id === wineId)) {
-          // Wine is not in the array, so add it
-          const wine = await Wine.findById(wineId);
-    
-          if (wine) {
-            user.wine.push(wine);
-            await user.save();
-    
-            return user;
-          } else {
-            throw new Error('Wine not found');
-          }
+        // Fetch the wine along with other properties
+        const wine = await Wine.findById(wineId);
+        if (wine) {
+          // Update the user's wine array with the entire wine object
+          const user = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $push: { wine: wine } },
+            { new: true }
+          ).populate('wine'); // Populate the wine field
+  
+          return user;
         } else {
-          // Wine already exists in the array, handle this case as needed
-          throw new Error('Wine already saved');
+          throw new Error('Wine not found'); // Handle the case where the wine doesn't exist
         }
       }
       throw new AuthenticationError('You need to be logged in!');

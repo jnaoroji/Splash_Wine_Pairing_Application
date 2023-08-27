@@ -17,7 +17,7 @@ const SingleWine = () => {
   const { wineId } = useParams();
   
   const navigate = useNavigate();
-  
+
   const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE);
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
