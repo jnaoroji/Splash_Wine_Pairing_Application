@@ -1,7 +1,10 @@
 {
-  "name": "wine-pairing",
+  "name": "splash",
   "version": "1.0.0",
-  "description": "",
+  "description": "wine pairing application",
+  "engines": {
+    "node": "18.16.0"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
