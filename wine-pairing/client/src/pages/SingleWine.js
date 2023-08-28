@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-// import { redirect, Navigate } from "react-router-dom";
+
 // Import the `useParams()` hook
 import { useParams } from "react-router-dom"; //use link or redirect when implemented
-import { useQuery, useMutation, useApolloClient } from "@apollo/client";
-import { QUERY_SINGLE_WINE, QUERY_ME } from "../utils/queries";
+import { useQuery, useMutation} from "@apollo/client";
+import { QUERY_SINGLE_WINE } from "../utils/queries";
 import { ADD_WINE } from "../utils/mutations";
 
 import CommentList from "../components/CommentList";
@@ -31,8 +31,8 @@ const SingleWine = () => {
 
   const wine = data?.getSingleWine || {};
 
-  if (loading) return `Saving Wine...`;
-  if (error) return `Error cant Save your wine choice!`;
+  if (wineLoading) return `Saving Wine...`;
+  if (wineError) return `Error cant Save your wine choice!`;
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();

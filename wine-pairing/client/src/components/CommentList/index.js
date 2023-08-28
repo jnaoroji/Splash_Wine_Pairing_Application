@@ -9,7 +9,7 @@ import Auth from '../../utils/auth';
 const CommentList = ({ comments = [] } ) => {
   const { wineId } = useParams();
 
-  const [removeComment, { loading, error, data }]= useMutation(REMOVE_COMMENT);
+  const [removeComment, { loading, error}]= useMutation(REMOVE_COMMENT);
 
   
   if (loading) return 'Deleting comment...';

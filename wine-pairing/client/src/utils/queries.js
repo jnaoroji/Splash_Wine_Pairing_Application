@@ -38,43 +38,41 @@ export const QUERY_USERS = gql`
   }
 `;
 
-
-
 export const QUERY_USER = gql`
-query User($username: String!) {
-  user(username: $username) {
-    _id
-    username
-    email
-    pairing {
+  query User($username: String!) {
+    user(username: $username) {
       _id
-      category
-      protein
-      sauce
-    }
-    wine {
-      _id
-      name
-      vintage
-      varietal
-      region
-      image
-      tastingNote
-      price
-      quantity
-      category {
+      username
+      email
+      pairing {
+        _id
+        category
+        protein
+        sauce
+      }
+      wine {
         _id
         name
-      }
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
+        vintage
+        varietal
+        region
+        image
+        tastingNote
+        price
+        quantity
+        category {
+          _id
+          name
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
+        }
       }
     }
   }
-}
 `;
 
 export const QUERY_PROTEINS = gql`
@@ -149,7 +147,6 @@ export const QUERY_SINGLE_WINE = gql`
   }
 `;
 
-
 export const QUERY_PAIRING = gql`
   query getPairing($searchProtein: String!, $searchSauce: String!) {
     getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
@@ -206,38 +203,38 @@ export const USER_PAIRINGS = gql`
 `;
 
 export const QUERY_ME = gql`
-query Me {
-  me {
-    _id
-    username
-    email
-    pairing {
+  query Me {
+    me {
       _id
-      category
-      protein
-      sauce
-    }
-    wine {
-      _id
-      name
-      vintage
-      varietal
-      region
-      image
-      tastingNote
-      price
-      quantity
-      category {
+      username
+      email
+      pairing {
+        _id
+        category
+        protein
+        sauce
+      }
+      wine {
         _id
         name
-      }
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
+        vintage
+        varietal
+        region
+        image
+        tastingNote
+        price
+        quantity
+        category {
+          _id
+          name
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
+        }
       }
     }
   }
-}
 `;

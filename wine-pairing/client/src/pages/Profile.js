@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useParams, Link } from "react-router-dom";
 
-import {
-  useQuery,
-  useMutation,
-
-} from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
 import { REMOVE_WINE } from "../utils/mutations";
-
-
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -27,7 +21,10 @@ const Profile = () => {
     variables: { username: userParam },
   });
 
-  const [removeWine,{ loading: wineLoading, error: wineError, data: wineData },] = useMutation(REMOVE_WINE, {
+  const [
+    removeWine,
+    { loading: wineLoading, error: wineError, data: wineData },
+  ] = useMutation(REMOVE_WINE, {
     update(cache, { data: { removeWine } }) {
       try {
         cache.writeQuery({
@@ -39,8 +36,7 @@ const Profile = () => {
       } catch (e) {
         console.error(e);
       }
-
-    }
+    },
   });
 
   useEffect(() => {
@@ -58,7 +54,6 @@ const Profile = () => {
       setUser(data?.user || data?.me || {});
     }
   }, [data, loading, error]);
-
 
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
@@ -112,17 +107,15 @@ const Profile = () => {
           <div>
             <h3 className="text-center mb-4"> Welcome, {user.username}! </h3>
             <div className="row">
-              <div className="col-md-6 text-center"
-              style={{width:'250px'}}>
+              <div className="col-md-6 text-center" style={{ width: "250px" }}>
                 {/* Update the number of wines saved */}
-                <h4 className="text-center">You have {winesSaved} wines saved</h4>
+                <h4 className="text-center">
+                  You have {winesSaved} wines saved
+                </h4>
 
                 {/* Map over user's wine data and render a card for each wine */}
                 {user?.wine?.map((wine) => (
-                  <div
-                    className="container-fluid flex-row"
-                    key={wine._id}
-                  >
+                  <div className="container-fluid flex-row" key={wine._id}>
                     {/* <div className="pairing-container col-sm"> */}
                     <div className="pair-card shadow col-sm">
                       {/* Renders wine card */}
@@ -166,8 +159,9 @@ const Profile = () => {
               </div>
               <div className="col-md-6 text-center">
                 {/* Update the number of pairings saved */}
-                <h4 className="text-center">You have {pairingsSaved} pairings saved</h4>                
-
+                <h4 className="text-center">
+                  You have {pairingsSaved} pairings saved
+                </h4>
               </div>
             </div>
           </div>

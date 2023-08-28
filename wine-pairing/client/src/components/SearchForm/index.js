@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import {
   QUERY_PROTEINS,
@@ -80,12 +80,8 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         pairingId,
       },
     })
-      .then((response) => {
-
-      })
-      .catch((error) => {
-
-      });
+      .then((response) => {})
+      .catch((error) => {});
   };
 
   const handleClearForm = () => {
@@ -217,7 +213,8 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               >
                 Start a new Search
               </button>
-              <Link to={`/profiles/${Auth.getProfile().data.username}`}
+              <Link
+                to={`/profiles/${Auth.getProfile().data.username}`}
                 className="btn btn-info btn-sm mt-4"
                 type="button"
                 onClick={handleAddPairing}
