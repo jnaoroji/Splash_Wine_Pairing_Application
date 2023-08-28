@@ -12,7 +12,7 @@
     "install": "cd wine-pairing/server && npm i && cd ../client && npm i",
     "seed": "cd wine-pairing/server && npm run seed",
     "build": "cd wine-pairing/client && npm run build",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build"
+    "heroku-postbuild": "npm run install && npm run build"
   },
   "keywords": [],
   "author": "",
