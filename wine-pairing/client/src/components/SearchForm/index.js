@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import {
   QUERY_PROTEINS,
@@ -10,6 +10,8 @@ import { ADD_PAIRING } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
 const SearchForm = ({ selectedProtein, selectedSauce }) => {
+
+  const navigate = useNavigate();
   const [searchProtein, setSearchProtein] = useState(selectedProtein || "");
   const [searchSauce, setSearchSauce] = useState(selectedSauce || "");
   const [searchActive, setSearchActive] = useState(false); // Tracks search activity
@@ -80,7 +82,9 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
         pairingId,
       },
     })
-      .then((response) => {})
+      .then((response) => {
+        navigate(`/me`);
+      })
       .catch((error) => {});
   };
 
@@ -213,14 +217,14 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               >
                 Start a new Search
               </button>
-              <Link
-                to={`/profiles/${Auth.getProfile().data.username}`}
+
+              <button
                 className="btn btn-info btn-sm mt-4"
-                type="button"
+                type="submit"
                 onClick={handleAddPairing}
               >
                 Save to My Pairings
-              </Link>
+              </button>
             </div>
           )}
         </div>
