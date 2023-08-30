@@ -85,7 +85,6 @@ const typeDefs = gql`
     me: User
     getUserWines(username: String!): [Wine]
     userPairings(username: String): [Pairing]
-
     pairing(pairingId: ID!):Pairing
   }
 

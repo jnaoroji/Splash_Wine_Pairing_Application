@@ -109,7 +109,6 @@ const resolvers = {
             { $push: { wine: wine } },
             { new: true }
           ).populate('wine'); // Populate the wine field
-  
           return user;
         } else {
           throw new Error('Wine not found'); // Handle the case where the wine doesn't exist
@@ -150,7 +149,6 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { pairing: pairing._id } }
         );
-        console.log('pairing', pairing);
         return pairing;
        
       }

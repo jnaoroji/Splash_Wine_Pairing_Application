@@ -5,6 +5,7 @@ import {
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -38,6 +39,9 @@ const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  persistedQueries: {
+    cache: new InMemoryLRUCache({ max: 1000 }) // Set the maximum number of queries you want to cache.
+  },
 });
 
 function App() {

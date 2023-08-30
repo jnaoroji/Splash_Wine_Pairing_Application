@@ -147,6 +147,32 @@ export const QUERY_SINGLE_WINE = gql`
   }
 `;
 
+export const QUERY_MULTIPLE_WINE = gql`
+  query getSingleWine($wineIds: [ID!]!) {
+    getSingleWine(wineIds: $wineIds) {
+      _id
+      name
+      vintage
+      varietal
+      region
+      image
+      tastingNote
+      price
+      quantity
+      category {
+        _id
+        name
+      }
+      comments {
+        _id
+        commentText
+        commentAuthor
+        createdAt
+      }
+    }
+  }
+`;
+
 export const QUERY_PAIRING = gql`
   query getPairing($searchProtein: String!, $searchSauce: String!) {
     getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {

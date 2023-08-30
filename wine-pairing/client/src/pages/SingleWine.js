@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Import the `useParams()` hook
 import { useParams } from "react-router-dom"; //use link or redirect when implemented
 import { useQuery, useMutation} from "@apollo/client";
-import { QUERY_SINGLE_WINE } from "../utils/queries";
+import { QUERY_SINGLE_WINE, QUERY_ME } from "../utils/queries";
 import { ADD_WINE } from "../utils/mutations";
 
 import CommentList from "../components/CommentList";
@@ -20,7 +20,69 @@ const SingleWine = () => {
 
 
   const [addWine, { loading: wineLoading, error: wineError, data: wineData }] = useMutation(ADD_WINE)
+ 
+  //  const [addWine, { loading: wineLoading, error: wineError }] = useMutation(
+  //   ADD_WINE,
+  //   {
+  //     // Define the update function to update the cache
+  //     update(cache, { data: { addWine } }) {
+  //       try {
+  //         // Read the existing data from the cache
+  //         const { me } = cache.readQuery({
+  //           query: QUERY_ME,
+            
+  //         });
+
+  //         // Update the cache with the new wine data
+  //         cache.writeQuery({
+  //           query: QUERY_ME,
+  //           variables: { wineId },
+  //           data: {
+  //             me: {
+  //               ...me,
+  //               wine: [...me.wine, addWine],
+  //             },
+  //           },
+  //         });
+  //       } catch (e) {
+  //         console.error(e);
+  //       }
+  //     },
+  //   }
+  // );
   
+  // const [addWine, { loading: wineLoading, error: wineError }] = useMutation(
+  //   ADD_WINE,
+  //   {
+  //     // Define the update function to update the cache
+  //     update(cache, { data: { addWine } }) {
+  //       try {
+  //         // Read the existing data from the cache
+  //         const { getSingleWine } = cache.readQuery({
+  //           query: QUERY_SINGLE_WINE,
+  //           variables: { wineId },
+  //         });
+
+  //         // Update the cache with the new wine data
+  //         cache.writeQuery({
+  //           query: QUERY_SINGLE_WINE,
+  //           variables: { wineId },
+  //           data: {
+  //             getSingleWine: {
+  //               ...getSingleWine,
+  //               // Append the newly added wine to the list
+  //               wine: [...getSingleWine.wine, addWine],
+  //             },
+  //           },
+  //         });
+  //       } catch (e) {
+  //         console.error(e);
+  //       }
+  //     },
+  //   }
+  // );
+
+
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
     variables: { wineId },
@@ -39,14 +101,17 @@ const SingleWine = () => {
 
     
     try {
+      // const { wineData } = await addWine({
       addWine ({
         variables: {
           wineId,
           username: Auth.getProfile().data.username,
         },
         
-      }).then((response) => {
         
+      }).then(() => {
+        // console.log(wineData);
+        // return wineData;
         navigate(`/me`);
         
         

@@ -61,18 +61,18 @@ const Profile = () => {
   }
 
   if (loading || wineLoading) {
-    return <div>Loading...</div>;
+    return <div className="bg-trans mt-4">Loading...</div>;
   }
   if (error || wineError) {
-    return <div>Error: {error?.message || wineError?.message}</div>;
+    return <div className="bg-trans mt-4">Error: {error?.message || wineError?.message}</div>;
   }
 
   if (!user?.username) {
     return (
-      <h4>
+      <h5 className="bg-trans mt-4">
         You need to be logged in to see this. Use the navigation links above to
         sign up or log in!
-      </h4>
+      </h5>
     );
   }
 
@@ -112,50 +112,6 @@ const Profile = () => {
                 <h4 className="text-center">
                   You have {winesSaved} wines saved
                 </h4>
-
-                {/* Map over user's wine data and render a card for each wine */}
-                {user?.wine?.map((wine) => (
-                  <div className="container-fluid flex-row" key={wine._id}>
-                    {/* <div className="pairing-container col-sm"> */}
-                    <div className="pair-card shadow col-sm">
-                      {/* Renders wine card */}
-                      <button
-                        onClick={() => handleDeleteWine(wine._id)}
-                        style={{ position: "absolute", top: 0, right: 0 }}
-                        className="btn btn-trans mt-1"
-                      >
-                        <i className="fa fa-trash mr-2" aria-hidden="true"></i>
-                      </button>
-                      <Link
-                        to={`/wine/${wine._id}`}
-                        className=" col-sm"
-                        key={wine._id}
-                        style={{ color: "black", position: "relative" }}
-                      >
-                        <div>
-                          <div>
-                            <img
-                              alt={wine.name}
-                              height="400px"
-                              src={wine.image}
-                              loading="eager"
-                            />
-                          </div>
-                          <div className="custom-card mt-4">
-                            <div className="d-flex justify-content-between">
-                              <span>
-                                <h6>{wine.name}</h6>
-                              </span>
-                              <span>
-                                <h6>${wine.price}</h6>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
               </div>
               <div className="col-md-6 text-center">
                 {/* Update the number of pairings saved */}
