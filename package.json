@@ -1,11 +1,11 @@
 {
-  "name": "Splash",
+  "name": "splash",
   "version": "1.0.0",
   "description": "Wine pairing application",
   "engines": {
     "node": "18.16.0"
   },
-  "main": "server/server.js",
+  "main": "wine-pairing/server/server.js",
   "scripts": {
     "start": "node wine-pairing/server/server.js",
     "develop": "concurrently \"cd wine-pairing/server && npm run watch\" \"cd wine-pairing/client && npm start\"",
