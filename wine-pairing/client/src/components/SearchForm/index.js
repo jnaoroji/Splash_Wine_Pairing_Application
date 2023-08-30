@@ -83,7 +83,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       },
     })
       .then((response) => {
-        navigate(`/me`);
+        navigate("/me");
       })
       .catch((error) => {});
   };

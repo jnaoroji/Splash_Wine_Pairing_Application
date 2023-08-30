@@ -48,7 +48,7 @@ const SingleWine = () => {
         
         
       }).then(() => {
-        navigate(`/me`);
+        navigate("/me");
         
         
       });
