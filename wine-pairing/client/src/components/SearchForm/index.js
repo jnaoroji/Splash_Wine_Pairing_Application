@@ -179,7 +179,7 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
               {/* Renders pairing results*/}
               {pairingData.getPairing.wines.map((pairing) => (
                 <Link
-                  to={`/wine/${pairing._id}`}
+                  to={`/wines/${pairing._id}`}
                   className="pair-card shadow"
                   key={pairing._id}
                   style={{ color: "black" }}
