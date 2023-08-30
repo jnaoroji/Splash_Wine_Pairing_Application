@@ -31,7 +31,7 @@ const Profile = () => {
           query: QUERY_ME,
           data: { me: removeWine },
         });
-        console.log(data);
+       
         return wineData;
       } catch (e) {
         console.error(e);
