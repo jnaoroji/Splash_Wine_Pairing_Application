@@ -107,7 +107,7 @@ const Profile = () => {
           <div>
             <h3 className="text-center mb-4"> Welcome, {user.username}! </h3>
             <div className="row">
-              <div className="col-md-6 text-center" style={{ width: "250px" }}>
+              <div className="col-md-6 text-center">
                 {/* Update the number of wines saved */}
                 <h4 className="text-center">
                   You have {winesSaved} wines saved
