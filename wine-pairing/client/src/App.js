@@ -70,7 +70,7 @@ function App() {
                 element={<Profile />}
               />
               <Route 
-                path="/wine/:wineId" 
+                path="/wines/:wineId" 
                 element={<SingleWine />}
               />
             </Routes>
