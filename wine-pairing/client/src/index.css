@@ -1128,7 +1128,6 @@ a:hover {
 
 .card-container{
   width: 85%;
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -1140,7 +1139,7 @@ a:hover {
 }
 
 .card {
-  min-width:500px;
+  width:500px;
   margin-bottom: 1rem;
  
 }
@@ -1479,7 +1478,6 @@ border-color:#461220;
     margin-top: 100px;
     padding: 20px;
     border-radius: 15px;
- 
     
     }
   
@@ -1488,6 +1486,7 @@ border-color:#461220;
     margin-bottom: 20px; /* Add spacing between stacked items */
     /* Additional styles as needed */
   }
+
 
   .searchbar-container {
     justify-content: center; /* Horizontally center items */
