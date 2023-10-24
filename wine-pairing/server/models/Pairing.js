@@ -8,7 +8,7 @@ const pairingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
-  }
+  },
 ],
   protein: {
     type: Schema.Types.ObjectId,

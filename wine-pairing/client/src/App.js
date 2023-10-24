@@ -13,6 +13,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import SingleWine from './pages/SingleWine';
+import Pairing from './pages/Pairing';
 import Profile from './pages/Profile';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -72,6 +73,10 @@ function App() {
               <Route 
                 path="/wines/:wineId" 
                 element={<SingleWine />}
+              />
+              <Route 
+                path="/pairings/:pairingId" 
+                element={<Pairing/>}
               />
             </Routes>
           </div>

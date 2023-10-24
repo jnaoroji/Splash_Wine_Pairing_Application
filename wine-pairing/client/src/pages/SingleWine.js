@@ -24,13 +24,14 @@ const SingleWine = () => {
 
   const { loading, error, data } = useQuery(QUERY_SINGLE_WINE, {
     // pass URL parameter
-    variables: { wineId },
+    variables: { wineId},
   });
   if (error || loading) {
     return <div>Loading...</div>;
   }
 
   const wine = data?.getSingleWine || {};
+  // console.log(data?.getSingleWine);
 
   if (wineLoading) return `Saving Wine...`;
   if (wineError) return `Error cant Save your wine choice!`;

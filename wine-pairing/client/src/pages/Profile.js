@@ -9,6 +9,7 @@ import { REMOVE_WINE } from "../utils/mutations";
 
 const Profile = () => {
   const { username: userParam } = useParams();
+  // const pairingId
 
   // Defines state variables for pairings and wines saved
   const [pairingsSaved, setPairingsSaved] = useState(0);
@@ -31,7 +32,7 @@ const Profile = () => {
           query: QUERY_ME,
           data: { me: removeWine },
         });
-       
+
         return wineData;
       } catch (e) {
         console.error(e);
@@ -64,7 +65,11 @@ const Profile = () => {
     return <div className="bg-trans mt-4">Loading...</div>;
   }
   if (error || wineError) {
-    return <div className="bg-trans mt-4">Error: {error?.message || wineError?.message}</div>;
+    return (
+      <div className="bg-trans mt-4">
+        Error: {error?.message || wineError?.message}
+      </div>
+    );
   }
 
   if (!user?.username) {
@@ -109,15 +114,100 @@ const Profile = () => {
             <div className="row">
               <div className="col-md-6 text-center">
                 {/* Update the number of wines saved */}
-                <h4 className="text-center">
-                  You have {winesSaved} wines saved
-                </h4>
+
+                {user.wine.length > 0 ? (
+                  <div>
+                    <h4 className="text-center">
+                      {user.username}'s saved wines ({winesSaved}):
+                    </h4>
+                    <ul>
+                      {user.wine.map((wine) => (
+                        <li
+                          key={wine._id}
+                          className="pair-card shadow"
+                          style={{ listStyleType: "none" }}
+                        >
+                          <Link
+                            to={`/wines/${wine._id}`}
+                            key={wine._id}
+                            // className="pair-card shadow"
+                            style={{ color: "black" }}
+                          >
+                            <div style={{ width: 240 }}>
+                              <div>
+                              {wine.image ? (
+                                  <img
+                                  alt={wine.name}
+                                  height="400px"
+                                  src={wine.image}
+                                />
+                                ) : (
+                                  <h6>Click here if wines are still loading ...</h6>
+                                )}
+                              </div>
+                              <div className="custom-card mt-4">
+                                <div className="d-flex justify-content-between">
+                                  <span>
+                                    <h6>{wine.name}</h6>
+                                  </span>
+                                  <span>
+                                  <h6>${wine.price}</h6>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <h4>You haven't saved any wines yet.</h4>
+                )}
               </div>
               <div className="col-md-6 text-center">
                 {/* Update the number of pairings saved */}
-                <h4 className="text-center">
-                  You have {pairingsSaved} pairings saved
-                </h4>
+
+                <ul>
+                  {user.pairing.length > 0 ? (
+                    <div>
+                      <h4 className="text-center">
+                        {user.username}'s saved pairings ({pairingsSaved}):
+                      </h4>
+
+                      {user.pairing.map((pairing) => (
+                        <li
+                          key={pairing._id}
+                          className="pair-card shadow"
+                          style={{ listStyleType: "none" }}
+                        >
+                          <Link
+                            to={`/pairings/${pairing._id}`}
+                            style={{ color: "black" }}
+                          >
+                            <div style={{ width: 240 }}>
+                              <div>
+                                {/* Display any relevant pairing information */}
+                               
+                                {pairing.protein && pairing.sauce ? (
+                                  <h6>
+                                    {pairing.protein.name} with a{" "}
+                                    {pairing.sauce.name} Sauce
+                                  </h6>
+                                ) : (
+                                  <h6>Click here if pairings are still loading ...</h6>
+                                )}
+
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                    </div>
+                  ) : (
+                    <h4>You haven't saved any pairings yet.</h4>
+                  )}
+                </ul>
               </div>
             </div>
           </div>

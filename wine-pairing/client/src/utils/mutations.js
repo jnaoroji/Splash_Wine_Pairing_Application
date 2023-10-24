@@ -29,11 +29,20 @@ export const ADD_PAIRING = gql`
     addPairing(pairingId: $pairingId, username: $username) {
       _id
       category
-      protein
-      sauce
+      protein {
+        _id
+        name
+        value
+      }
+      sauce {
+        _id
+        name
+        value
+      }
     }
   }
 `;
+
 
 export const ADD_USER_PAIRING = gql`
   mutation addUserPairing($username: String!, $pairingId: ID) {
@@ -54,8 +63,16 @@ export const ADD_WINE = gql`
       pairing {
         _id
         category
-        protein
-        sauce
+        protein {
+          _id
+          name
+          value
+        }
+        sauce {
+          _id
+          name
+          value
+        }
       }
       wine {
         _id

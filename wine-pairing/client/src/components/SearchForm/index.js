@@ -74,7 +74,11 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
   };
 
   const handleAddPairing = () => {
+  
     const pairingId = pairingData.getPairing.pairingId;
+    // const protein = pairingData.getPairing.protein.name;
+    // const sauce = pairingData.getPairing.sauce.name;
+    // console.log('pairing data',pairingData.getPairing);
 
     addPairing({
       variables: {
@@ -83,6 +87,8 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
       },
     })
       .then((response) => {
+        console.log('response', response);
+
         navigate("/me");
       })
       .catch((error) => {});
@@ -174,10 +180,15 @@ const SearchForm = ({ selectedProtein, selectedSauce }) => {
           )}
 
           {pairingLoading && <p>Loading...</p>}
+          
+          
+
           {pairingData && pairingData.getPairing && (
             <div className="pairing-container">
               {/* Renders pairing results*/}
+              
               {pairingData.getPairing.wines.map((pairing) => (
+                
                 <Link
                   to={`/wines/${pairing._id}`}
                   className="pair-card shadow"

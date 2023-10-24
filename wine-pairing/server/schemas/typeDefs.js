@@ -12,8 +12,8 @@ const typeDefs = gql`
   type Pairing{
     _id: ID
     category: [ID]
-    protein: ID
-    sauce: ID
+    protein: Protein
+    sauce: Sauce
   }
 
   type Wine{
@@ -72,6 +72,8 @@ const typeDefs = gql`
 
   type PairingResult {
     pairingId: ID!
+    protein: Protein
+    sauce: Sauce
     wines: [Wine]!
   }
 
@@ -96,7 +98,7 @@ const typeDefs = gql`
     removeWine(wineId: ID!): User
     addComment(wineId: ID!, commentText: String!, commentAuthor: String!): Wine
     removeComment(wineId: ID!, commentId: ID!): Wine
-   
+
     savePairing(searchProtein: String!, searchSauce: String!): User
     addUserPairing(pairingId: ID!, username: String): User
     removePairing(pairingId: ID!, wineId: ID!): User

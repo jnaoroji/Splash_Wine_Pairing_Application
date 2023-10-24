@@ -10,8 +10,16 @@ export const QUERY_USERS = gql`
       pairing {
         _id
         category
-        protein
-        sauce
+        protein {
+          _id
+          name
+          value
+        }
+        sauce {
+          _id
+          name
+          value
+        }
       }
       wine {
         _id
@@ -173,10 +181,42 @@ export const QUERY_MULTIPLE_WINE = gql`
   }
 `;
 
+// export const QUERY_PAIRING = gql`
+//   query getPairing($searchProtein: String!, $searchSauce: String!) {
+//     getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
+//       pairingId
+//       wines {
+//         _id
+//         name
+//         vintage
+//         varietal
+//         region
+//         image
+//         tastingNote
+//         price
+//         quantity
+//         category {
+//           _id
+//         }
+//       }
+//     }
+//   }
+// `;
+
 export const QUERY_PAIRING = gql`
   query getPairing($searchProtein: String!, $searchSauce: String!) {
     getPairing(searchProtein: $searchProtein, searchSauce: $searchSauce) {
       pairingId
+      protein {
+        _id
+        name
+        value
+      }
+      sauce {
+        _id
+        name
+        value
+      }
       wines {
         _id
         name
@@ -189,6 +229,13 @@ export const QUERY_PAIRING = gql`
         quantity
         category {
           _id
+          name
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
         }
       }
     }
@@ -200,8 +247,16 @@ export const QUERY_PAIRING_BY_ID = gql`
     pairing(pairingId: $pairingId) {
       _id
       category
-      protein
-      sauce
+      protein {
+        _id
+        name
+        value
+      }
+      sauce {
+        _id
+        name
+        value
+      }
     }
   }
 `;
@@ -237,8 +292,16 @@ export const QUERY_ME = gql`
       pairing {
         _id
         category
-        protein
-        sauce
+        protein {
+          _id
+          name
+          value
+        }
+        sauce {
+          _id
+          name
+          value
+        }
       }
       wine {
         _id
@@ -264,3 +327,4 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
